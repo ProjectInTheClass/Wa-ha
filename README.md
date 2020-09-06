@@ -19,5 +19,3 @@
 ## 화면 흐름도
 
 ![image](https://user-images.githubusercontent.com/37135317/92294179-8546d000-ef64-11ea-971e-7e50136eb91a.png)
-
-
