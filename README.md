@@ -1,5 +1,7 @@
 # WaHa-iOS
-Waha iOS 레포 입니다.
+- Waha iOS 레포 입니다.
+- [Github Page](https://wa-ha.github.io/WaHa-iOS/)
+
 
 ### 팀원
 - 황정호[UI]
@@ -19,5 +21,3 @@ Waha iOS 레포 입니다.
 ![image](https://user-images.githubusercontent.com/37135317/92294179-8546d000-ef64-11ea-971e-7e50136eb91a.png)
 
 
-## Github Page
-![링크](https://wa-ha.github.io/WaHa-iOS/)
