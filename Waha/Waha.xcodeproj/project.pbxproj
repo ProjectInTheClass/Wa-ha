@@ -13,9 +13,12 @@
 		8346BB96250B946700BD861D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8346BB94250B946700BD861D /* Main.storyboard */; };
 		8346BB98250B946A00BD861D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8346BB97250B946A00BD861D /* Assets.xcassets */; };
 		8346BB9B250B946A00BD861D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8346BB99250B946A00BD861D /* LaunchScreen.storyboard */; };
+		AB2BFBB12D15C2760F3C0414 /* Pods_Waha.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1C0A23D32A892DF6C97E98 /* Pods_Waha.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13B7D443CA3A83D0FE447892 /* Pods-Waha.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waha.release.xcconfig"; path = "Target Support Files/Pods-Waha/Pods-Waha.release.xcconfig"; sourceTree = "<group>"; };
+		4F1C0A23D32A892DF6C97E98 /* Pods_Waha.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Waha.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8346BB8B250B946700BD861D /* Waha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8346BB8E250B946700BD861D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8346BB90250B946700BD861D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		8346BB97250B946A00BD861D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8346BB9A250B946A00BD861D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8346BB9C250B946A00BD861D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED477A788BD046A20CF48E7E /* Pods-Waha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waha.debug.xcconfig"; path = "Target Support Files/Pods-Waha/Pods-Waha.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB2BFBB12D15C2760F3C0414 /* Pods_Waha.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2AA0ACA6678F9CAB3760F604 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ED477A788BD046A20CF48E7E /* Pods-Waha.debug.xcconfig */,
+				13B7D443CA3A83D0FE447892 /* Pods-Waha.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8346BB82250B946700BD861D = {
 			isa = PBXGroup;
 			children = (
 				8346BB8D250B946700BD861D /* Waha */,
 				8346BB8C250B946700BD861D /* Products */,
+				2AA0ACA6678F9CAB3760F604 /* Pods */,
+				FB3A6A9D87872D6664A84ACD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +84,14 @@
 			path = Waha;
 			sourceTree = "<group>";
 		};
+		FB3A6A9D87872D6664A84ACD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4F1C0A23D32A892DF6C97E98 /* Pods_Waha.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,6 +99,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8346BB9F250B946A00BD861D /* Build configuration list for PBXNativeTarget "Waha" */;
 			buildPhases = (
+				40C0AFAF3211376794787130 /* [CP] Check Pods Manifest.lock */,
 				8346BB87250B946700BD861D /* Sources */,
 				8346BB88250B946700BD861D /* Frameworks */,
 				8346BB89250B946700BD861D /* Resources */,
@@ -132,6 +158,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		40C0AFAF3211376794787130 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Waha-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8346BB87250B946700BD861D /* Sources */ = {
@@ -282,6 +333,7 @@
 		};
 		8346BBA0250B946A00BD861D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED477A788BD046A20CF48E7E /* Pods-Waha.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +352,7 @@
 		};
 		8346BBA1250B946A00BD861D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13B7D443CA3A83D0FE447892 /* Pods-Waha.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
