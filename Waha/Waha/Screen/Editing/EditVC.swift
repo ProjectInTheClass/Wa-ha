@@ -35,7 +35,7 @@ class EditVC: UIViewController {
     
     private func setupVideo(_ videoURL : URL?){
         
-        player = AVPlayer(url: videoURL)
+        player = AVPlayer(url: videoURL!)
         playerLayer = AVPlayerLayer(player: player)
         playerLayer.frame = videoView.bounds
         videoView.layer.addSublayer(playerLayer)
@@ -47,7 +47,6 @@ class EditVC: UIViewController {
             queue: nil) { [weak self] _ in self?.restart() }
     }
     
-
     private func pickVideo(from sourceType: UIImagePickerController.SourceType) {
         let pickerController = UIImagePickerController()
         pickerController.sourceType = sourceType

@@ -16,6 +16,7 @@ class MainVC: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
     }
+    
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -31,9 +32,7 @@ class MainVC: UIViewController {
         
         let projectaddCellNib = UINib(nibName: "AddProjectCell", bundle: nil)
         self.collectionView.register(projectaddCellNib, forCellWithReuseIdentifier: "AddProjectCell")
-        
     }
-    
     private func goProjectVC(){
         let storyboard = UIStoryboard(name: "Edit", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "EditVC") as? EditVC
@@ -66,7 +65,6 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? ProjectCollectionCell {
             goProjectVC()
-
         }
     }
 }

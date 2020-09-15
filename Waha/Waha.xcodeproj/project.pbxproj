@@ -148,8 +148,8 @@
 		8346BBDF250CD79100BD861D /* Editing */ = {
 			isa = PBXGroup;
 			children = (
-				8346BBE4250CDC7600BD861D /* VideoHelper.swift */,
 				8346BBE0250CD7B100BD861D /* Edit.storyboard */,
+				8346BBE4250CDC7600BD861D /* VideoHelper.swift */,
 				8346BBE2250CD7C000BD861D /* EditVC.swift */,
 			);
 			path = Editing;
