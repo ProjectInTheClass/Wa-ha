@@ -10,6 +10,9 @@ import UIKit
 
 class ProjectCollectionCell: UICollectionViewCell {
 
+    @IBOutlet weak var projectImageView: UIImageView!
+    @IBOutlet weak var lbName: UILabel!
+    @IBOutlet weak var btnInfo: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
