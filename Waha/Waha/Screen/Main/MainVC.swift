@@ -12,6 +12,8 @@ class MainVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var projectArray : [String] = ["프로젝트 추가"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
@@ -30,42 +32,45 @@ class MainVC: UIViewController {
         let projectCellNib = UINib(nibName: "ProjectCollectionCell", bundle: nil)
         self.collectionView.register(projectCellNib, forCellWithReuseIdentifier: "ProjectCollectionCell")
         
-        let projectaddCellNib = UINib(nibName: "AddProjectCell", bundle: nil)
-        self.collectionView.register(projectaddCellNib, forCellWithReuseIdentifier: "AddProjectCell")
     }
     private func goProjectVC(){
         let storyboard = UIStoryboard(name: "Edit", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "EditVC") as? EditVC
         self.navigationController?.pushViewController(vc!, animated: true)
     }
-
+    private func importvideo(){
+        let storyboard = UIStoryboard(name: "VideoSelect", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: "VideoSelectVC") as? VideoSelectVC
+        self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
 }
 extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
     //Number of collectionView Item
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 22
+        return projectArray.count
     }
     //Cell init
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == 0 {
-            //첫번째 셀
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddProjectCell", for: indexPath) as? AddProjectCell {
-                return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCollectionCell", for: indexPath) as? ProjectCollectionCell {
+            if indexPath == [0,0]{
+                cell.lbName.text = "새 프로젝트 시작"
+                cell.btnInfo.isHidden = true
             }
-        }else{
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProjectCollectionCell", for: indexPath) as? ProjectCollectionCell {
-                
-                return cell
-            }
+            return cell
         }
-        
         return UICollectionViewCell()
     }
     //clicklistener
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? ProjectCollectionCell {
-            goProjectVC()
+        if indexPath == [0,0] {
+            importvideo()
+        }else{
+            if let cell = collectionView.cellForItem(at: indexPath) as? ProjectCollectionCell {
+                goProjectVC()
+            }
         }
+        
     }
 }
 extension MainVC : UICollectionViewDelegateFlowLayout {

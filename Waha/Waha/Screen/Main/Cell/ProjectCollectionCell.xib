@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,7 +36,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jb9-f2-RvF">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jb9-f2-RvF">
                                         <rect key="frame" x="278" y="13.5" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="P2B-2o-So8"/>
@@ -42,7 +44,7 @@
                                         <state key="normal" title="정보"/>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="Jb9-f2-RvF" firstAttribute="centerY" secondItem="4lB-gv-ddl" secondAttribute="centerY" id="2ld-ek-SP2"/>
                                     <constraint firstItem="G96-nb-3q9" firstAttribute="centerY" secondItem="4lB-gv-ddl" secondAttribute="centerY" id="DSn-6t-GsU"/>
@@ -64,18 +66,26 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="Ghn-BX-WXG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="OHV-a6-wYE"/>
                 <constraint firstAttribute="bottom" secondItem="Ghn-BX-WXG" secondAttribute="bottom" id="U8z-V0-70p"/>
                 <constraint firstAttribute="trailing" secondItem="Ghn-BX-WXG" secondAttribute="trailing" id="mfo-i4-AtM"/>
                 <constraint firstItem="Ghn-BX-WXG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="yAL-ih-yn4"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="249" height="220"/>
+            <connections>
+                <outlet property="btnInfo" destination="Jb9-f2-RvF" id="G0G-zB-8i9"/>
+                <outlet property="lbName" destination="G96-nb-3q9" id="Dmi-ox-AVC"/>
+                <outlet property="projectImageView" destination="c0T-9V-OiD" id="pWK-az-LU0"/>
+            </connections>
             <point key="canvasLocation" x="281.15942028985512" y="209.93303571428569"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="sample_project_thumbnail" width="328" height="328"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
