@@ -61,13 +61,37 @@ class MainVC: UIViewController {
         delegate.present(mediaUI, animated: true, completion: nil)
     }
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
-        let loadedVideo = Video2Image(video_url: url)
-        DispatchQueue.main.async {
-            for frame in 0..<loadedVideo.total_frame_num/2 {
-                self.imageArray.append(loadedVideo.getSingleFrame(frame: frame)!)
+        
+        //https://stackoverflow.com/questions/42665271/swift-get-all-frames-from-video
+        let videoURL : URL = url
+        var generator : AVAssetImageGenerator!
+        
+        let asset : AVAsset = AVAsset(url: videoURL)
+        let duration: Float64 = CMTimeGetSeconds(asset.duration)
+        generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        for index in 0..<Int(duration) {
+            let time:CMTime = CMTimeMakeWithSeconds(Float64(index), preferredTimescale: 600)
+            let image:CGImage
+            do {
+                try image = generator.copyCGImage(at: time, actualTime: nil)
+            }catch {
+                return
             }
-            print("image frame count : \(self.imageArray.count)")
+            imageArray.append(UIImage(cgImage: image))
         }
+    
+        //동성님 방법인데 fps 에 관련해서 잘 모르겠어서 일단 위 코드 작성
+//        let loadedVideo = Video2Image(video_url: url)
+//        print("fps : \(loadedVideo.fps)")
+//        print("total frame : \(loadedVideo.total_frame_num)")
+//        print("running time: \(loadedVideo.running_time)")
+//
+//        for frame in 0..<loadedVideo.total_frame_num {
+//            self.imageArray.append(loadedVideo.getSingleFrame(frame: frame)!)
+//        }
+        print("image frame count : \(self.imageArray.count)")
+        
         goProjectVC()
     }
 }

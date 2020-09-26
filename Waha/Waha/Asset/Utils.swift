@@ -398,7 +398,7 @@ extension UIViewController {
             //            activityIndicator.startAnimating()
             //            self.view.addSubview(activityIndicator)
             
-            let imageView = UIImageView(image: UIImage(named: "new_ic_loading"))
+            let imageView = UIImageView(image: UIImage(named: "rw_logo"))
             let animation = CABasicAnimation(keyPath: "transform.rotation")
             animation.fromValue = 0
             animation.toValue =  Double.pi * 2.0

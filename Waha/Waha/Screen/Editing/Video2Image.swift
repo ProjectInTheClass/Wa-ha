@@ -15,6 +15,8 @@ import Combine
 
 class Video2Image{
     
+    
+    
     let assetIG: AVAssetImageGenerator
     let fps: Int
     let running_time: Double

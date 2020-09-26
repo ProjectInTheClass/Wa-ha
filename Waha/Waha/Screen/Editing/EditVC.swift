@@ -16,8 +16,8 @@ class EditVC: UIViewController {
     
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var lbTitle: UILabel!
+    @IBOutlet weak var tmpImageView: UIImageView!
     
     var isNewVideo : Bool?
     var imageArray : [UIImage] = []
@@ -27,22 +27,11 @@ class EditVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupProject()
+        print("tableView image count : \(imageArray.count)")
         
     }
     private func setupProject(){
-        
         setupTableView()
-        switch isNewVideo {
-        case true:
-            //set up new project
-
-            break
-        case false:
-            //bring existing project
-            break
-        default:
-            break
-        }
     }
     private func setupTableView(){
         tableView.delegate = self

@@ -10,6 +10,7 @@ import UIKit
 
 class FrameCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var imgview: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
