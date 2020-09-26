@@ -55,7 +55,16 @@ class EditVC: UIViewController {
         mediaUI.delegate = delegate
         delegate.present(mediaUI, animated: true, completion: nil)
     }
-    private func video2ImageGenerator(video_url url : String){
+    private func video2ImageGenerator(video_url url : String, mediaType type : String){
+        let loadedVideo = Video2Image(resource_name: url, suffix_name: type)
+        var imageArray : [UIImage] = []
+        for frame in 0..<loadedVideo.total_frame_num {
+            imageArray.append(loadedVideo.getSingleFrame(frame: frame)!)
+        }
+        
+        
+    
+   
         
     }
     
@@ -78,21 +87,25 @@ extension EditVC : UIImagePickerControllerDelegate {
     ) {
         switch picker.sourceType {
         case .savedPhotosAlbum:
-            
+
             // 1
             guard
                 let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String,
                 mediaType == (kUTTypeMovie as String),
-                let url = info[UIImagePickerController.InfoKey.mediaURL] as? URL
+                let url = info[UIImagePickerController.InfoKey.mediaURL] as? String
             else { return }
             
             // 2
-            dismiss(animated: true) {
+            dismiss(animated: true) { [self] in
                 //3
-                let player = AVPlayer(url: url)
-                let vcPlayer = AVPlayerViewController()
-                vcPlayer.player = player
-                self.present(vcPlayer, animated: true, completion: nil)
+                print("media type : \(mediaType)")
+                print("url: \(url)")
+                video2ImageGenerator(video_url: url, mediaType: mediaType)
+                
+//                let player = AVPlayer(url: url)
+//                let vcPlayer = AVPlayerViewController()
+//                vcPlayer.player = player
+//                self.present(vcPlayer, animated: true, completion: nil)
             }
             
         default:
