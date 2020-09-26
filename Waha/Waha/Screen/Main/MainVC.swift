@@ -33,16 +33,13 @@ class MainVC: UIViewController {
         self.collectionView.register(projectCellNib, forCellWithReuseIdentifier: "ProjectCollectionCell")
         
     }
-    private func goProjectVC(){
+    private func goProjectVC(_ isNewVideo : Bool){
         let storyboard = UIStoryboard(name: "Edit", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "EditVC") as? EditVC
+        vc?.isNewVideo = isNewVideo
         self.navigationController?.pushViewController(vc!, animated: true)
     }
-    private func importvideo(){
-        let storyboard = UIStoryboard(name: "VideoSelect", bundle: nil)
-        let vc = storyboard.instantiateViewController(identifier: "VideoSelectVC") as? VideoSelectVC
-        self.navigationController?.pushViewController(vc!, animated: true)
-    }
+
     
 }
 extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
@@ -64,10 +61,10 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
     //clicklistener
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath == [0,0] {
-            importvideo()
+            goProjectVC(true)
         }else{
             if let cell = collectionView.cellForItem(at: indexPath) as? ProjectCollectionCell {
-                goProjectVC()
+                goProjectVC(false)
             }
         }
         
