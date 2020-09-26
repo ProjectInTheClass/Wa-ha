@@ -15,6 +15,7 @@ import MediaPlayer
 class EditVC: UIViewController {
     
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var lbTitle: UILabel!
     
@@ -28,6 +29,7 @@ class EditVC: UIViewController {
         
     }
     private func setupProject(){
+        setupTableView()
         switch isNewVideo {
         case true:
             //set up new project
@@ -39,6 +41,10 @@ class EditVC: UIViewController {
         default:
             break
         }
+    }
+    private func setupTableView(){
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     //pick video from gallery
     private func startMediaBrowser(
@@ -72,9 +78,6 @@ class EditVC: UIViewController {
     @IBAction func actionBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    
-    
     
 }
 extension EditVC : UINavigationControllerDelegate {
@@ -112,4 +115,22 @@ extension EditVC : UIImagePickerControllerDelegate {
             break
         }
     }
+}
+extension EditVC : UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
+            cell.selectionStyle = .none
+           
+            return cell
+        }
+        return UITableViewCell()
+    }
+
 }
