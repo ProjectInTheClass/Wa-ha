@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import AVKit
+import MobileCoreServices
+import Photos
+import MediaPlayer
 
 class MainVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     var projectArray : [String] = ["프로젝트 추가"]
+    var imageArray : [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,14 +38,68 @@ class MainVC: UIViewController {
         self.collectionView.register(projectCellNib, forCellWithReuseIdentifier: "ProjectCollectionCell")
         
     }
-    private func goProjectVC(_ isNewVideo : Bool){
+    private func goProjectVC(){
         let storyboard = UIStoryboard(name: "Edit", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "EditVC") as? EditVC
-        vc?.isNewVideo = isNewVideo
+        vc?.imageArray = imageArray
         self.navigationController?.pushViewController(vc!, animated: true)
     }
-
     
+    //pick video from gallery
+    private func startMediaBrowser(
+        delegate: UIViewController & UINavigationControllerDelegate & UIImagePickerControllerDelegate,
+        sourceType: UIImagePickerController.SourceType
+    ) {
+        guard UIImagePickerController.isSourceTypeAvailable(sourceType)
+        else { return }
+        
+        let mediaUI = UIImagePickerController()
+        mediaUI.sourceType = sourceType
+        mediaUI.mediaTypes = [kUTTypeMovie as String]
+        mediaUI.allowsEditing = true
+        mediaUI.delegate = delegate
+        delegate.present(mediaUI, animated: true, completion: nil)
+    }
+    private func video2ImageGenerator(video_url url : URL, mediaType type : String){
+        let loadedVideo = Video2Image(video_url: url)
+        DispatchQueue.main.async {
+            for frame in 0..<loadedVideo.total_frame_num/2 {
+                self.imageArray.append(loadedVideo.getSingleFrame(frame: frame)!)
+            }
+            print("image frame count : \(self.imageArray.count)")
+        }
+        goProjectVC()
+    }
+}
+extension MainVC : UINavigationControllerDelegate {
+    
+}
+extension MainVC : UIImagePickerControllerDelegate {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
+        switch picker.sourceType {
+        case .savedPhotosAlbum:
+            // 1
+            guard
+                let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String,
+                mediaType == (kUTTypeMovie as String),
+                let url = info[UIImagePickerController.InfoKey.mediaURL] as? URL
+            else { return }
+            
+            // 2
+            dismiss(animated: true) { [self] in
+                //3
+                print("media type : \(mediaType)")
+                print("url: \(url)")
+                video2ImageGenerator(video_url: url, mediaType: mediaType)
+            }
+            
+        default:
+            break
+        }
+    }
 }
 extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
     //Number of collectionView Item
@@ -61,10 +120,11 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
     //clicklistener
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath == [0,0] {
-            goProjectVC(true)
+            //select video and convert to image
+            startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum)
         }else{
             if let cell = collectionView.cellForItem(at: indexPath) as? ProjectCollectionCell {
-                goProjectVC(false)
+                goProjectVC()
             }
         }
         

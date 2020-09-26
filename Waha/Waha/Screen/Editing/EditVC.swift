@@ -35,7 +35,7 @@ class EditVC: UIViewController {
         switch isNewVideo {
         case true:
             //set up new project
-            startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum)
+
             break
         case false:
             //bring existing project
@@ -48,69 +48,12 @@ class EditVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-    //pick video from gallery
-    private func startMediaBrowser(
-        delegate: UIViewController & UINavigationControllerDelegate & UIImagePickerControllerDelegate,
-        sourceType: UIImagePickerController.SourceType
-    ) {
-        guard UIImagePickerController.isSourceTypeAvailable(sourceType)
-        else { return }
-        
-        let mediaUI = UIImagePickerController()
-        mediaUI.sourceType = sourceType
-        mediaUI.mediaTypes = [kUTTypeMovie as String]
-        mediaUI.allowsEditing = true
-        mediaUI.delegate = delegate
-        delegate.present(mediaUI, animated: true, completion: nil)
-    }
-    private func video2ImageGenerator(video_url url : URL, mediaType type : String){
-        let loadedVideo = Video2Image(video_url: url)
-        DispatchQueue.main.async {
-            for frame in 0..<loadedVideo.total_frame_num/2 {
-                self.imageArray.append(loadedVideo.getSingleFrame(frame: frame)!)
-            }
-            print(self.imageArray.count)
-        }
-        tableView.reloadData()
-    }
-    
+   
     
     @IBAction func actionBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
-}
-extension EditVC : UINavigationControllerDelegate {
-    
-}
-extension EditVC : UIImagePickerControllerDelegate {
-    func imagePickerController(
-        _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
-    ) {
-        switch picker.sourceType {
-        case .savedPhotosAlbum:
-            
-            // 1
-            guard
-                let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String,
-                mediaType == (kUTTypeMovie as String),
-                let url = info[UIImagePickerController.InfoKey.mediaURL] as? URL
-            else { return }
-            
-            // 2
-            dismiss(animated: true) { [self] in
-                //3
-                print("media type : \(mediaType)")
-                print("url: \(url)")
-                video2ImageGenerator(video_url: url, mediaType: mediaType)
-                
-            }
-            
-        default:
-            break
-        }
-    }
 }
 extension EditVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
