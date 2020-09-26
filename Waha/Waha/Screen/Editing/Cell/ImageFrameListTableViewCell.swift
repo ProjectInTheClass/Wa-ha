@@ -12,6 +12,7 @@ class ImageFrameListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var imageArray : [UIImage] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +21,10 @@ class ImageFrameListTableViewCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: collectionView.frame.width/2-100, bottom: 0, right: 0)
         collectionView.collectionViewLayout = layout
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        
+        
+        let projectCellNib = UINib(nibName: "FrameCollectionViewCell", bundle: nil)
+        collectionView.register(projectCellNib, forCellWithReuseIdentifier: "FrameCollectionViewCell")
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -38,11 +42,11 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
         return CGSize(width: 100, height: collectionView.frame.height)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100
+        return 1000
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FrameCollectionViewCell", for: indexPath)
         cell.backgroundColor = .red
         return cell
     }

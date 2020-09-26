@@ -20,6 +20,7 @@ class EditVC: UIViewController {
     @IBOutlet weak var lbTitle: UILabel!
     
     var isNewVideo : Bool?
+    var imageArray : [UIImage] = []
     
     
     override func viewDidLoad() {
@@ -29,6 +30,7 @@ class EditVC: UIViewController {
         
     }
     private func setupProject(){
+        
         setupTableView()
         switch isNewVideo {
         case true:
@@ -61,20 +63,18 @@ class EditVC: UIViewController {
         mediaUI.delegate = delegate
         delegate.present(mediaUI, animated: true, completion: nil)
     }
-    private func video2ImageGenerator(video_url url : String, mediaType type : String){
-        let loadedVideo = Video2Image(resource_name: url, suffix_name: type)
-        var imageArray : [UIImage] = []
-        for frame in 0..<loadedVideo.total_frame_num {
-            imageArray.append(loadedVideo.getSingleFrame(frame: frame)!)
+    private func video2ImageGenerator(video_url url : URL, mediaType type : String){
+        let loadedVideo = Video2Image(video_url: url)
+        DispatchQueue.main.async {
+            for frame in 0..<loadedVideo.total_frame_num/2 {
+                self.imageArray.append(loadedVideo.getSingleFrame(frame: frame)!)
+            }
+            print(self.imageArray.count)
         }
-        
-        
-    
-   
-        
+        tableView.reloadData()
     }
     
-
+    
     @IBAction func actionBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -90,12 +90,12 @@ extension EditVC : UIImagePickerControllerDelegate {
     ) {
         switch picker.sourceType {
         case .savedPhotosAlbum:
-
+            
             // 1
             guard
                 let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String,
                 mediaType == (kUTTypeMovie as String),
-                let url = info[UIImagePickerController.InfoKey.mediaURL] as? String
+                let url = info[UIImagePickerController.InfoKey.mediaURL] as? URL
             else { return }
             
             // 2
@@ -105,10 +105,6 @@ extension EditVC : UIImagePickerControllerDelegate {
                 print("url: \(url)")
                 video2ImageGenerator(video_url: url, mediaType: mediaType)
                 
-//                let player = AVPlayer(url: url)
-//                let vcPlayer = AVPlayerViewController()
-//                vcPlayer.player = player
-//                self.present(vcPlayer, animated: true, completion: nil)
             }
             
         default:
@@ -127,9 +123,11 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
             cell.selectionStyle = .none
+            cell.imageArray = imageArray
+            cell.collectionView.reloadData()
             return cell
         }
         return UITableViewCell()
     }
-
+    
 }

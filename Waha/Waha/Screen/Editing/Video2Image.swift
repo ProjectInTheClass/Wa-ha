@@ -21,10 +21,10 @@ class Video2Image{
     let total_frame_num: Int
     
     init(
-        resource_name: String,
-        suffix_name: String
+        video_url: URL
     ){
-        let video_url = Bundle.main.url(forResource: resource_name, withExtension: suffix_name)!
+//        let video_url = Bundle.main.url(forResource: resource_name, withExtension: suffix_name)!
+        let video_url = video_url
         let asset = AVAsset(url: video_url)
         self.assetIG = AVAssetImageGenerator(asset: asset)
         assetIG.appliesPreferredTrackTransform = true
