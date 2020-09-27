@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol frameSelectDelegate {
+    func selectedIndex(index : Int)
+}
+
+
 class ImageFrameListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
     var imageArray : [UIImage] = []
+    var delegate : frameSelectDelegate! = nil
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,7 +61,7 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        delegate.selectedIndex(index: indexPath.row)
     }
     
     

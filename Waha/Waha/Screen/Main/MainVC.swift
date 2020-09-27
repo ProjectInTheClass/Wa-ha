@@ -16,7 +16,7 @@ class MainVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var projectArray : [String] = ["프로젝트 추가"]
+    var projectArray : [String] = ["프로젝트 추가","예시1","예시2"]
     var imageArray : [UIImage] = []
     
     override func viewDidLoad() {
@@ -62,6 +62,8 @@ class MainVC: UIViewController {
     }
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
         
+        showActivityIndicator()
+        
         //https://stackoverflow.com/questions/42665271/swift-get-all-frames-from-video
         let videoURL : URL = url
         var generator : AVAssetImageGenerator!
@@ -91,7 +93,7 @@ class MainVC: UIViewController {
 //            self.imageArray.append(loadedVideo.getSingleFrame(frame: frame)!)
 //        }
         print("image frame count : \(self.imageArray.count)")
-        
+        hideActivityIndicator()
         goProjectVC()
     }
 }

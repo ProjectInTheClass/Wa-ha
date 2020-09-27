@@ -11,6 +11,7 @@ import AVKit
 import MobileCoreServices
 import Photos
 import MediaPlayer
+import PencilKit
 
 class EditVC: UIViewController {
     
@@ -53,13 +54,30 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
-            cell.selectionStyle = .none
-            cell.imageArray = imageArray
-            cell.collectionView.reloadData()
-            return cell
+        if indexPath.row == 0 {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
+                cell.selectionStyle = .none
+                cell.imageArray = imageArray
+                cell.collectionView.reloadData()
+                cell.delegate = self
+                return cell
+            }
+        }else{
+            let layer : [UIImage] = Array(repeating: UIImage(named: "overlay")!, count: imageArray.count)
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
+                cell.selectionStyle = .none
+                cell.imageArray = layer
+                cell.collectionView.reloadData()
+                cell.delegate = self
+                return cell
+            }
         }
         return UITableViewCell()
     }
     
+}
+extension EditVC : frameSelectDelegate {
+    func selectedIndex(index: Int) {
+        tmpImageView.image = imageArray[index]
+    }
 }

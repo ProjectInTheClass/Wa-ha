@@ -220,11 +220,11 @@ extension UIView {
 extension UITextField {
     func addTextFieldIcon(_ image: UIImage) {
         let iconView = UIImageView(frame:
-            CGRect(x: 12, y: 6, width: 13, height: 15))
+                                    CGRect(x: 12, y: 6, width: 13, height: 15))
         iconView.contentMode = .scaleAspectFit
         iconView.image = image
         let iconContainerView: UIView = UIView(frame:
-            CGRect(x: 20, y: 0, width: 35, height: 30))
+                                                CGRect(x: 20, y: 0, width: 35, height: 30))
         iconContainerView.addSubview(iconView)
         leftView = iconContainerView
         leftViewMode = .always
@@ -377,58 +377,40 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    func startActivityIndicator(style: UIActivityIndicatorView.Style = .large, location: CGPoint? = nil) {
-        //Set the position - defaults to `center` if no`location`
-        //argument is provided
-        let loc = location ?? self.view.center
-        //Ensure the UI is updated from the main thread
-        //in case this method is called from a closure
-        DispatchQueue.main.async {
-            //            //Create the activity indicator
-            //            let activityIndicator = UIActivityIndicatorView(style: style)
-            //            //Add the tag so we can find the view in order to remove it later
-            //
-            //            activityIndicator.tag = self.activityIndicatorTag
-            //            //Set the location
-            //
-            //            activityIndicator.center = loc
-            //            activityIndicator.hidesWhenStopped = true
-            //            //Start animating and add the view
-            //
-            //            activityIndicator.startAnimating()
-            //            self.view.addSubview(activityIndicator)
-            
-            let imageView = UIImageView(image: UIImage(named: "rw_logo"))
-            let animation = CABasicAnimation(keyPath: "transform.rotation")
-            animation.fromValue = 0
-            animation.toValue =  Double.pi * 2.0
-            animation.duration = 1.5
-            animation.repeatCount = .infinity
-            animation.isRemovedOnCompletion = false
-            
-            imageView.layer.add(animation, forKey: "spin")
-            imageView.tag = self.loadingTag
-            imageView.center = loc
-            self.view.addSubview(imageView)
-            
-        }
-    }
-    func stopActivityIndicator() {
-        //Again, we need to ensure the UI is updated from the main thread!
-        DispatchQueue.main.async {
-            //Here we find the `UIActivityIndicatorView` and remove it from the view
-            //            if let activityIndicator = self.view.subviews.filter(
-            //                { $0.tag == self.activityIndicatorTag}).first as? UIActivityIndicatorView {
-            //                activityIndicator.stopAnimating()
-            //                activityIndicator.removeFromSuperview()
-            //            }
-            if let loadingIndicator = self.view.subviews.filter(
-                { $0.tag == self.loadingTag}).first as? UIImageView {
-                loadingIndicator.stopAnimating()
-                loadingIndicator.removeFromSuperview()
+    
+    func showActivityIndicator() {
+        let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator.backgroundColor = UIColor(red:0.16, green:0.17, blue:0.21, alpha:1)
+        activityIndicator.layer.cornerRadius = 6
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.large
+        activityIndicator.startAnimating()
+        //UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        activityIndicator.tag = 100 // 100 for example
+        
+        // before adding it, you need to check if it is already has been added:
+        for subview in view.subviews {
+            if subview.tag == 100 {
+                print("already added")
+                return
             }
         }
+        
+        view.addSubview(activityIndicator)
     }
+    
+    func hideActivityIndicator() {
+        let activityIndicator = view.viewWithTag(100) as? UIActivityIndicatorView
+        activityIndicator?.stopAnimating()
+        
+        // I think you forgot to remove it?
+        activityIndicator?.removeFromSuperview()
+        
+        //UIApplication.shared.endIgnoringInteractionEvents()
+    }
+    
     
     typealias AlertActionHandler = ((UIAlertAction) -> Void)
     
@@ -471,7 +453,7 @@ extension UIViewController {
         self.present(alert, animated: true, completion: completion)
         
     }
-//    https://draupnir45.github.io/i.jongchan.park/Swift_learning/UIAlertController_made_easy.html
+    //    https://draupnir45.github.io/i.jongchan.park/Swift_learning/UIAlertController_made_easy.html
 }
 
 extension Int {
