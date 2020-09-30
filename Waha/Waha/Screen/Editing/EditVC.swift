@@ -50,7 +50,7 @@ class EditVC: UIViewController {
     private func setupCanvasView(){
         canvasView.delegate = self
         canvasView.drawing = drawing
-        canvasView.alwaysBounceVertical = false
+        canvasView.isScrollEnabled = false
         canvasView.allowsFingerDrawing = false
         if let window = parent?.view.window,
            let toolPicker = PKToolPicker.shared(for: window) {
@@ -59,8 +59,8 @@ class EditVC: UIViewController {
             
             canvasView.becomeFirstResponder()
         }
-        canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
+        canvasView.isOpaque = false
     }
    
     
@@ -104,6 +104,7 @@ class EditVC: UIViewController {
                 PHAssetChangeRequest.creationRequestForAsset(from: image!)
             }, completionHandler: {success, error in
                 //deal with success
+                self.alert(title: "앨범에 저장되었습니다.")
             })
         }
     }
@@ -150,3 +151,4 @@ extension EditVC : PKCanvasViewDelegate, PKToolPickerObserver {
 //        updateContentSizeForDrawing()
     }
 }
+
