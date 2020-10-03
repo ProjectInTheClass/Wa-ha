@@ -25,7 +25,6 @@ class EditVC: UIViewController {
     @IBOutlet weak var canvasView: PKCanvasView!
     let canvasWidth: CGFloat = 768
     let canvasOverscrollHight: CGFloat = 500
-    var drawing = PKDrawing()
     
     
     //View
@@ -35,6 +34,9 @@ class EditVC: UIViewController {
     
     var isNewVideo : Bool?
     var imageArray : [UIImage] = []
+    var canvasArray: [PKDrawing] = []
+    var thumbnailArray : [UIImage] = []
+    var selectedIndex : Int = 0
     
     
     override func viewDidLoad() {
@@ -46,6 +48,11 @@ class EditVC: UIViewController {
         
     }
     private func setupProject(){
+        for _ in 0..<imageArray.count {
+            canvasArray.append(PKDrawing())
+            thumbnailArray.append(UIImage())
+        }
+        tmpImageView.image = imageArray[0]
         setupTableView()
     }
     private func setupTableView(){
@@ -54,7 +61,7 @@ class EditVC: UIViewController {
     }
     private func setupCanvasView(){
         canvasView.delegate = self
-        canvasView.drawing = drawing
+        canvasView.drawing = canvasArray[0]
         canvasView.isScrollEnabled = false
         canvasView.allowsFingerDrawing = true
         if let window = parent?.view.window,
@@ -113,6 +120,17 @@ class EditVC: UIViewController {
             })
         }
     }
+    private func saveToCanvasArray(canvas : PKCanvasView){
+        print("\(selectedIndex) saved drawing")
+        canvasArray[selectedIndex] = canvas.drawing
+    }
+    //for thumbnail
+    private func image(from canvas: PKCanvasView) -> UIImage {
+        let drawing = canvas.drawing
+        let visibleRect = canvas.bounds
+        let image = drawing.image(from: visibleRect, scale: UIScreen.main.scale)
+        return image
+    }
     
 }
 extension EditVC : UITableViewDelegate, UITableViewDataSource {
@@ -148,11 +166,16 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
 }
 extension EditVC : frameSelectDelegate {
     func selectedIndex(index: Int) {
-        tmpImageView.image = imageArray[index]
+        DispatchQueue.main.async {
+            self.tmpImageView.image = self.imageArray[index]
+            self.canvasView.drawing = self.canvasArray[index]
+        }
+        selectedIndex = index
     }
 }
 extension EditVC : PKCanvasViewDelegate, PKToolPickerObserver {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        saveToCanvasArray(canvas: canvasView)
 //        updateContentSizeForDrawing()
     }
 }
