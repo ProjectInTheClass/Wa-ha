@@ -59,6 +59,9 @@
                                         <state key="normal" title="Export">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="actionExport:" destination="Pmg-62-vOM" eventType="touchUpInside" id="x9F-In-eYb"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLY-C2-4aO">
                                         <rect key="frame" x="495.5" y="9" width="189" height="42"/>
@@ -90,7 +93,11 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZO4-cz-eLq">
                                         <rect key="frame" x="0.0" y="0.0" width="1180" height="760"/>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQQ-Jy-ypr">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQu-5j-t1P" customClass="PKCanvasView">
+                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="760"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQQ-Jy-ypr" userLabel="toolbar">
                                         <rect key="frame" x="100" y="500" width="980" height="230"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Js6-8M-Sxk">
@@ -153,7 +160,7 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
-                                                            <outlet property="collectionView" destination="DzI-sn-HVR" id="dHc-de-OaH"/>
+                                                            <outlet property="collectionview" destination="DzI-sn-HVR" id="dHc-de-OaH"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
@@ -193,10 +200,14 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="jQu-5j-t1P" secondAttribute="trailing" id="1x9-cH-nfE"/>
+                                    <constraint firstItem="jQu-5j-t1P" firstAttribute="top" secondItem="iFB-k8-Yqd" secondAttribute="top" id="27q-co-U8M"/>
                                     <constraint firstItem="ZO4-cz-eLq" firstAttribute="top" secondItem="iFB-k8-Yqd" secondAttribute="top" id="5Au-Ly-TG8"/>
                                     <constraint firstAttribute="bottom" secondItem="ZO4-cz-eLq" secondAttribute="bottom" id="6Ah-JU-dYt"/>
+                                    <constraint firstItem="jQu-5j-t1P" firstAttribute="leading" secondItem="iFB-k8-Yqd" secondAttribute="leading" id="CX4-Fq-t40"/>
                                     <constraint firstAttribute="trailing" secondItem="ZO4-cz-eLq" secondAttribute="trailing" id="K0u-cO-EbW"/>
                                     <constraint firstAttribute="trailing" secondItem="fQQ-Jy-ypr" secondAttribute="trailing" constant="100" id="KST-7G-q1m"/>
+                                    <constraint firstAttribute="bottom" secondItem="jQu-5j-t1P" secondAttribute="bottom" id="LoD-rc-1rA"/>
                                     <constraint firstAttribute="bottom" secondItem="fQQ-Jy-ypr" secondAttribute="bottom" constant="30" id="Wty-TJ-1YE"/>
                                     <constraint firstItem="fQQ-Jy-ypr" firstAttribute="leading" secondItem="iFB-k8-Yqd" secondAttribute="leading" constant="100" id="h1R-2A-Rd9"/>
                                     <constraint firstItem="ZO4-cz-eLq" firstAttribute="leading" secondItem="iFB-k8-Yqd" secondAttribute="leading" id="oOy-9z-DAI"/>
@@ -216,6 +227,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="canvasView" destination="jQu-5j-t1P" id="ZgE-sg-wTY"/>
                         <outlet property="lbTitle" destination="wLY-C2-4aO" id="0cn-NM-RKW"/>
                         <outlet property="tableView" destination="Js6-8M-Sxk" id="lxW-3s-BWy"/>
                         <outlet property="tmpImageView" destination="ZO4-cz-eLq" id="Njj-mx-G6a"/>
@@ -223,7 +235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AMt-ws-KkW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="208.5427135678392" y="151.79856115107916"/>
+            <point key="canvasLocation" x="208.47457627118646" y="151.46341463414635"/>
         </scene>
     </scenes>
     <resources>
