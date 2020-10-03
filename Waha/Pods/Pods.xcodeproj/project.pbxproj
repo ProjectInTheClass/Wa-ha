@@ -7,51 +7,135 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1BF3BD0CC0675D094C2D16FE0A4CC0DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		8984E8FD80CD9DF5D127B708EB993A04 /* Pods-Waha-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B91CD60B4506BE21C2C5FB817649DF3F /* Pods-Waha-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9417A0739174014162D88D13EC36EDA /* Pods-Waha-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C78F8663E12F96B85862F2D1649F9AC /* Pods-Waha-dummy.m */; };
+		03AF832BC7554CB4989891277B8AB6C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		343E69977E800335EBB54FFE42709909 /* AVAssetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADC82AC3564A9D253E6BF9F380CD41F /* AVAssetExtension.swift */; };
+		61ACB666B7DC23EF411CDBF501957BE2 /* SwiftVideoGenerator-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 156C4137DBFD540DC0B1DD267EF7E439 /* SwiftVideoGenerator-dummy.m */; };
+		8FD785649B96C0AA1ED035B1891B2AD2 /* Pods-Waha-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 51919F23ADAA54907F1647475D8992E9 /* Pods-Waha-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BB6C0930DAAAA8A3A5623D5264D785EC /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD5D129BD7A1C9FC90D45889D537BD /* VideoGenerator.swift */; };
+		C18C85D451928E98F278F33D023733B5 /* SwiftVideoGenerator-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 15C8ADAF1F7C16D56F60467406D339D2 /* SwiftVideoGenerator-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C2CBC2B54DB23F8ED092F3593078DF12 /* VideoGeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F50A2986EEC90A30CE2FBFAD1C3AD3F /* VideoGeneratorError.swift */; };
+		CD3CE8D0CF3451970CC2F0CB43836DE5 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CDBE96604912975C9AF95F1C2ACDFB /* ImageExtension.swift */; };
+		DB69B68128FCA52A8B786DFF43EFC8BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		E280A023588825580D048F76BE356102 /* Pods-Waha-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD070059C06706D05BC5C934803725C /* Pods-Waha-dummy.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FF327F6B4A6599F7212B2E46B3418754 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 877B00E6DE7D4DC1416DB002A9C00848;
+			remoteInfo = SwiftVideoGenerator;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		156C4137DBFD540DC0B1DD267EF7E439 /* SwiftVideoGenerator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftVideoGenerator-dummy.m"; sourceTree = "<group>"; };
+		15C8ADAF1F7C16D56F60467406D339D2 /* SwiftVideoGenerator-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoGenerator-umbrella.h"; sourceTree = "<group>"; };
+		18A43E897C9C7D86F05C7DF2A20224F3 /* SwiftVideoGenerator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftVideoGenerator.debug.xcconfig; sourceTree = "<group>"; };
+		1EA9C02036521BE77387BEB2EEB8AA08 /* SwiftVideoGenerator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftVideoGenerator-Info.plist"; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6406427D1F6F47F45CFF3AC4C1BE8F81 /* Pods-Waha.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Waha.release.xcconfig"; sourceTree = "<group>"; };
-		6C78F8663E12F96B85862F2D1649F9AC /* Pods-Waha-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Waha-dummy.m"; sourceTree = "<group>"; };
-		7F021D954F9E86E6FF239BC9FC7D8C3F /* Pods_Waha.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Waha.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		860A10B8EB9CDA199501E6CF2D4A7CD5 /* Pods-Waha-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Waha-acknowledgements.markdown"; sourceTree = "<group>"; };
-		8FD4E5EFBA7E32666ED2812EFDA1B2C3 /* Pods-Waha-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Waha-Info.plist"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A32A380C0A02FE284CE7B1C34151D68F /* Pods-Waha-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Waha-acknowledgements.plist"; sourceTree = "<group>"; };
-		A74433FB33DE23E1FF89180FEA18F820 /* Pods-Waha.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Waha.modulemap"; sourceTree = "<group>"; };
-		B91CD60B4506BE21C2C5FB817649DF3F /* Pods-Waha-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Waha-umbrella.h"; sourceTree = "<group>"; };
-		C43DB2B979B9EE5F882ED6D30A3243A6 /* Pods-Waha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Waha.debug.xcconfig"; sourceTree = "<group>"; };
+		394AEC6214259998B92BCE4DB2B02AAA /* Pods-Waha-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Waha-acknowledgements.markdown"; sourceTree = "<group>"; };
+		51919F23ADAA54907F1647475D8992E9 /* Pods-Waha-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Waha-umbrella.h"; sourceTree = "<group>"; };
+		59036D9DF8516C51E1F6C0AF6F40EFB0 /* SwiftVideoGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftVideoGenerator.framework; path = SwiftVideoGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F50A2986EEC90A30CE2FBFAD1C3AD3F /* VideoGeneratorError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoGeneratorError.swift; path = Sources/SwiftVideoGenerator/Classes/Error/VideoGeneratorError.swift; sourceTree = "<group>"; };
+		69CDBE96604912975C9AF95F1C2ACDFB /* ImageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageExtension.swift; path = Sources/SwiftVideoGenerator/Classes/Extensions/ImageExtension.swift; sourceTree = "<group>"; };
+		6ADC82AC3564A9D253E6BF9F380CD41F /* AVAssetExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AVAssetExtension.swift; path = Sources/SwiftVideoGenerator/Classes/Extensions/AVAssetExtension.swift; sourceTree = "<group>"; };
+		70274ECAC141163805017A9942E516AF /* Pods-Waha-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Waha-acknowledgements.plist"; sourceTree = "<group>"; };
+		73EF3DE19709151D87064438F8BB18D3 /* Pods-Waha-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Waha-frameworks.sh"; sourceTree = "<group>"; };
+		7E21F72B087F77279907EC4A4E0635EE /* SwiftVideoGenerator-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftVideoGenerator-prefix.pch"; sourceTree = "<group>"; };
+		7F021D954F9E86E6FF239BC9FC7D8C3F /* Pods_Waha.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Waha.framework; path = "Pods-Waha.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8286D4CBC178BB4F50F191C18B3AB231 /* Pods-Waha-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Waha-Info.plist"; sourceTree = "<group>"; };
+		8C0E54903B037113598A27A31714D286 /* SwiftVideoGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftVideoGenerator.release.xcconfig; sourceTree = "<group>"; };
+		8FDC93479ECDE07B6F28BE7F8D35D2B3 /* Pods-Waha.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Waha.modulemap"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9FD070059C06706D05BC5C934803725C /* Pods-Waha-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Waha-dummy.m"; sourceTree = "<group>"; };
+		A0326145CBBB36F4427CCEBB278FE09C /* SwiftVideoGenerator.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftVideoGenerator.modulemap; sourceTree = "<group>"; };
+		AE9C2B23CD73F2C7985C0B71B7F452E9 /* Pods-Waha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Waha.debug.xcconfig"; sourceTree = "<group>"; };
+		B686BD26E605C00EFA82D20C33B23BAE /* Pods-Waha.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Waha.release.xcconfig"; sourceTree = "<group>"; };
+		C3CD5D129BD7A1C9FC90D45889D537BD /* VideoGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoGenerator.swift; path = Sources/SwiftVideoGenerator/Classes/VideoGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E340B24330A2FFC9D52DD4E7C17A2FE4 /* Frameworks */ = {
+		24E55CE839D5566E1CFA4371F85758C0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BF3BD0CC0675D094C2D16FE0A4CC0DF /* Foundation.framework in Frameworks */,
+				03AF832BC7554CB4989891277B8AB6C8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0066AE62B517E136C7AB10825DBA44C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB69B68128FCA52A8B786DFF43EFC8BC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8673C88529C85CEB9F80E3068BE32576 /* Products */ = {
+		1BE30A6B49367A0365FA4445B07730AA /* SwiftVideoGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				6ADC82AC3564A9D253E6BF9F380CD41F /* AVAssetExtension.swift */,
+				69CDBE96604912975C9AF95F1C2ACDFB /* ImageExtension.swift */,
+				C3CD5D129BD7A1C9FC90D45889D537BD /* VideoGenerator.swift */,
+				5F50A2986EEC90A30CE2FBFAD1C3AD3F /* VideoGeneratorError.swift */,
+				BFCE9A9D8C03103ABB258C099604039F /* Support Files */,
+			);
+			name = SwiftVideoGenerator;
+			path = SwiftVideoGenerator;
+			sourceTree = "<group>";
+		};
+		8728F3D9CA80C11B62DA31EC44BC2DCB /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				7F021D954F9E86E6FF239BC9FC7D8C3F /* Pods_Waha.framework */,
+				59036D9DF8516C51E1F6C0AF6F40EFB0 /* SwiftVideoGenerator.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		91249F7425791E385FA87EC7C3E6C775 /* Targets Support Files */ = {
+		9D82E172ACB95A02D2EB275553480918 /* Pods-Waha */ = {
 			isa = PBXGroup;
 			children = (
-				DC6DBBFFD26FC923AA39AF18B5C5990F /* Pods-Waha */,
+				8FDC93479ECDE07B6F28BE7F8D35D2B3 /* Pods-Waha.modulemap */,
+				394AEC6214259998B92BCE4DB2B02AAA /* Pods-Waha-acknowledgements.markdown */,
+				70274ECAC141163805017A9942E516AF /* Pods-Waha-acknowledgements.plist */,
+				9FD070059C06706D05BC5C934803725C /* Pods-Waha-dummy.m */,
+				73EF3DE19709151D87064438F8BB18D3 /* Pods-Waha-frameworks.sh */,
+				8286D4CBC178BB4F50F191C18B3AB231 /* Pods-Waha-Info.plist */,
+				51919F23ADAA54907F1647475D8992E9 /* Pods-Waha-umbrella.h */,
+				AE9C2B23CD73F2C7985C0B71B7F452E9 /* Pods-Waha.debug.xcconfig */,
+				B686BD26E605C00EFA82D20C33B23BAE /* Pods-Waha.release.xcconfig */,
+			);
+			name = "Pods-Waha";
+			path = "Target Support Files/Pods-Waha";
+			sourceTree = "<group>";
+		};
+		A7B8515AA0CFF15899C9BDD1A333A011 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9D82E172ACB95A02D2EB275553480918 /* Pods-Waha */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		BFCE9A9D8C03103ABB258C099604039F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A0326145CBBB36F4427CCEBB278FE09C /* SwiftVideoGenerator.modulemap */,
+				156C4137DBFD540DC0B1DD267EF7E439 /* SwiftVideoGenerator-dummy.m */,
+				1EA9C02036521BE77387BEB2EEB8AA08 /* SwiftVideoGenerator-Info.plist */,
+				7E21F72B087F77279907EC4A4E0635EE /* SwiftVideoGenerator-prefix.pch */,
+				15C8ADAF1F7C16D56F60467406D339D2 /* SwiftVideoGenerator-umbrella.h */,
+				18A43E897C9C7D86F05C7DF2A20224F3 /* SwiftVideoGenerator.debug.xcconfig */,
+				8C0E54903B037113598A27A31714D286 /* SwiftVideoGenerator.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftVideoGenerator";
 			sourceTree = "<group>";
 		};
 		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
@@ -67,8 +151,9 @@
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				8673C88529C85CEB9F80E3068BE32576 /* Products */,
-				91249F7425791E385FA87EC7C3E6C775 /* Targets Support Files */,
+				EBADA8D75E030A6696CFF3F96828B612 /* Pods */,
+				8728F3D9CA80C11B62DA31EC44BC2DCB /* Products */,
+				A7B8515AA0CFF15899C9BDD1A333A011 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,30 +165,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DC6DBBFFD26FC923AA39AF18B5C5990F /* Pods-Waha */ = {
+		EBADA8D75E030A6696CFF3F96828B612 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A74433FB33DE23E1FF89180FEA18F820 /* Pods-Waha.modulemap */,
-				860A10B8EB9CDA199501E6CF2D4A7CD5 /* Pods-Waha-acknowledgements.markdown */,
-				A32A380C0A02FE284CE7B1C34151D68F /* Pods-Waha-acknowledgements.plist */,
-				6C78F8663E12F96B85862F2D1649F9AC /* Pods-Waha-dummy.m */,
-				8FD4E5EFBA7E32666ED2812EFDA1B2C3 /* Pods-Waha-Info.plist */,
-				B91CD60B4506BE21C2C5FB817649DF3F /* Pods-Waha-umbrella.h */,
-				C43DB2B979B9EE5F882ED6D30A3243A6 /* Pods-Waha.debug.xcconfig */,
-				6406427D1F6F47F45CFF3AC4C1BE8F81 /* Pods-Waha.release.xcconfig */,
+				1BE30A6B49367A0365FA4445B07730AA /* SwiftVideoGenerator */,
 			);
-			name = "Pods-Waha";
-			path = "Target Support Files/Pods-Waha";
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		6162B74975BEC85FC2110555632C47D0 /* Headers */ = {
+		2582D3EE0EC337204CA4BEE33EF96A70 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8984E8FD80CD9DF5D127B708EB993A04 /* Pods-Waha-umbrella.h in Headers */,
+				8FD785649B96C0AA1ED035B1891B2AD2 /* Pods-Waha-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F6474B1E7728649E803D43C0D25ED55 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C18C85D451928E98F278F33D023733B5 /* SwiftVideoGenerator-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,20 +197,39 @@
 /* Begin PBXNativeTarget section */
 		098D752C25B6B15507145782502AF16B /* Pods-Waha */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 19A439AA8874EBD1C57914B29BDD5805 /* Build configuration list for PBXNativeTarget "Pods-Waha" */;
+			buildConfigurationList = C05B311431055AA3D51F8ADB291F5E8C /* Build configuration list for PBXNativeTarget "Pods-Waha" */;
 			buildPhases = (
-				6162B74975BEC85FC2110555632C47D0 /* Headers */,
-				19888155C1A48030FF52CCBD2682E514 /* Sources */,
-				E340B24330A2FFC9D52DD4E7C17A2FE4 /* Frameworks */,
-				A39EFED49682EA4889AA16AF5FED9E7D /* Resources */,
+				2582D3EE0EC337204CA4BEE33EF96A70 /* Headers */,
+				C902479E65EF1D6AA1772458CD221B64 /* Sources */,
+				C0066AE62B517E136C7AB10825DBA44C /* Frameworks */,
+				43755B3928E51352EE55FAEC51E142D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D68C2F663A063D879542FC9BA6CBBEC5 /* PBXTargetDependency */,
+			);
+			name = "Pods-Waha";
+			productName = "Pods-Waha";
+			productReference = 7F021D954F9E86E6FF239BC9FC7D8C3F /* Pods_Waha.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		877B00E6DE7D4DC1416DB002A9C00848 /* SwiftVideoGenerator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1724A198A67E010CF80B54FD8855ADF2 /* Build configuration list for PBXNativeTarget "SwiftVideoGenerator" */;
+			buildPhases = (
+				3F6474B1E7728649E803D43C0D25ED55 /* Headers */,
+				69D65BCDCC321851AF1DEB957C6ABF4C /* Sources */,
+				24E55CE839D5566E1CFA4371F85758C0 /* Frameworks */,
+				9FCA31D9A2755C107F3A2C27E98FCD62 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Pods-Waha";
-			productName = "Pods-Waha";
-			productReference = 7F021D954F9E86E6FF239BC9FC7D8C3F /* Pods_Waha.framework */;
+			name = SwiftVideoGenerator;
+			productName = SwiftVideoGenerator;
+			productReference = 59036D9DF8516C51E1F6C0AF6F40EFB0 /* SwiftVideoGenerator.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -135,7 +239,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -146,17 +250,25 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 8673C88529C85CEB9F80E3068BE32576 /* Products */;
+			productRefGroup = 8728F3D9CA80C11B62DA31EC44BC2DCB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				098D752C25B6B15507145782502AF16B /* Pods-Waha */,
+				877B00E6DE7D4DC1416DB002A9C00848 /* SwiftVideoGenerator */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A39EFED49682EA4889AA16AF5FED9E7D /* Resources */ = {
+		43755B3928E51352EE55FAEC51E142D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FCA31D9A2755C107F3A2C27E98FCD62 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -166,17 +278,152 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		19888155C1A48030FF52CCBD2682E514 /* Sources */ = {
+		69D65BCDCC321851AF1DEB957C6ABF4C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9417A0739174014162D88D13EC36EDA /* Pods-Waha-dummy.m in Sources */,
+				343E69977E800335EBB54FFE42709909 /* AVAssetExtension.swift in Sources */,
+				CD3CE8D0CF3451970CC2F0CB43836DE5 /* ImageExtension.swift in Sources */,
+				61ACB666B7DC23EF411CDBF501957BE2 /* SwiftVideoGenerator-dummy.m in Sources */,
+				BB6C0930DAAAA8A3A5623D5264D785EC /* VideoGenerator.swift in Sources */,
+				C2CBC2B54DB23F8ED092F3593078DF12 /* VideoGeneratorError.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C902479E65EF1D6AA1772458CD221B64 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E280A023588825580D048F76BE356102 /* Pods-Waha-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		D68C2F663A063D879542FC9BA6CBBEC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftVideoGenerator;
+			target = 877B00E6DE7D4DC1416DB002A9C00848 /* SwiftVideoGenerator */;
+			targetProxy = FF327F6B4A6599F7212B2E46B3418754 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		0AEF7C651C7D8A02F36B677681782063 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C0E54903B037113598A27A31714D286 /* SwiftVideoGenerator.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftVideoGenerator/SwiftVideoGenerator-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftVideoGenerator/SwiftVideoGenerator-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/SwiftVideoGenerator/SwiftVideoGenerator.modulemap";
+				PRODUCT_MODULE_NAME = SwiftVideoGenerator;
+				PRODUCT_NAME = SwiftVideoGenerator;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1DA366CC14767A366D93274D02450E12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE9C2B23CD73F2C7985C0B71B7F452E9 /* Pods-Waha.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Waha/Pods-Waha-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Waha/Pods-Waha.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3A93518E589B6C56CFB46900208E172A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B686BD26E605C00EFA82D20C33B23BAE /* Pods-Waha.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Waha/Pods-Waha-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Waha/Pods-Waha.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		61FC5749665EDDB2D90E737333B3BA8D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -203,7 +450,6 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -242,11 +488,10 @@
 			};
 			name = Debug;
 		};
-		A7E590862DDBCECAE0F8261796E99B11 /* Debug */ = {
+		9A26AFCE0D52A4323834691B79C353F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C43DB2B979B9EE5F882ED6D30A3243A6 /* Pods-Waha.debug.xcconfig */;
+			baseConfigurationReference = 18A43E897C9C7D86F05C7DF2A20224F3 /* SwiftVideoGenerator.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -257,67 +502,27 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Waha/Pods-Waha-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftVideoGenerator/SwiftVideoGenerator-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftVideoGenerator/SwiftVideoGenerator-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Waha/Pods-Waha.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				MODULEMAP_FILE = "Target Support Files/SwiftVideoGenerator/SwiftVideoGenerator.modulemap";
+				PRODUCT_MODULE_NAME = SwiftVideoGenerator;
+				PRODUCT_NAME = SwiftVideoGenerator;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		D5E302214A0C5D9243CAB2EE5C4000A3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6406427D1F6F47F45CFF3AC4C1BE8F81 /* Pods-Waha.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Waha/Pods-Waha-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Waha/Pods-Waha.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		F671B4D3AA8F2CA18D12CD74BD1CDEF9 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -345,7 +550,6 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -383,11 +587,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		19A439AA8874EBD1C57914B29BDD5805 /* Build configuration list for PBXNativeTarget "Pods-Waha" */ = {
+		1724A198A67E010CF80B54FD8855ADF2 /* Build configuration list for PBXNativeTarget "SwiftVideoGenerator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A7E590862DDBCECAE0F8261796E99B11 /* Debug */,
-				D5E302214A0C5D9243CAB2EE5C4000A3 /* Release */,
+				9A26AFCE0D52A4323834691B79C353F6 /* Debug */,
+				0AEF7C651C7D8A02F36B677681782063 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -397,6 +601,15 @@
 			buildConfigurations = (
 				61FC5749665EDDB2D90E737333B3BA8D /* Debug */,
 				F671B4D3AA8F2CA18D12CD74BD1CDEF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05B311431055AA3D51F8ADB291F5E8C /* Build configuration list for PBXNativeTarget "Pods-Waha" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DA366CC14767A366D93274D02450E12 /* Debug */,
+				3A93518E589B6C56CFB46900208E172A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

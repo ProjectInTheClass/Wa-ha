@@ -6,5 +6,6 @@ target 'Waha' do
   use_frameworks!
 
   # Pods for Waha
+  pod 'SwiftVideoGenerator'
 
 end
