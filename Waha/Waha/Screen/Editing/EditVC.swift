@@ -134,6 +134,30 @@ class EditVC: UIViewController {
         }
     }
     
+    //이미지 합치기
+    private func combineLayersAndConvertVideo(){
+        //add two image
+        // TODO: - 나중에 image + image가 아니라 drawing + image로 해야함
+        let size = CGSize(width: tmpImageView.frame.size.width, height: tmpImageView.frame.size.height)
+        let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+        var mergedImage : [UIImage] = []
+        
+        for index in 0..<imageArray.count {
+            
+            let bottomImage = imageArray[index]
+            let topImage = imageArray[index]
+            
+            UIGraphicsBeginImageContext(size)
+            bottomImage.draw(in: areaSize)
+            topImage.draw(in: areaSize, blendMode: .normal, alpha: 1)
+            let newImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            mergedImage.append(newImage)
+        }
+    }
+    
+    
 }
 extension EditVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
