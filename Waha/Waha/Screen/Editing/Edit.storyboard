@@ -160,7 +160,7 @@
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
-                                                            <outlet property="collectionView" destination="DzI-sn-HVR" id="dHc-de-OaH"/>
+                                                            <outlet property="collectionview" destination="DzI-sn-HVR" id="dHc-de-OaH"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>

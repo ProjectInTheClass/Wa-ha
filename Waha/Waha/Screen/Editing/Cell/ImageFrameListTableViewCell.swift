@@ -15,7 +15,7 @@ protocol frameSelectDelegate {
 
 class ImageFrameListTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionview: UICollectionView!
     weak var scrollDelegate: collectionViewDidScrollDelegate?
 
     var imageArray : [UIImage] = []
@@ -26,19 +26,19 @@ class ImageFrameListTableViewCell: UITableViewCell {
         // Initialization code
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: collectionView.frame.width/2-100, bottom: 0, right: 0)
-        collectionView.collectionViewLayout = layout
+        layout.sectionInset = UIEdgeInsets(top: 0, left: collectionview.frame.width/2, bottom: 0, right: collectionview.frame.width/2)
+        collectionview.collectionViewLayout = layout
         
-        
+        //import Nib
         let projectCellNib = UINib(nibName: "FrameCollectionViewCell", bundle: nil)
-        collectionView.register(projectCellNib, forCellWithReuseIdentifier: "FrameCollectionViewCell")
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        (collectionView as UIScrollView).delegate = self
-        
-        
+        collectionview.register(projectCellNib, forCellWithReuseIdentifier: "FrameCollectionViewCell")
+        collectionview.delegate = self
+        collectionview.dataSource = self
+        //Scroll Sync
+        (collectionview as UIScrollView).delegate = self
+        //select center item
     }
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -69,5 +69,16 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
 extension ImageFrameListTableViewCell : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollDelegate?.didScrolled(to: scrollView.contentOffset.x)
+        
+        let point = convert(collectionview.center, to: collectionview)
+        let index : Int = Int(round((point.x - collectionview.frame.width/2)/110))
+        print("계산된 index \(index)")
+        if index >= 0 && index < imageArray.count {
+            delegate.selectedIndex(index: index)
+        }
     }
+//    62프레임 0부터 6810.0 109로 나눔
 }
+
+//same scroll refer
+//https://stackoverflow.com/questions/48461698/synchronised-scrolling-uicollectionviews-in-uitableviewcell-in-swift/48463426

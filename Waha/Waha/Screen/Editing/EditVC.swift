@@ -127,7 +127,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
                 cell.imageArray = imageArray
-                cell.collectionView.reloadData()
+                cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
                 return cell
@@ -137,7 +137,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
                 cell.imageArray = layer
-                cell.collectionView.reloadData()
+                cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
                 return cell
@@ -157,12 +157,15 @@ extension EditVC : PKCanvasViewDelegate, PKToolPickerObserver {
     }
 }
 extension EditVC : collectionViewDidScrollDelegate {
+    //sync scroll
     func didScrolled(to position: CGFloat) {
-        print(position)
+//        print(position)
         for cell in tableView.visibleCells as! [ImageFrameListTableViewCell] {
-            (cell.collectionView as UIScrollView).contentOffset.x = position
+            (cell.collectionview as UIScrollView).contentOffset.x = position
         }
     }
+    //select center
+    
 }
 
 
