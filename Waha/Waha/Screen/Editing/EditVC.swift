@@ -14,6 +14,11 @@ import MediaPlayer
 import PencilKit
 import PhotosUI
 
+protocol collectionViewDidScrollDelegate : EditVC{
+    func didScrolled(to position: CGFloat)
+}
+
+
 class EditVC: UIViewController {
     
     //pencilKt
@@ -51,7 +56,7 @@ class EditVC: UIViewController {
         canvasView.delegate = self
         canvasView.drawing = drawing
         canvasView.isScrollEnabled = false
-        canvasView.allowsFingerDrawing = false
+        canvasView.allowsFingerDrawing = true
         if let window = parent?.view.window,
            let toolPicker = PKToolPicker.shared(for: window) {
             toolPicker.setVisible(true, forFirstResponder: canvasView)
@@ -117,7 +122,6 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
@@ -125,6 +129,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 cell.imageArray = imageArray
                 cell.collectionView.reloadData()
                 cell.delegate = self
+                cell.scrollDelegate = self
                 return cell
             }
         }else{
@@ -134,12 +139,12 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 cell.imageArray = layer
                 cell.collectionView.reloadData()
                 cell.delegate = self
+                cell.scrollDelegate = self
                 return cell
             }
         }
         return UITableViewCell()
     }
-    
 }
 extension EditVC : frameSelectDelegate {
     func selectedIndex(index: Int) {
@@ -151,4 +156,18 @@ extension EditVC : PKCanvasViewDelegate, PKToolPickerObserver {
 //        updateContentSizeForDrawing()
     }
 }
+extension EditVC : collectionViewDidScrollDelegate {
+    func didScrolled(to position: CGFloat) {
+        print(position)
+        for cell in tableView.visibleCells as! [ImageFrameListTableViewCell] {
+            (cell.collectionView as UIScrollView).contentOffset.x = position
+        }
+    }
+}
+
+
+//drawing reference
+//https://www.youtube.com/watch?v=3d1HNBpqvuM&t=1007s
+//replaykit
+//https://codershigh.dscloud.biz/techblogs/tb_002_replykit/tb002_script.html
 

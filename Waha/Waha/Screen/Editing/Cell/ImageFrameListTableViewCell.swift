@@ -14,12 +14,12 @@ protocol frameSelectDelegate {
 
 
 class ImageFrameListTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var collectionView: UICollectionView!
+    weak var scrollDelegate: collectionViewDidScrollDelegate?
+
     var imageArray : [UIImage] = []
     var delegate : frameSelectDelegate! = nil
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,14 +35,16 @@ class ImageFrameListTableViewCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-    
+        (collectionView as UIScrollView).delegate = self
+        
+        
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-
+    
 }
 extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -63,6 +65,9 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate.selectedIndex(index: indexPath.row)
     }
-    
-    
+}
+extension ImageFrameListTableViewCell : UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollDelegate?.didScrolled(to: scrollView.contentOffset.x)
+    }
 }
