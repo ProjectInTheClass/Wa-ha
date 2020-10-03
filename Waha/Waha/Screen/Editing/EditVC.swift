@@ -155,6 +155,9 @@ class EditVC: UIViewController {
             UIGraphicsEndImageContext()
             mergedImage.append(newImage)
         }
+        
+   
+      
     }
     
     
