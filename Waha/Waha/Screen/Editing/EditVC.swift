@@ -121,15 +121,17 @@ class EditVC: UIViewController {
         }
     }
     private func saveToCanvasArray(canvas : PKCanvasView){
-        print("\(selectedIndex) saved drawing")
         canvasArray[selectedIndex] = canvas.drawing
     }
     //for thumbnail
-    private func image(from canvas: PKCanvasView) -> UIImage {
-        let drawing = canvas.drawing
-        let visibleRect = canvas.bounds
-        let image = drawing.image(from: visibleRect, scale: UIScreen.main.scale)
-        return image
+    private func drawingToImage(from canvas: PKCanvasView, index : Int) {
+        DispatchQueue.main.async {
+            let drawing = canvas.drawing
+            let visibleRect = canvas.bounds
+            let image = drawing.image(from: visibleRect, scale: UIScreen.main.scale)
+            self.thumbnailArray[index] = image
+            self.tableView.reloadData()
+        }
     }
     
 }
@@ -142,6 +144,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
+            //for video frame thumbnail
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
                 cell.imageArray = imageArray
@@ -151,10 +154,10 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
         }else{
-            let layer : [UIImage] = Array(repeating: UIImage(named: "overlay")!, count: imageArray.count)
+            //for drawing layer thumbnail
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
-                cell.imageArray = layer
+                cell.imageArray = thumbnailArray
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
@@ -164,19 +167,21 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
 }
-extension EditVC : frameSelectDelegate {
-    func selectedIndex(index: Int) {
-        DispatchQueue.main.async {
-            self.tmpImageView.image = self.imageArray[index]
-            self.canvasView.drawing = self.canvasArray[index]
-        }
-        selectedIndex = index
-    }
-}
 extension EditVC : PKCanvasViewDelegate, PKToolPickerObserver {
+    //문제가 칠하지 않고 그냥 스크롤만 해도 호출되서 성능이 떨어짐
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+//        print("canvasViewDrawingDidChange called")
         saveToCanvasArray(canvas: canvasView)
+        //make thumbnail image at background
+        DispatchQueue.global(qos: .background).async {
+            //selectedIndex가 바뀔수 있어서 call된 시점의 selectedIndex를 넣어줌
+            self.drawingToImage(from: canvasView, index: self.selectedIndex)
+        }
 //        updateContentSizeForDrawing()
+    }
+    func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
+        print("canvasViewDidEndUsingTool called")
+
     }
 }
 extension EditVC : collectionViewDidScrollDelegate {
@@ -188,7 +193,16 @@ extension EditVC : collectionViewDidScrollDelegate {
         }
     }
     //select center
-    
+}
+extension EditVC : frameSelectDelegate {
+    func selectedIndex(index: Int) {
+        print("selectedIndexDelegate \(index)")
+        DispatchQueue.main.async {
+            self.tmpImageView.image = self.imageArray[index]
+            self.canvasView.drawing = self.canvasArray[index]
+        }
+        selectedIndex = index
+    }
 }
 
 

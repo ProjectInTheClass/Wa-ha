@@ -51,17 +51,14 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
         return CGSize(width: 100, height: collectionView.frame.height)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("collectionview count: \(imageArray.count)")
         return imageArray.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FrameCollectionViewCell", for: indexPath) as! FrameCollectionViewCell
         cell.backgroundColor = .red
         cell.imgview.image = imageArray[indexPath.row]
         return cell
     }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate.selectedIndex(index: indexPath.row)
     }
@@ -69,10 +66,8 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
 extension ImageFrameListTableViewCell : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollDelegate?.didScrolled(to: scrollView.contentOffset.x)
-        
         let point = convert(collectionview.center, to: collectionview)
         let index : Int = Int(round((point.x - collectionview.frame.width/2)/110))
-        print("계산된 index \(index)")
         if index >= 0 && index < imageArray.count {
             delegate.selectedIndex(index: index)
         }
