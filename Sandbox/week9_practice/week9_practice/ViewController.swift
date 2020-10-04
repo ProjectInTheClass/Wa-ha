@@ -30,6 +30,15 @@ class ViewController: UIViewController {
         tbView.dataSource = self
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? DetailViewController {
+            guard let cell = sender as? UITableViewCell else { return }
+            if let index = tbView.indexPath(for: cell){
+                vc.data = array[index.row]
+            }
+        }
+    }
+    
     
 }
 extension ViewController : UITableViewDelegate, UITableViewDataSource{
