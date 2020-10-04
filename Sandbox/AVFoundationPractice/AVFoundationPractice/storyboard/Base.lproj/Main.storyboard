@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jkl-xb-gZ7">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AVFoundationPractice" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="9B4-Xh-vAm">
+                                <rect key="frame" x="46.5" y="273" width="321" height="350"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bx0-Ip-fxJ">
+                                        <rect key="frame" x="86" y="0.0" width="149" height="30"/>
+                                        <state key="normal" title="Select and Play Video"/>
+                                        <connections>
+                                            <action selector="actionSelectAndPlay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DEF-68-4Gd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7b-5a-t9r">
+                                        <rect key="frame" x="81" y="80" width="159" height="30"/>
+                                        <state key="normal" title="Record and Save Video"/>
+                                        <connections>
+                                            <action selector="actionRecordAndSave:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QAD-Qh-6Qd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pa-yh-DTJ">
+                                        <rect key="frame" x="117" y="160" width="87" height="30"/>
+                                        <state key="normal" title="Merge Video"/>
+                                        <connections>
+                                            <action selector="actionMerge:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZyA-iv-TT4"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="rEZ-Rh-dmk">
+                                        <rect key="frame" x="0.0" y="240" width="321" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="do9-bn-QhO">
+                                                <rect key="frame" x="0.0" y="0.0" width="88" height="30"/>
+                                                <state key="normal" title="Load Video 1"/>
+                                                <connections>
+                                                    <action selector="actionLoadVid1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lxl-Bi-hZ7"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NmA-Pg-9Pu">
+                                                <rect key="frame" x="120" y="0.0" width="90" height="30"/>
+                                                <state key="normal" title="Load Video 2"/>
+                                                <connections>
+                                                    <action selector="actionLoadVid2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zUo-yy-gEh"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5J-fx-d0F">
+                                                <rect key="frame" x="242" y="0.0" width="79" height="30"/>
+                                                <state key="normal" title="Load Music"/>
+                                                <connections>
+                                                    <action selector="actionLoadMusic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Mv-ec-GSL"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BXo-EC-05p">
+                                        <rect key="frame" x="63.5" y="320" width="194" height="30"/>
+                                        <state key="normal" title="Make Custom BirthDay Card"/>
+                                        <connections>
+                                            <action selector="actionPresentBirthdayVC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4vQ-Tb-zs9"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="orW-Lv-HeD">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9B4-Xh-vAm" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0VJ-oP-cWU"/>
+                            <constraint firstItem="9B4-Xh-vAm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3jp-fM-9cN"/>
+                            <constraint firstItem="orW-Lv-HeD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gfH-tX-Ypq"/>
+                            <constraint firstItem="orW-Lv-HeD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="hT6-dE-mcf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ipI-ti-jbL"/>
+                    <connections>
+                        <outlet property="activityMonitor" destination="orW-Lv-HeD" id="8ad-tp-ZKo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042.0289855072465" y="138.61607142857142"/>
+        </scene>
+        <!--Make Birthday CardVC-->
+        <scene sceneID="l5y-rN-mRd">
+            <objects>
+                <viewController storyboardIdentifier="MakeBirthdayCardVC" id="MPo-Aj-cS4" customClass="MakeBirthdayCardVC" customModule="AVFoundationPractice" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2UU-Lg-RtX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="JVx-Df-flG">
+                                <rect key="frame" x="107" y="373" width="200" height="150"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="이름을 입력하세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WKO-9V-OX2">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="l02-Mx-lX3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7H-Dq-39Q">
+                                        <rect key="frame" x="52.5" y="62" width="95" height="30"/>
+                                        <state key="normal" title="비디오 녹화하기"/>
+                                        <connections>
+                                            <action selector="recordVideo:" destination="MPo-Aj-cS4" eventType="touchUpInside" id="0os-nc-Lq9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6D-dN-TAR">
+                                        <rect key="frame" x="24.5" y="120" width="151" height="30"/>
+                                        <state key="normal" title="앨범에서 비디오 가져오기"/>
+                                        <connections>
+                                            <action selector="pickVideo:" destination="MPo-Aj-cS4" eventType="touchUpInside" id="brs-c9-OVW"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="JVx-Df-flG" firstAttribute="centerY" secondItem="2UU-Lg-RtX" secondAttribute="centerY" id="2du-uj-HDa"/>
+                            <constraint firstItem="JVx-Df-flG" firstAttribute="centerX" secondItem="2UU-Lg-RtX" secondAttribute="centerX" id="7OM-wh-7Q8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Uew-BG-kqK"/>
+                    </view>
+                    <connections>
+                        <outlet property="nameTextField" destination="WKO-9V-OX2" id="fQc-yZ-Ita"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4lT-av-lKt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1681.1594202898552" y="141.96428571428569"/>
+        </scene>
+        <!--Video PlayerVC-->
+        <scene sceneID="fMT-u2-k4q">
+            <objects>
+                <viewController storyboardIdentifier="VideoPlayerVC" id="hq4-jd-lHY" customClass="VideoPlayerVC" customModule="AVFoundationPractice" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xr0-4T-K6f">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0RR-23-T10">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSP-F3-w12">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="754"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j9O-TF-jb6">
+                                        <rect key="frame" x="0.0" y="754" width="414" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="hOb-hu-XFq"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Save video"/>
+                                        <connections>
+                                            <action selector="saveVideo:" destination="hq4-jd-lHY" eventType="touchUpInside" id="7ka-fG-IHm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ebi-DZ-Tlx" firstAttribute="bottom" secondItem="0RR-23-T10" secondAttribute="bottom" id="9Kl-4j-SFk"/>
+                            <constraint firstAttribute="trailing" secondItem="0RR-23-T10" secondAttribute="trailing" id="EGB-In-dyY"/>
+                            <constraint firstItem="0RR-23-T10" firstAttribute="leading" secondItem="ebi-DZ-Tlx" secondAttribute="leading" id="o3W-Jp-dKK"/>
+                            <constraint firstItem="0RR-23-T10" firstAttribute="top" secondItem="ebi-DZ-Tlx" secondAttribute="top" id="vLW-D1-ff9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ebi-DZ-Tlx"/>
+                    </view>
+                    <connections>
+                        <outlet property="videoView" destination="xSP-F3-w12" id="BEp-RH-TMU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dey-3y-NWs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2375" y="142"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dKU-cI-peD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jkl-xb-gZ7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="42a-PX-cNF">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="JSd-w6-Lgy"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hZR-Bs-Xny" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
+        </scene>
+    </scenes>
+</document>
