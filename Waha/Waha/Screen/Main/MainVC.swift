@@ -72,17 +72,35 @@ class MainVC: UIViewController {
         let duration: Float64 = CMTimeGetSeconds(asset.duration)
         generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
-        for index in 0..<Int(duration) {
-            let time:CMTime = CMTimeMakeWithSeconds(Float64(index), preferredTimescale: 600)
+        
+        let tracks = asset.tracks(withMediaType: .video)
+        let fps = ceil((tracks.first?.nominalFrameRate)!)
+        let totalFrameNum = Int(Double(fps) * duration)
+        
+        print("duration: \(duration)")
+        print("total frame: \(totalFrameNum)")
+        print("fps: \(fps)")
+        
+        let timeScale = 100
+        let convertedFps = 1
+        let convertedTimeGap = Int32(timeScale/convertedFps)
+        
+        var index = 0
+        
+        while(Int32(index) * convertedTimeGap < Int32(duration * Double(timeScale))){
+            let time:CMTime = CMTimeMakeWithSeconds(Float64(index), preferredTimescale: convertedTimeGap)
+            print("time: \(time)")
             let image:CGImage
             do {
                 try image = generator.copyCGImage(at: time, actualTime: nil)
             }catch {
+                print("pass")
                 return
             }
             imageArray.append(UIImage(cgImage: image))
+            index = index + 1
         }
-    
+        print("image num: \(imageArray.count)")
         //동성님 방법인데 fps 에 관련해서 잘 모르겠어서 일단 위 코드 작성
 //        let loadedVideo = Video2Image(video_url: url)
 //        print("fps : \(loadedVideo.fps)")
