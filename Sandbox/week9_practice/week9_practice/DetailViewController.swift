@@ -12,7 +12,6 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var dataLabel: UILabel!
-    
     var data: CellModel?
     override func viewDidLoad() {
         super.viewDidLoad()

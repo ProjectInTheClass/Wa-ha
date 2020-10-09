@@ -103,14 +103,6 @@
                                     <constraint firstAttribute="height" constant="134.5" id="hIo-E4-3Eo"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8T-TT-dxW">
-                                <rect key="frame" x="166" y="541" width="82" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="show modal"/>
-                                <connections>
-                                    <segue destination="Ifi-fw-OMe" kind="presentation" id="ie0-wN-O3i"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BM5-iW-cAZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -130,35 +122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryX-2B-cff" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1980" y="94"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="40c-MB-cDB">
-            <objects>
-                <viewController id="Ifi-fw-OMe" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="eyr-Bc-RxL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wlh-tO-DOO">
-                                <rect key="frame" x="166" y="481" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="close modal"/>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3J2-HO-MID">
-                                <rect key="frame" x="58" y="344" width="306" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="enN-75-kFm"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p28-cB-h8i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2760.8695652173915" y="93.75"/>
+            <point key="canvasLocation" x="1978.2608695652175" y="105.80357142857143"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zPu-0Q-1uG">
