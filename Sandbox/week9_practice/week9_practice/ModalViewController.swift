@@ -1,26 +1,24 @@
 //
-//  DetailViewController.swift
+//  ModalViewController.swift
 //  week9_practice
 //
-//  Created by 이현호 on 2020/10/04.
+//  Created by 서동성 on 2020/10/04.
 //
 
 import UIKit
 
-class DetailViewController: UIViewController {
-
+class ModalViewController: UIViewController {
     
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var dataLabel: UILabel!
+    @IBAction func closeModal(seque: UIStoryboardSegue){
+        
+    }
     
-    var data: CellModel?
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        profileImageView.image = data?.image
-        dataLabel.text = data?.name
         // Do any additional setup after loading the view.
     }
+    
 
     /*
     // MARK: - Navigation
