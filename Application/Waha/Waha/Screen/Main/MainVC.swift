@@ -61,6 +61,7 @@ class MainVC: UIViewController {
         delegate.present(mediaUI, animated: true, completion: nil)
     }
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
+        let convertedFps = 5
         
         showActivityIndicator()
         
@@ -72,6 +73,8 @@ class MainVC: UIViewController {
         let duration: Float64 = CMTimeGetSeconds(asset.duration)
         generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
+        generator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: Int32(convertedFps))
+        generator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: Int32(convertedFps))
         
         let tracks = asset.tracks(withMediaType: .video)
         let fps = ceil((tracks.first?.nominalFrameRate)!)
@@ -81,14 +84,10 @@ class MainVC: UIViewController {
         print("total frame: \(totalFrameNum)")
         print("fps: \(fps)")
         
-        let timeScale = 100
-        let convertedFps = 1
-        let convertedTimeGap = Int32(timeScale/convertedFps)
-        
         var index = 0
         
-        while(Int32(index) * convertedTimeGap < Int32(duration * Double(timeScale))){
-            let time:CMTime = CMTimeMakeWithSeconds(Float64(index), preferredTimescale: convertedTimeGap)
+        while(Int32(index) < Int32(duration * Double(convertedFps))){
+            let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(convertedFps))
             print("time: \(time)")
             let image:CGImage
             do {
