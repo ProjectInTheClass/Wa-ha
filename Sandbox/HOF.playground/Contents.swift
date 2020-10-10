@@ -21,29 +21,15 @@ for item in tupleArr {
 print(ans2)
 
 
-// 3 :
+// 3 : 합구하기
+let array11 = [1, 2, 2, 1]
+var sum = 0
+for item in array11 {
+    sum += item
+}
+print(sum)
 
 // 4 :
-
-// 5 : 배열에서 모음의 갯수를 Int 로 리턴
-var characters = ["A","B","D","I","U","P","Q","E"]
-var count = 0
-for char in characters {
-    if char == "A" {
-        count += 1
-    }else if char == "E" {
-        count += 1
-    }else if char == "I" {
-        count += 1
-    }else if char == "O" {
-        count += 1
-    }else if char == "U" {
-        count += 1
-    }
-}
-print(count)
-
-
 let array1 = [1, 2, 2, 1]
 let array2 = [1, 2, 3, 4, 3, 2, 1]
 let array3 = [1, 3, 4, 4, 1]
@@ -64,6 +50,27 @@ func isPalindromeArray(arr: [Int])->Bool{
 }
 
 print(isPalindromeArray(arr: array4))
+
+// 5 : 배열에서 모음의 갯수를 Int 로 리턴
+var characters = ["A","B","D","I","U","P","Q","E"]
+var count = 0
+for char in characters {
+    if char == "A" {
+        count += 1
+    }else if char == "E" {
+        count += 1
+    }else if char == "I" {
+        count += 1
+    }else if char == "O" {
+        count += 1
+    }else if char == "U" {
+        count += 1
+    }
+}
+print(count)
+
+
+
 
 
 
