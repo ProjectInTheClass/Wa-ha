@@ -13,9 +13,6 @@ for i in input {
 print(ans)
 
 
-
-
-
 //2 : 배열엣서 튜플의 두번째 데이터 타입을 Int에서 String으로 바꾸시오 . (단 한줄로)
 let tupleArr : [(String,Int)] = [ ("A",0), ("B",1), ("C", 2), ("D", 3) ]
 var ans2 : [(String,String)] = []
@@ -67,6 +64,7 @@ func isPalindromeArray(arr: [Int])->Bool{
     return isPalindrome
 }
 
+
 print(isPalindromeArray(arr: array4))
 
 // 5 : 배열에서 모음의 갯수를 Int 로 리턴
@@ -93,3 +91,31 @@ print(count)
 
 
 
+//1 : 답
+let ouput = input.flatMap{$0}.compactMap{ $0 }.reduce(0){$0 + $1}
+print(ouput)
+
+//2 : 답
+let strArr : [(String,String)] = tupleArr.map{ ($0.0,"\($0.1)") }
+print(strArr)
+
+//4번 출제오류
+
+//5 : 답
+count = 0
+characters.map{
+    if $0 == "A" { count += 1 }
+    else if $0 == "E" {
+    count += 1
+        
+    }else if $0 == "I" {
+    count += 1
+        
+    }else if $0 == "O" {
+    count += 1
+
+    }else if $0 == "U" {
+    count += 1
+    }
+}
+print(count)
