@@ -12,6 +12,10 @@ for i in input {
 }
 print(ans)
 
+
+
+
+
 //2 : 배열엣서 튜플의 두번째 데이터 타입을 Int에서 String으로 바꾸시오 . (단 한줄로)
 let tupleArr : [(String,Int)] = [ ("A",0), ("B",1), ("C", 2), ("D", 3) ]
 var ans2 : [(String,String)] = []
@@ -28,6 +32,20 @@ for item in array11 {
     sum += item
 }
 print(sum)
+
+
+// 합구하기 답
+func sumAll(result: Int, arg: Int) -> Int{
+    return result + arg
+}
+
+let ret = array11.reduce(0, sumAll)
+
+let ret2 = array11.reduce(0) {
+   (result, array11) -> Int in return result + array11
+}
+
+
 
 // 4 :
 let array1 = [1, 2, 2, 1]
