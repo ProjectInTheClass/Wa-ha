@@ -22,8 +22,23 @@ print(ans2)
 
 
 // 3 :
+
 // 4 :
-// 5 :
 
-
-
+// 5 : 배열에서 모음의 갯수를 Int 로 리턴
+var characters = ["A","B","D","I","U","P","Q","E"]
+var count = 0
+for char in characters {
+    if char == "A" {
+        count += 1
+    }else if char == "E" {
+        count += 1
+    }else if char == "I" {
+        count += 1
+    }else if char == "O" {
+        count += 1
+    }else if char == "U" {
+        count += 1
+    }
+}
+print(count)
