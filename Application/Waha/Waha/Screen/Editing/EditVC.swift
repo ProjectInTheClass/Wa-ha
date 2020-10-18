@@ -14,6 +14,7 @@ import MediaPlayer
 import PencilKit
 import PhotosUI
 
+
 protocol collectionViewDidScrollDelegate : EditVC{
     func didScrolled(to position: CGFloat)
 }
@@ -24,7 +25,7 @@ class EditVC: UIViewController {
     //pencilKt
     @IBOutlet weak var canvasView: PKCanvasView!
     let canvasWidth: CGFloat = 768
-    let canvasOverscrollHight: CGFloat = 500
+    let canvasOverscrollHeight: CGFloat = 500
     
     
     //View
@@ -57,8 +58,6 @@ class EditVC: UIViewController {
                 tmpImageView.image = img
             }
         }
-        
-//        tmpImageView.image = imageArray[0]
         setupTableView()
     }
     private func setupTableView(){
@@ -66,6 +65,7 @@ class EditVC: UIViewController {
         tableView.dataSource = self
     }
     private func setupCanvasView(){
+        // TODO: canvas도 thumnail과 original image 분리
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
         canvasView.isScrollEnabled = false
@@ -86,7 +86,7 @@ class EditVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func actionExport(_ sender: Any) {
-        saveDrawingToCameraRoll()
+//        saveDrawingToCameraRoll()
     }
     
     //hide home indicator for better performance
@@ -106,7 +106,7 @@ class EditVC: UIViewController {
         let drawing = canvasView.drawing
         let contentHeight: CGFloat
         if drawing.bounds.isNull {
-            contentHeight = max(canvasView.bounds.height, (drawing.bounds.maxY + self.canvasOverscrollHight) * canvasView.zoomScale)
+            contentHeight = max(canvasView.bounds.height, (drawing.bounds.maxY + self.canvasOverscrollHeight) * canvasView.zoomScale)
         }else {
             contentHeight = canvasView.bounds.height
         }
@@ -186,8 +186,6 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 cell.scrollDelegate = self
                 return cell
             }
-            print(tableView.rowHeight)
-            print(tableView.widthAnchor)
         }else{
             //for drawing layer thumbnail
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
