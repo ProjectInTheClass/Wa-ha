@@ -61,7 +61,7 @@ class MainVC: UIViewController {
         delegate.present(mediaUI, animated: true, completion: nil)
     }
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
-        let convertedFps = 5
+        let convertedFps = 15
         
         showActivityIndicator()
         
@@ -86,6 +86,7 @@ class MainVC: UIViewController {
         
         var index = 0
         
+        // TODO: match read speed & write speed
         while(Int32(index) < Int32(duration * Double(convertedFps))){
             let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(convertedFps))
             print("time: \(time)")
@@ -96,19 +97,20 @@ class MainVC: UIViewController {
                 print("pass")
                 return
             }
-            imageArray.append(UIImage(cgImage: image))
+            let pngImage = UIImage(cgImage: image).pngData()
+            UserDefaults.standard.set(pngImage, forKey: "\("project")_\(index)")
+            UserDefaults.standard.synchronize()
+            
+            let thumbnailSize = CGSize(width: 160.0, height: 90.0)
+            let rect = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
+            UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
+            let tmpImg = UIImage(cgImage: image)
+            tmpImg.draw(in: rect)
+            let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            imageArray.append(thumbnailImage!)
             index = index + 1
         }
-        print("image num: \(imageArray.count)")
-        //동성님 방법인데 fps 에 관련해서 잘 모르겠어서 일단 위 코드 작성
-//        let loadedVideo = Video2Image(video_url: url)
-//        print("fps : \(loadedVideo.fps)")
-//        print("total frame : \(loadedVideo.total_frame_num)")
-//        print("running time: \(loadedVideo.running_time)")
-//
-//        for frame in 0..<loadedVideo.total_frame_num {
-//            self.imageArray.append(loadedVideo.getSingleFrame(frame: frame)!)
-//        }
         print("image frame count : \(self.imageArray.count)")
         hideActivityIndicator()
         goProjectVC()

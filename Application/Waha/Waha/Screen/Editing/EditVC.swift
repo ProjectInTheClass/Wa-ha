@@ -52,7 +52,13 @@ class EditVC: UIViewController {
             canvasArray.append(PKDrawing())
             thumbnailArray.append(UIImage())
         }
-        tmpImageView.image = imageArray[0]
+        if let imgData = UserDefaults.standard.object(forKey: "\("project")_\(0)")as? NSData{
+            if let img = UIImage(data: imgData as Data){
+                tmpImageView.image = img
+            }
+        }
+        
+//        tmpImageView.image = imageArray[0]
         setupTableView()
     }
     private func setupTableView(){
@@ -180,6 +186,8 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 cell.scrollDelegate = self
                 return cell
             }
+            print(tableView.rowHeight)
+            print(tableView.widthAnchor)
         }else{
             //for drawing layer thumbnail
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
@@ -225,7 +233,12 @@ extension EditVC : frameSelectDelegate {
     func selectedIndex(index: Int) {
         print("selectedIndexDelegate \(index)")
         DispatchQueue.main.async {
-            self.tmpImageView.image = self.imageArray[index]
+            if let imgData = UserDefaults.standard.object(forKey: "\("project")_\(index)")as? NSData{
+                if let img = UIImage(data: imgData as Data){
+                    self.tmpImageView.image = img
+                }
+            }
+//            self.tmpImageView.image = self.imageArray[index]
             self.canvasView.drawing = self.canvasArray[index]
         }
         selectedIndex = index
