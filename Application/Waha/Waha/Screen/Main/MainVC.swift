@@ -18,10 +18,12 @@ class MainVC: UIViewController {
     
     var projectArray : [String] = ["프로젝트 추가","예시1","예시2"]
     var imageArray : [UIImage] = []
+    var selectedProjName : String = "project"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        print(NSHomeDirectory())
     }
     
     private func setupCollectionView() {
@@ -42,6 +44,7 @@ class MainVC: UIViewController {
         let storyboard = UIStoryboard(name: "Edit", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "EditVC") as? EditVC
         vc?.imageArray = imageArray
+        vc?.projName = selectedProjName
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     
@@ -89,23 +92,27 @@ class MainVC: UIViewController {
         // TODO: match read speed & write speed
         while(Int32(index) < Int32(duration * Double(convertedFps))){
             let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(convertedFps))
-            print("time: \(time)")
-            let image:CGImage
+//            print("time: \(time)")
+            var image: CGImage?
             do {
                 try image = generator.copyCGImage(at: time, actualTime: nil)
             }catch {
                 print("pass")
                 return
             }
-            let pngImage = UIImage(cgImage: image).pngData()
-            UserDefaults.standard.set(pngImage, forKey: "\("project")_\(index)")
-            UserDefaults.standard.synchronize()
+            let pngImage: UIImage = UIImage(cgImage: image!)
+            let imageName: String = "\(selectedProjName)_original_\(index).png"
+            ImageFileManager.shared.saveImage(image: pngImage, name: imageName){
+                [weak self] onSuccess in
+//                print("saveImage onSuccess: \(onSuccess), \(imageName)")
+            }
             
             let thumbnailSize = CGSize(width: 160.0, height: 90.0)
             let rect = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
             UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
-            let tmpImg = UIImage(cgImage: image)
+            let tmpImg = UIImage(cgImage: image!)
             tmpImg.draw(in: rect)
+            image = nil
             let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             imageArray.append(thumbnailImage!)
@@ -167,6 +174,7 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
         if indexPath == [0,0] {
             //select video and convert to image
             startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum)
+            
         }else{
             if let cell = collectionView.cellForItem(at: indexPath) as? ProjectCollectionCell {
                 goProjectVC()

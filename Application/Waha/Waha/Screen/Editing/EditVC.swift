@@ -38,7 +38,7 @@ class EditVC: UIViewController {
     var canvasArray: [PKDrawing] = []
     var thumbnailArray : [UIImage] = []
     var selectedIndex : Int = 0
-    
+    var projName : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,11 +53,8 @@ class EditVC: UIViewController {
             canvasArray.append(PKDrawing())
             thumbnailArray.append(UIImage())
         }
-        if let imgData = UserDefaults.standard.object(forKey: "\("project")_\(0)")as? NSData{
-            if let img = UIImage(data: imgData as Data){
-                tmpImageView.image = img
-            }
-        }
+        let fileName = "\(self.projName)_original_\(0)"
+        self.tmpImageView.image = ImageFileManager.shared.getSavedImage(named: fileName)
         setupTableView()
     }
     private func setupTableView(){
@@ -231,11 +228,8 @@ extension EditVC : frameSelectDelegate {
     func selectedIndex(index: Int) {
         print("selectedIndexDelegate \(index)")
         DispatchQueue.main.async {
-            if let imgData = UserDefaults.standard.object(forKey: "\("project")_\(index)")as? NSData{
-                if let img = UIImage(data: imgData as Data){
-                    self.tmpImageView.image = img
-                }
-            }
+            let fileName = "\(self.projName)_original_\(index)"
+            self.tmpImageView.image = ImageFileManager.shared.getSavedImage(named: fileName)
 //            self.tmpImageView.image = self.imageArray[index]
             self.canvasView.drawing = self.canvasArray[index]
         }
