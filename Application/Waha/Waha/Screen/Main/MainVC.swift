@@ -23,9 +23,10 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        
         print(NSHomeDirectory())
     }
-    
+        
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -56,6 +57,7 @@ class MainVC: UIViewController {
         guard UIImagePickerController.isSourceTypeAvailable(sourceType)
         else { return }
         
+        
         let mediaUI = UIImagePickerController()
         mediaUI.sourceType = sourceType
         mediaUI.mediaTypes = [kUTTypeMovie as String]
@@ -63,8 +65,10 @@ class MainVC: UIViewController {
         mediaUI.delegate = delegate
         delegate.present(mediaUI, animated: true, completion: nil)
     }
+    
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
         let convertedFps = 15
+        
         
         showActivityIndicator()
         
@@ -145,7 +149,28 @@ extension MainVC : UIImagePickerControllerDelegate {
                 //3
                 print("media type : \(mediaType)")
                 print("url: \(url)")
-                video2ImageGenerator(video_url: url, mediaType: mediaType)
+                
+                // alert view for initialize project name
+                let alert = UIAlertController(title: "Write Project Name", message: "", preferredStyle: .alert)
+                
+                alert.addTextField{(myTextField) in
+                    myTextField.placeholder = "e.g. Wa-ha_project"
+                }
+                
+                let ok = UIAlertAction(title:"OK", style: .default){(ok) in
+                    if ((alert.textFields?[0].text)! != ""){
+                        self.selectedProjName = (alert.textFields?[0].text)!
+                    }else{
+                        self.selectedProjName = "Wa-ha_project_\(self.projectArray.count)"
+                    }
+                    print((alert.textFields?[0].text)!)
+                    print(self.selectedProjName)
+                    video2ImageGenerator(video_url: url, mediaType: mediaType)
+                }
+                
+                alert.addAction(ok)
+                
+                self.present(alert, animated: true, completion: nil)
             }
             
         default:
@@ -174,7 +199,6 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
         if indexPath == [0,0] {
             //select video and convert to image
             startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum)
-            
         }else{
             if let cell = collectionView.cellForItem(at: indexPath) as? ProjectCollectionCell {
                 goProjectVC()
@@ -197,3 +221,4 @@ extension MainVC : UICollectionViewDelegateFlowLayout {
         }
     }
 }
+

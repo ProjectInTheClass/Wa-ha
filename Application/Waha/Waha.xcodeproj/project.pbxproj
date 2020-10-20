@@ -140,10 +140,10 @@
 		8346BBD8250CCDA700BD861D /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				EB442D61253F14B300ECE67F /* ImageFileManager.swift */,
 				8346BB94250B946700BD861D /* Main.storyboard */,
 				8346BB92250B946700BD861D /* MainVC.swift */,
 				8346BBD4250CCD0A00BD861D /* Cell */,
-				EB442D61253F14B300ECE67F /* ImageFileManager.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
