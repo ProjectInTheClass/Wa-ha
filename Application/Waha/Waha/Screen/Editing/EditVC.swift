@@ -84,6 +84,7 @@ class EditVC: UIViewController {
     }
     @IBAction func actionExport(_ sender: Any) {
 //        saveDrawingToCameraRoll()
+        selectSaveMode()
     }
     
     //hide home indicator for better performance
@@ -108,6 +109,69 @@ class EditVC: UIViewController {
             contentHeight = canvasView.bounds.height
         }
         canvasView.contentSize = CGSize(width: canvasWidth * canvasView.zoomScale, height: contentHeight)
+    }
+    private func selectSaveMode(){
+        // alert view for select save mode
+        let alert = UIAlertController(title: "Save Video With", message: "", preferredStyle: .actionSheet)
+                
+        let cancel = UIAlertAction(title: "cancel", style: .destructive, handler: nil)
+        
+        let drawingOnly = UIAlertAction(title: "Drawing Only", style: .default){(drawingOnly) in
+            self.writeSaveFileName(useOriginalImage: false)
+        }
+        
+        let drawingOnImage = UIAlertAction(title: "Drawing + Original", style: .default){(drawingOnImage) in
+            self.writeSaveFileName(useOriginalImage: true)
+        }
+        
+        alert.addAction(drawingOnly)
+        alert.addAction(drawingOnImage)
+        alert.addAction(cancel)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad { // if device is iPad
+            if let popoverController = alert.popoverPresentationController {
+                // set present position of action sheet
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+                self.present(alert, animated: true, completion: nil)
+            }
+        }else{
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    }
+    private func writeSaveFileName(useOriginalImage: Bool){
+        // alert view for
+        let alert = UIAlertController(title: "Save Video With", message: "", preferredStyle: .alert)
+        
+        alert.addTextField{(myTextField) in
+            myTextField.placeholder = "e.g. Wa-ha_project"
+        }
+        
+        var fileName : String?
+        
+        let ok = UIAlertAction(title:"OK", style: .default){(ok) in
+            if ((alert.textFields?[0].text)! != ""){
+                fileName = (alert.textFields?[0].text)!
+            }else{
+                fileName = "Wa-ha_project"
+            }
+            print((alert.textFields?[0].text)!)
+            print(fileName!)
+            self.convertImages2Video(useOriginalImage: useOriginalImage, fileName: fileName!)
+        }
+        
+        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    private func convertImages2Video(useOriginalImage: Bool, fileName: String){
+        print("start save video")
+        // TODO
     }
     private func saveDrawingToCameraRoll(){
         UIGraphicsBeginImageContextWithOptions(canvasView.bounds.size, false, UIScreen.main.scale)

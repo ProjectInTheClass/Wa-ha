@@ -168,7 +168,10 @@ extension MainVC : UIImagePickerControllerDelegate {
                     video2ImageGenerator(video_url: url, mediaType: mediaType)
                 }
                 
+                let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+
                 alert.addAction(ok)
+                alert.addAction(cancel)
                 
                 self.present(alert, animated: true, completion: nil)
             }
