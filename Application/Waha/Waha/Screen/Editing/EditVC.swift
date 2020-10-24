@@ -32,7 +32,8 @@ class EditVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var tmpImageView: UIImageView!
-    
+    @IBOutlet weak var toolBar: UIView!
+
     var isNewVideo : Bool?
     var imageArray : [UIImage] = []
     var canvasArray: [PKDrawing] = []
@@ -60,6 +61,13 @@ class EditVC: UIViewController {
     private func setupTableView(){
         tableView.delegate = self
         tableView.dataSource = self
+        
+        let cornerRadidus : CGFloat = 20
+        let opacity : Float = 1.0
+        toolBar.layer.cornerRadius = cornerRadidus
+        tableView.layer.cornerRadius = cornerRadidus
+        toolBar.layer.opacity = opacity
+        tableView.layer.opacity = opacity
     }
     private func setupCanvasView(){
         // TODO: canvas도 thumnail과 original image 분리
