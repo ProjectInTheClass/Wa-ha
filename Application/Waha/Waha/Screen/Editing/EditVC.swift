@@ -14,6 +14,7 @@ import MediaPlayer
 import PencilKit
 import PhotosUI
 
+
 protocol collectionViewDidScrollDelegate : EditVC{
     func didScrolled(to position: CGFloat)
 }
@@ -24,7 +25,7 @@ class EditVC: UIViewController {
     //pencilKt
     @IBOutlet weak var canvasView: PKCanvasView!
     let canvasWidth: CGFloat = 768
-    let canvasOverscrollHight: CGFloat = 500
+    let canvasOverscrollHeight: CGFloat = 500
     
     
     //View
@@ -37,7 +38,7 @@ class EditVC: UIViewController {
     var canvasArray: [PKDrawing] = []
     var thumbnailArray : [UIImage] = []
     var selectedIndex : Int = 0
-    
+    var projName : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +53,8 @@ class EditVC: UIViewController {
             canvasArray.append(PKDrawing())
             thumbnailArray.append(UIImage())
         }
-        tmpImageView.image = imageArray[0]
+        let fileName = "\(self.projName)_original_\(0)"
+        self.tmpImageView.image = ImageFileManager.shared.getSavedImage(named: fileName)
         setupTableView()
     }
     private func setupTableView(){
@@ -60,6 +62,7 @@ class EditVC: UIViewController {
         tableView.dataSource = self
     }
     private func setupCanvasView(){
+        // TODO: canvas도 thumnail과 original image 분리
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
         canvasView.isScrollEnabled = false
@@ -80,7 +83,8 @@ class EditVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func actionExport(_ sender: Any) {
-        saveDrawingToCameraRoll()
+//        saveDrawingToCameraRoll()
+        selectSaveMode()
     }
     
     //hide home indicator for better performance
@@ -100,11 +104,74 @@ class EditVC: UIViewController {
         let drawing = canvasView.drawing
         let contentHeight: CGFloat
         if drawing.bounds.isNull {
-            contentHeight = max(canvasView.bounds.height, (drawing.bounds.maxY + self.canvasOverscrollHight) * canvasView.zoomScale)
+            contentHeight = max(canvasView.bounds.height, (drawing.bounds.maxY + self.canvasOverscrollHeight) * canvasView.zoomScale)
         }else {
             contentHeight = canvasView.bounds.height
         }
         canvasView.contentSize = CGSize(width: canvasWidth * canvasView.zoomScale, height: contentHeight)
+    }
+    private func selectSaveMode(){
+        // alert view for select save mode
+        let alert = UIAlertController(title: "Save Video With", message: "", preferredStyle: .actionSheet)
+                
+        let cancel = UIAlertAction(title: "cancel", style: .destructive, handler: nil)
+        
+        let drawingOnly = UIAlertAction(title: "Drawing Only", style: .default){(drawingOnly) in
+            self.writeSaveFileName(useOriginalImage: false)
+        }
+        
+        let drawingOnImage = UIAlertAction(title: "Drawing + Original", style: .default){(drawingOnImage) in
+            self.writeSaveFileName(useOriginalImage: true)
+        }
+        
+        alert.addAction(drawingOnly)
+        alert.addAction(drawingOnImage)
+        alert.addAction(cancel)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad { // if device is iPad
+            if let popoverController = alert.popoverPresentationController {
+                // set present position of action sheet
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+                self.present(alert, animated: true, completion: nil)
+            }
+        }else{
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    }
+    private func writeSaveFileName(useOriginalImage: Bool){
+        // alert view for
+        let alert = UIAlertController(title: "Save Video With", message: "", preferredStyle: .alert)
+        
+        alert.addTextField{(myTextField) in
+            myTextField.placeholder = "e.g. Wa-ha_project"
+        }
+        
+        var fileName : String?
+        
+        let ok = UIAlertAction(title:"OK", style: .default){(ok) in
+            if ((alert.textFields?[0].text)! != ""){
+                fileName = (alert.textFields?[0].text)!
+            }else{
+                fileName = "Wa-ha_project"
+            }
+            print((alert.textFields?[0].text)!)
+            print(fileName!)
+            self.convertImages2Video(useOriginalImage: useOriginalImage, fileName: fileName!)
+        }
+        
+        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    private func convertImages2Video(useOriginalImage: Bool, fileName: String){
+        print("start save video")
+        // TODO
     }
     private func saveDrawingToCameraRoll(){
         UIGraphicsBeginImageContextWithOptions(canvasView.bounds.size, false, UIScreen.main.scale)
@@ -225,7 +292,9 @@ extension EditVC : frameSelectDelegate {
     func selectedIndex(index: Int) {
         print("selectedIndexDelegate \(index)")
         DispatchQueue.main.async {
-            self.tmpImageView.image = self.imageArray[index]
+            let fileName = "\(self.projName)_original_\(index)"
+            self.tmpImageView.image = ImageFileManager.shared.getSavedImage(named: fileName)
+//            self.tmpImageView.image = self.imageArray[index]
             self.canvasView.drawing = self.canvasArray[index]
         }
         selectedIndex = index

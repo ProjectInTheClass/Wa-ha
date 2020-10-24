@@ -22,8 +22,8 @@
 		8389548D251F72770057F85C /* FrameCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8389548B251F72770057F85C /* FrameCollectionViewCell.xib */; };
 		83A764F5251ECDDD00495FFC /* Video2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A764F4251ECDDD00495FFC /* Video2Image.swift */; };
 		83A764F9251F63A100495FFC /* ImageFrameListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A764F8251F63A100495FFC /* ImageFrameListTableViewCell.swift */; };
-		83E3EDA22517101500E0FD87 /* movie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 83E3EDA12517101400E0FD87 /* movie.mov */; };
 		AB2BFBB12D15C2760F3C0414 /* Pods_Waha.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1C0A23D32A892DF6C97E98 /* Pods_Waha.framework */; };
+		EB442D62253F14B300ECE67F /* ImageFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB442D61253F14B300ECE67F /* ImageFileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +46,7 @@
 		8389548B251F72770057F85C /* FrameCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FrameCollectionViewCell.xib; sourceTree = "<group>"; };
 		83A764F4251ECDDD00495FFC /* Video2Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video2Image.swift; sourceTree = "<group>"; };
 		83A764F8251F63A100495FFC /* ImageFrameListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFrameListTableViewCell.swift; sourceTree = "<group>"; };
-		83E3EDA12517101400E0FD87 /* movie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = movie.mov; sourceTree = "<group>"; };
+		EB442D61253F14B300ECE67F /* ImageFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileManager.swift; sourceTree = "<group>"; };
 		ED477A788BD046A20CF48E7E /* Pods-Waha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waha.debug.xcconfig"; path = "Target Support Files/Pods-Waha/Pods-Waha.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,7 +121,6 @@
 		8346BBD6250CCD2600BD861D /* Asset */ = {
 			isa = PBXGroup;
 			children = (
-				83E3EDA12517101400E0FD87 /* movie.mov */,
 				8346BB97250B946A00BD861D /* Assets.xcassets */,
 				8346BB99250B946A00BD861D /* LaunchScreen.storyboard */,
 				8346BBD9250CD59F00BD861D /* Utils.swift */,
@@ -141,6 +140,7 @@
 		8346BBD8250CCDA700BD861D /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				EB442D61253F14B300ECE67F /* ImageFileManager.swift */,
 				8346BB94250B946700BD861D /* Main.storyboard */,
 				8346BB92250B946700BD861D /* MainVC.swift */,
 				8346BBD4250CCD0A00BD861D /* Cell */,
@@ -242,7 +242,6 @@
 				8346BB98250B946A00BD861D /* Assets.xcassets in Resources */,
 				8346BBE1250CD7B100BD861D /* Edit.storyboard in Resources */,
 				8346BB96250B946700BD861D /* Main.storyboard in Resources */,
-				83E3EDA22517101500E0FD87 /* movie.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +282,7 @@
 				8346BBD2250CCD0400BD861D /* ProjectCollectionCell.swift in Sources */,
 				83A764F9251F63A100495FFC /* ImageFrameListTableViewCell.swift in Sources */,
 				8346BB8F250B946700BD861D /* AppDelegate.swift in Sources */,
+				EB442D62253F14B300ECE67F /* ImageFileManager.swift in Sources */,
 				8389548C251F72770057F85C /* FrameCollectionViewCell.swift in Sources */,
 				8346BB91250B946700BD861D /* SceneDelegate.swift in Sources */,
 				83A764F5251ECDDD00495FFC /* Video2Image.swift in Sources */,

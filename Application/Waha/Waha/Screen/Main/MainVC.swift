@@ -18,12 +18,15 @@ class MainVC: UIViewController {
     
     var projectArray : [String] = ["프로젝트 추가","예시1","예시2"]
     var imageArray : [UIImage] = []
+    var selectedProjName : String = "project"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        
+        print(NSHomeDirectory())
     }
-    
+        
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -42,6 +45,7 @@ class MainVC: UIViewController {
         let storyboard = UIStoryboard(name: "Edit", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "EditVC") as? EditVC
         vc?.imageArray = imageArray
+        vc?.projName = selectedProjName
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     
@@ -53,6 +57,7 @@ class MainVC: UIViewController {
         guard UIImagePickerController.isSourceTypeAvailable(sourceType)
         else { return }
         
+        
         let mediaUI = UIImagePickerController()
         mediaUI.sourceType = sourceType
         mediaUI.mediaTypes = [kUTTypeMovie as String]
@@ -60,7 +65,10 @@ class MainVC: UIViewController {
         mediaUI.delegate = delegate
         delegate.present(mediaUI, animated: true, completion: nil)
     }
+    
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
+        let convertedFps = 15
+        
         
         showActivityIndicator()
         
@@ -72,26 +80,48 @@ class MainVC: UIViewController {
         let duration: Float64 = CMTimeGetSeconds(asset.duration)
         generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
-        for index in 0..<Int(duration) {
-            let time:CMTime = CMTimeMakeWithSeconds(Float64(index), preferredTimescale: 600)
-            let image:CGImage
+        generator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: Int32(convertedFps))
+        generator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: Int32(convertedFps))
+        
+        let tracks = asset.tracks(withMediaType: .video)
+        let fps = ceil((tracks.first?.nominalFrameRate)!)
+        let totalFrameNum = Int(Double(fps) * duration)
+        
+        print("duration: \(duration)")
+        print("total frame: \(totalFrameNum)")
+        print("fps: \(fps)")
+        
+        var index = 0
+        
+        // TODO: match read speed & write speed
+        while(Int32(index) < Int32(duration * Double(convertedFps))){
+            let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(convertedFps))
+//            print("time: \(time)")
+            var image: CGImage?
             do {
                 try image = generator.copyCGImage(at: time, actualTime: nil)
             }catch {
+                print("pass")
                 return
             }
-            imageArray.append(UIImage(cgImage: image))
+            let pngImage: UIImage = UIImage(cgImage: image!)
+            let imageName: String = "\(selectedProjName)_original_\(index).png"
+            ImageFileManager.shared.saveImage(image: pngImage, name: imageName){
+                [weak self] onSuccess in
+//                print("saveImage onSuccess: \(onSuccess), \(imageName)")
+            }
+            
+            let thumbnailSize = CGSize(width: 160.0, height: 90.0)
+            let rect = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
+            UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
+            let tmpImg = UIImage(cgImage: image!)
+            tmpImg.draw(in: rect)
+            image = nil
+            let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            imageArray.append(thumbnailImage!)
+            index = index + 1
         }
-    
-        //동성님 방법인데 fps 에 관련해서 잘 모르겠어서 일단 위 코드 작성
-//        let loadedVideo = Video2Image(video_url: url)
-//        print("fps : \(loadedVideo.fps)")
-//        print("total frame : \(loadedVideo.total_frame_num)")
-//        print("running time: \(loadedVideo.running_time)")
-//
-//        for frame in 0..<loadedVideo.total_frame_num {
-//            self.imageArray.append(loadedVideo.getSingleFrame(frame: frame)!)
-//        }
         print("image frame count : \(self.imageArray.count)")
         hideActivityIndicator()
         goProjectVC()
@@ -119,7 +149,31 @@ extension MainVC : UIImagePickerControllerDelegate {
                 //3
                 print("media type : \(mediaType)")
                 print("url: \(url)")
-                video2ImageGenerator(video_url: url, mediaType: mediaType)
+                
+                // alert view for initialize project name
+                let alert = UIAlertController(title: "Write Project Name", message: "", preferredStyle: .alert)
+                
+                alert.addTextField{(myTextField) in
+                    myTextField.placeholder = "e.g. Wa-ha_project"
+                }
+                
+                let ok = UIAlertAction(title:"OK", style: .default){(ok) in
+                    if ((alert.textFields?[0].text)! != ""){
+                        self.selectedProjName = (alert.textFields?[0].text)!
+                    }else{
+                        self.selectedProjName = "Wa-ha_project_\(self.projectArray.count)"
+                    }
+                    print((alert.textFields?[0].text)!)
+                    print(self.selectedProjName)
+                    video2ImageGenerator(video_url: url, mediaType: mediaType)
+                }
+                
+                let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+
+                alert.addAction(ok)
+                alert.addAction(cancel)
+                
+                self.present(alert, animated: true, completion: nil)
             }
             
         default:
@@ -170,3 +224,4 @@ extension MainVC : UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
