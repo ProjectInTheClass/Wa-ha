@@ -23,6 +23,7 @@
 		83A764F5251ECDDD00495FFC /* Video2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A764F4251ECDDD00495FFC /* Video2Image.swift */; };
 		83A764F9251F63A100495FFC /* ImageFrameListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A764F8251F63A100495FFC /* ImageFrameListTableViewCell.swift */; };
 		AB2BFBB12D15C2760F3C0414 /* Pods_Waha.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1C0A23D32A892DF6C97E98 /* Pods_Waha.framework */; };
+		CEDE0C82254436C50085F513 /* PanRotatePinchUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE0C81254436C50085F513 /* PanRotatePinchUIView.swift */; };
 		EB442D62253F14B300ECE67F /* ImageFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB442D61253F14B300ECE67F /* ImageFileManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		8389548B251F72770057F85C /* FrameCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FrameCollectionViewCell.xib; sourceTree = "<group>"; };
 		83A764F4251ECDDD00495FFC /* Video2Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video2Image.swift; sourceTree = "<group>"; };
 		83A764F8251F63A100495FFC /* ImageFrameListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFrameListTableViewCell.swift; sourceTree = "<group>"; };
+		CEDE0C81254436C50085F513 /* PanRotatePinchUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanRotatePinchUIView.swift; sourceTree = "<group>"; };
 		EB442D61253F14B300ECE67F /* ImageFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileManager.swift; sourceTree = "<group>"; };
 		ED477A788BD046A20CF48E7E /* Pods-Waha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waha.debug.xcconfig"; path = "Target Support Files/Pods-Waha/Pods-Waha.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,6 +156,7 @@
 				8346BBE0250CD7B100BD861D /* Edit.storyboard */,
 				8346BBE2250CD7C000BD861D /* EditVC.swift */,
 				83A764F4251ECDDD00495FFC /* Video2Image.swift */,
+				CEDE0C81254436C50085F513 /* PanRotatePinchUIView.swift */,
 				83A764F7251F636A00495FFC /* Cell */,
 			);
 			path = Editing;
@@ -283,6 +286,7 @@
 				83A764F9251F63A100495FFC /* ImageFrameListTableViewCell.swift in Sources */,
 				8346BB8F250B946700BD861D /* AppDelegate.swift in Sources */,
 				EB442D62253F14B300ECE67F /* ImageFileManager.swift in Sources */,
+				CEDE0C82254436C50085F513 /* PanRotatePinchUIView.swift in Sources */,
 				8389548C251F72770057F85C /* FrameCollectionViewCell.swift in Sources */,
 				8346BB91250B946700BD861D /* SceneDelegate.swift in Sources */,
 				83A764F5251ECDDD00495FFC /* Video2Image.swift in Sources */,
