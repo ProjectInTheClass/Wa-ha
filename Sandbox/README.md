@@ -24,3 +24,6 @@
 
 ### week9_practice
 - 9주차 실습 예제
+
+### CollectioView test
+- 콜렉션 뷰 연습
