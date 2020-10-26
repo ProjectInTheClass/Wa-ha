@@ -20,7 +20,9 @@ protocol collectionViewDidScrollDelegate : EditVC{
 }
 
 
-class EditVC: UIViewController {
+class EditVC: UIViewController,UIGestureRecognizerDelegate {
+    
+    
     
     //pencilKt
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -32,6 +34,8 @@ class EditVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var tmpImageView: UIImageView!
+    @IBOutlet weak var toolBar: UIView!
+    @IBOutlet weak var containerView: UIView!
     
     var isNewVideo : Bool?
     var imageArray : [UIImage] = []
@@ -46,6 +50,7 @@ class EditVC: UIViewController {
         setupProject()
         setupCanvasView()
         print("tableView image count : \(imageArray.count)")
+        setupGesture()
         
     }
     private func setupProject(){
@@ -60,13 +65,20 @@ class EditVC: UIViewController {
     private func setupTableView(){
         tableView.delegate = self
         tableView.dataSource = self
+        
+        let cornerRadidus : CGFloat = 20
+        let opacity : Float = 1.0
+        toolBar.layer.cornerRadius = cornerRadidus
+        tableView.layer.cornerRadius = cornerRadidus
+        toolBar.layer.opacity = opacity
+        tableView.layer.opacity = opacity
     }
     private func setupCanvasView(){
         // TODO: canvas도 thumnail과 original image 분리
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
         canvasView.isScrollEnabled = false
-        canvasView.allowsFingerDrawing = true
+        canvasView.allowsFingerDrawing = false
         if let window = parent?.view.window,
            let toolPicker = PKToolPicker.shared(for: window) {
             toolPicker.setVisible(true, forFirstResponder: canvasView)
@@ -77,13 +89,61 @@ class EditVC: UIViewController {
         canvasView.backgroundColor = .clear
         canvasView.isOpaque = false
     }
-   
+    private func setupGesture(){
+        //        https://stackoverflow.com/questions/45402639/pinch-pan-and-rotate-text-simultaneously-like-snapchat-swift-3
+        //https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/leveraging_touch_input_for_drawing_apps
+        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        gestureRecognizer.delegate = self
+        containerView.addGestureRecognizer(gestureRecognizer)
+        containerView.isUserInteractionEnabled = true
+        containerView.isMultipleTouchEnabled = true
+        
+        
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchRecognized(pinch:)))
+        pinchGesture.delegate = self
+        containerView.addGestureRecognizer(pinchGesture)
+        
+        let rotate = UIRotationGestureRecognizer.init(target: self, action: #selector(handleRotate(recognizer:)))
+        rotate.delegate = self
+        containerView.addGestureRecognizer(rotate)
+    }
+    @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+            
+            let translation = gestureRecognizer.translation(in: self.view)
+            // note: 'view' is optional and need to be unwrapped
+            gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x + translation.x, y: gestureRecognizer.view!.center.y + translation.y)
+            gestureRecognizer.setTranslation(CGPoint.zero, in: self.view)
+        }
+        
+    }
+    
+    @objc func pinchRecognized(pinch: UIPinchGestureRecognizer) {
+        if let view = pinch.view {
+            view.transform = view.transform.scaledBy(x: pinch.scale, y: pinch.scale)
+            pinch.scale = 1
+        }
+    }
+    
+    @objc func handleRotate(recognizer : UIRotationGestureRecognizer) {
+        if let view = recognizer.view {
+            view.transform = view.transform.rotated(by: recognizer.rotation)
+            recognizer.rotation = 0
+        }
+    }
+    
+    //MARK:- UIGestureRecognizerDelegate Methods
+    func gestureRecognizer(_: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
     
     @IBAction func actionBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func actionExport(_ sender: Any) {
-//        saveDrawingToCameraRoll()
+        //        saveDrawingToCameraRoll()
         selectSaveMode()
     }
     
@@ -113,7 +173,7 @@ class EditVC: UIViewController {
     private func selectSaveMode(){
         // alert view for select save mode
         let alert = UIAlertController(title: "Save Video With", message: "", preferredStyle: .actionSheet)
-                
+        
         let cancel = UIAlertAction(title: "cancel", style: .destructive, handler: nil)
         
         let drawingOnly = UIAlertAction(title: "Drawing Only", style: .default){(drawingOnly) in
@@ -163,7 +223,7 @@ class EditVC: UIViewController {
         }
         
         let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-
+        
         alert.addAction(ok)
         alert.addAction(cancel)
         
@@ -223,8 +283,8 @@ class EditVC: UIViewController {
             mergedImage.append(newImage)
         }
         
-   
-      
+        
+        
     }
     
     
@@ -263,25 +323,33 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
 }
 extension EditVC : PKCanvasViewDelegate, PKToolPickerObserver {
     //문제가 칠하지 않고 그냥 스크롤만 해도 호출되서 성능이 떨어짐
+    func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
+        //펜을 쓸때는 panning gesture disable
+        for gesture in containerView.gestureRecognizers! {
+            gesture.isEnabled = false
+        }
+    }
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-//        print("canvasViewDrawingDidChange called")
+        //        print("canvasViewDrawingDidChange called")
         saveToCanvasArray(canvas: canvasView)
         //make thumbnail image at background
         DispatchQueue.global(qos: .background).async {
             //selectedIndex가 바뀔수 있어서 call된 시점의 selectedIndex를 넣어줌
             self.drawingToImage(from: canvasView, index: self.selectedIndex)
         }
-//        updateContentSizeForDrawing()
+        //        updateContentSizeForDrawing()
     }
     func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
-        print("canvasViewDidEndUsingTool called")
-
+        //        print("canvasViewDidEndUsingTool called")
+        for gesture in containerView.gestureRecognizers! {
+            gesture.isEnabled = true
+        }
     }
 }
 extension EditVC : collectionViewDidScrollDelegate {
     //sync scroll
     func didScrolled(to position: CGFloat) {
-//        print(position)
+        //        print(position)
         for cell in tableView.visibleCells as! [ImageFrameListTableViewCell] {
             (cell.collectionview as UIScrollView).contentOffset.x = position
         }
@@ -294,7 +362,7 @@ extension EditVC : frameSelectDelegate {
         DispatchQueue.main.async {
             let fileName = "\(self.projName)_original_\(index)"
             self.tmpImageView.image = ImageFileManager.shared.getSavedImage(named: fileName)
-//            self.tmpImageView.image = self.imageArray[index]
+            //            self.tmpImageView.image = self.imageArray[index]
             self.canvasView.drawing = self.canvasArray[index]
         }
         selectedIndex = index

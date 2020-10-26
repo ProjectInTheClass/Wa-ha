@@ -17,7 +17,7 @@ class ImageFrameListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionview: UICollectionView!
     weak var scrollDelegate: collectionViewDidScrollDelegate?
-
+    
     var imageArray : [UIImage] = []
     var delegate : frameSelectDelegate! = nil
     
@@ -26,7 +26,7 @@ class ImageFrameListTableViewCell: UITableViewCell {
         // Initialization code
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: collectionview.frame.width/2, bottom: 0, right: collectionview.frame.width/2)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: collectionview.frame.width/2-100, bottom: 0, right: collectionview.frame.width/2)
         collectionview.collectionViewLayout = layout
         
         //import Nib
@@ -45,6 +45,15 @@ class ImageFrameListTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func returnSelectedIndex() -> Int {
+        let point = convert(collectionview.center, to: collectionview)
+        let index : Int = Int(round((point.x - collectionview.frame.width/2)/110))
+        if index >= 0 && index < imageArray.count {
+            return index
+        }
+        return 0
+    }
+    
 }
 extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -55,24 +64,31 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FrameCollectionViewCell", for: indexPath) as! FrameCollectionViewCell
-        cell.backgroundColor = .red
         cell.imgview.image = imageArray[indexPath.row]
+        cell.layer.cornerRadius = 10
+        
+        if indexPath.row == returnSelectedIndex() {
+            cell.backgroundColor = .green
+        }else{
+            cell.backgroundColor = .white
+        }
+        
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate.selectedIndex(index: indexPath.row)
-    }
+    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    //        delegate.selectedIndex(index: indexPath.row)
+    //    }
 }
 extension ImageFrameListTableViewCell : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrollDelegate?.didScrolled(to: scrollView.contentOffset.x)
         let point = convert(collectionview.center, to: collectionview)
-        let index : Int = Int(round((point.x - collectionview.frame.width/2)/110))
+        let index : Int = Int(round((point.x - collectionview.frame.width/2.2)/CGFloat(imageArray.count)))
         if index >= 0 && index < imageArray.count {
             delegate.selectedIndex(index: index)
         }
     }
-//    62프레임 0부터 6810.0 109로 나눔
+    //    62프레임 0부터 6810.0 109로 나눔
 }
 
 //same scroll refer
