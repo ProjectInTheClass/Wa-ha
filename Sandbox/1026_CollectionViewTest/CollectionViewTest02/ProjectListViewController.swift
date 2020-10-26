@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         
 
     }
-
+/*
     @IBAction func createNewProjectButtonTapped(_ sender: Any) {
         
         // Create Alert
@@ -76,6 +76,7 @@ class ViewController: UIViewController {
         // Show alert
         self.present(alert, animated: true, completion: nil)
     }
+ */
 
     
     func collectionView(_ collectionView: UICollectionView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

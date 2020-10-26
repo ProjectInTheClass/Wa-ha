@@ -54,9 +54,9 @@ class CreateNewProjectViewController: UIViewController {
         // Pass the selected object to the new view controller.
         guard segue.identifier == "CreateProject",
               let projectName = projectNameTextField.text,
-              let frameRate = frameRatePickerView.dataSource,
+              let frameRate = frameRateTextField.text as? Int,
               let thumbnail = UIImage(named: "BasicThumbnail") else { return }
-        tempNewProject = TemporaryProject(projectName: projectName, frameRate: frameRate as! Int, thumbNail: thumbnail)
+        tempNewProject = TemporaryProject(projectName: projectName, frameRate: frameRate, thumbNail: thumbnail)
     }
 
 
