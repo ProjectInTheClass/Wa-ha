@@ -438,7 +438,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9Y5NYS23KM;
+				DEVELOPMENT_TEAM = PT24J966WF;
 				INFOPLIST_FILE = Waha/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -457,7 +457,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9Y5NYS23KM;
+				DEVELOPMENT_TEAM = PT24J966WF;
 				INFOPLIST_FILE = Waha/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

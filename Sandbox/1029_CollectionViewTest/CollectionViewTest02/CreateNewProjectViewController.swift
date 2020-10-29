@@ -22,8 +22,9 @@ class CreateNewProjectViewController: UIViewController {
     @IBOutlet weak var addVideoView: UIView!
     @IBOutlet weak var projectNameTextField: UITextField!
     @IBOutlet weak var frameRateTextField: UITextField!
-    @IBOutlet weak var createNewProjectButton: UIButton!
-    @IBOutlet weak var cancleNewProjectButton: UIButton!
+    @IBOutlet weak var cancleCreateNewProjectButton: UIButton!
+    @IBOutlet weak var NewProjectButton: UIButton!
+    
     
     var frameRatePickerView = UIPickerView()
     
@@ -52,11 +53,12 @@ class CreateNewProjectViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+
         guard segue.identifier == "CreateProject",
               let projectName = projectNameTextField.text,
-              let frameRate = frameRateTextField.text as? Int,
+              let frameRate = frameRateTextField.text,
               let thumbnail = UIImage(named: "BasicThumbnail") else { return }
-        tempNewProject = TemporaryProject(projectName: projectName, frameRate: frameRate, thumbNail: thumbnail)
+        tempNewProject = TemporaryProject(projectName: projectName, frameRate: Int(frameRate)!, thumbNail: thumbnail)
     }
 
 

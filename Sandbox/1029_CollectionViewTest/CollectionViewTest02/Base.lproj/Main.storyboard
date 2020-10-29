@@ -72,6 +72,9 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" systemColor="systemRedColor"/>
                                                     <state key="normal" image="trash" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="deleteProjectButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bw4-SO-qy2"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" red="0.85516560080000004" green="0.50019168849999995" blue="0.63922309879999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -106,8 +109,9 @@
                             <constraint firstItem="X3L-Ag-Xg5" firstAttribute="top" secondItem="MVo-hA-4sM" secondAttribute="bottom" id="zgE-eo-F8b"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="QTF-w6-8T3"/>
                     <connections>
-                        <outlet property="createNewProjectButton" destination="IUw-MD-CYr" id="dpK-k4-kaX"/>
+                        <outlet property="createNewProjectButton" destination="IUw-MD-CYr" id="TvH-te-MXu"/>
                         <outlet property="introMenu" destination="MVo-hA-4sM" id="1Si-yJ-6jT"/>
                         <outlet property="projectListCollectionView" destination="X3L-Ag-Xg5" id="x8G-ZV-hrw"/>
                     </connections>
@@ -161,13 +165,16 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Create"/>
                                             <connections>
-                                                <segue destination="pB6-9U-Xc1" kind="unwind" identifier="CreateProject" unwindAction="unwindToProjectListWithSegue:" id="Qko-l1-Kvf"/>
+                                                <segue destination="pB6-9U-Xc1" kind="unwind" identifier="CreateProject" unwindAction="unwindToProjectListWithSegue:" id="chg-8v-CL6"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Jy-DT-ZkF">
                                             <rect key="frame" x="140" y="397" width="48" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Cancel"/>
+                                            <connections>
+                                                <segue destination="pB6-9U-Xc1" kind="unwind" unwindAction="unwindToProjectListWithSegue:" id="hNu-6g-H8o"/>
+                                            </connections>
                                         </button>
                                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Choose Frame Rate" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pBp-jS-N55">
                                             <rect key="frame" x="44" y="248" width="240" height="34"/>
@@ -183,10 +190,10 @@
                         <blurEffect style="regular"/>
                     </visualEffectView>
                     <connections>
+                        <outlet property="NewProjectButton" destination="aC4-cR-0xT" id="Ayc-6K-QkH"/>
                         <outlet property="addVideoButton" destination="bBf-9A-UHp" id="A4K-6o-29O"/>
                         <outlet property="addVideoView" destination="WGU-UV-dBv" id="OGi-fy-OaF"/>
-                        <outlet property="cancleNewProjectButton" destination="0Jy-DT-ZkF" id="B67-0e-wNU"/>
-                        <outlet property="createNewProjectButton" destination="aC4-cR-0xT" id="cnc-6v-x08"/>
+                        <outlet property="cancleCreateNewProjectButton" destination="0Jy-DT-ZkF" id="omG-aq-rvu"/>
                         <outlet property="createNewProjectLabel" destination="cAf-LR-nEm" id="4Gt-9E-UPs"/>
                         <outlet property="createNewProjectView" destination="viK-3j-Qn0" id="vu9-QL-zMR"/>
                         <outlet property="frameRateTextField" destination="pBp-jS-N55" id="9Xm-Vk-C6z"/>
