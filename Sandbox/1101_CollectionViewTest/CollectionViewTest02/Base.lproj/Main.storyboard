@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="_01012_Waha_ProjectList_v001" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MVo-hA-4sM">
+                                <rect key="frame" x="0.0" y="0.0" width="1194" height="75"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUw-MD-CYr">
+                                        <rect key="frame" x="1134" y="3" width="30" height="66"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="45"/>
+                                        <state key="normal" title="+"/>
+                                        <connections>
+                                            <segue destination="rGZ-ae-xhF" kind="presentation" id="aqj-iC-59E"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="3Nx-Ej-VsG"/>
+                                    <constraint firstAttribute="trailing" secondItem="IUw-MD-CYr" secondAttribute="trailing" constant="30" id="Dyj-y6-2hD"/>
+                                    <constraint firstItem="IUw-MD-CYr" firstAttribute="top" secondItem="MVo-hA-4sM" secondAttribute="top" constant="3" id="b0U-lV-8wQ"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X3L-Ag-Xg5">
+                                <rect key="frame" x="0.0" y="75" width="1194" height="759"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="X02-fA-Vyd">
+                                    <size key="itemSize" width="150" height="180"/>
+                                    <size key="estimatedItemSize" width="150" height="180"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProjectCell" id="7ab-nV-UFK" customClass="ProjectCell" customModule="_01012_Waha_ProjectList_v001" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="180"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="UZi-7z-FgF">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="180"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumbnail_00" translatesAutoresizingMaskIntoConstraints="NO" id="ex2-c7-NCz">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="150" id="POs-Yt-tjU"/>
+                                                        <constraint firstAttribute="width" constant="150" id="xlY-5A-gmU"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5n-ul-zfF">
+                                                    <rect key="frame" x="8" y="151" width="134" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7cp-Ny-yaX">
+                                                    <rect key="frame" x="122" y="8" width="20" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" systemColor="systemRedColor"/>
+                                                    <state key="normal" image="trash" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="deleteProjectButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bw4-SO-qy2"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.85516560080000004" green="0.50019168849999995" blue="0.63922309879999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="P5n-ul-zfF" secondAttribute="bottom" constant="8" id="NL9-zT-e1j"/>
+                                                <constraint firstAttribute="trailing" secondItem="ex2-c7-NCz" secondAttribute="trailing" id="Nnh-mk-9Hj"/>
+                                                <constraint firstItem="ex2-c7-NCz" firstAttribute="leading" secondItem="UZi-7z-FgF" secondAttribute="leading" id="Tme-b4-k5J"/>
+                                                <constraint firstItem="ex2-c7-NCz" firstAttribute="top" secondItem="UZi-7z-FgF" secondAttribute="top" id="W2j-yy-7qD"/>
+                                                <constraint firstItem="P5n-ul-zfF" firstAttribute="leading" secondItem="UZi-7z-FgF" secondAttribute="leading" constant="8" id="lTc-S6-Nf7"/>
+                                                <constraint firstAttribute="trailing" secondItem="P5n-ul-zfF" secondAttribute="trailing" constant="8" id="r1w-SG-muH"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="150" height="180"/>
+                                        <connections>
+                                            <outlet property="deleteProjectButton" destination="7cp-Ny-yaX" id="T9c-KF-CAv"/>
+                                            <outlet property="projectNameLabel" destination="P5n-ul-zfF" id="ybq-A0-U0s"/>
+                                            <outlet property="projectThumbnailImage" destination="ex2-c7-NCz" id="h1a-Am-5Yh"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="MVo-hA-4sM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8zm-zW-PPM"/>
+                            <constraint firstItem="MVo-hA-4sM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Y51-7j-cag"/>
+                            <constraint firstItem="X3L-Ag-Xg5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bPs-Vf-iUg"/>
+                            <constraint firstItem="MVo-hA-4sM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hFo-jJ-xh8"/>
+                            <constraint firstAttribute="bottom" secondItem="X3L-Ag-Xg5" secondAttribute="bottom" id="uNG-h3-TkI"/>
+                            <constraint firstItem="X3L-Ag-Xg5" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="uoa-RM-jev"/>
+                            <constraint firstItem="X3L-Ag-Xg5" firstAttribute="top" secondItem="MVo-hA-4sM" secondAttribute="bottom" id="zgE-eo-F8b"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="QTF-w6-8T3"/>
+                    <connections>
+                        <outlet property="createNewProjectButton" destination="IUw-MD-CYr" id="TvH-te-MXu"/>
+                        <outlet property="introMenu" destination="MVo-hA-4sM" id="1Si-yJ-6jT"/>
+                        <outlet property="projectListCollectionView" destination="X3L-Ag-Xg5" id="x8G-ZV-hrw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68844221105527" y="103.59712230215828"/>
+        </scene>
+        <!--Create New Project View Controller-->
+        <scene sceneID="gGJ-aH-QEc">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="rGZ-ae-xhF" customClass="CreateNewProjectViewController" customModule="_01012_Waha_ProjectList_v001" customModuleProvider="target" sceneMemberID="viewController">
+                    <visualEffectView key="view" opaque="NO" contentMode="scaleToFill" id="tqu-4A-UhL">
+                        <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qrh-AV-JI7">
+                            <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="viK-3j-Qn0">
+                                    <rect key="frame" x="433" y="200" width="329" height="435"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a New Project" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAf-LR-nEm">
+                                            <rect key="frame" x="79" y="19" width="171" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ogu-sc-jWJ">
+                                            <rect key="frame" x="44" y="70" width="240" height="128"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBf-9A-UHp">
+                                            <rect key="frame" x="44" y="70" width="240" height="128"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="video.badge.plus" catalog="system"/>
+                                            <connections>
+                                                <action selector="loadVideoButtonTapped:" destination="rGZ-ae-xhF" eventType="touchUpInside" id="PrH-y3-3EL"/>
+                                            </connections>
+                                        </button>
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Project Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ejc-Nf-Stj">
+                                            <rect key="frame" x="44" y="206" width="240" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aC4-cR-0xT">
+                                            <rect key="frame" x="141" y="368" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Create"/>
+                                            <connections>
+                                                <segue destination="pB6-9U-Xc1" kind="unwind" identifier="CreateProject" unwindAction="unwindToProjectListWithSegue:" id="chg-8v-CL6"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Jy-DT-ZkF">
+                                            <rect key="frame" x="140" y="397" width="48" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Cancel"/>
+                                            <connections>
+                                                <segue destination="pB6-9U-Xc1" kind="unwind" unwindAction="unwindToProjectListWithSegue:" id="hNu-6g-H8o"/>
+                                            </connections>
+                                        </button>
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Choose Frame Rate" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pBp-jS-N55">
+                                            <rect key="frame" x="44" y="248" width="240" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                </view>
+                            </subviews>
+                        </view>
+                        <blurEffect style="regular"/>
+                    </visualEffectView>
+                    <connections>
+                        <outlet property="NewProjectButton" destination="aC4-cR-0xT" id="Ayc-6K-QkH"/>
+                        <outlet property="addVideoButton" destination="bBf-9A-UHp" id="A4K-6o-29O"/>
+                        <outlet property="cancleCreateNewProjectButton" destination="0Jy-DT-ZkF" id="omG-aq-rvu"/>
+                        <outlet property="createNewProjectLabel" destination="cAf-LR-nEm" id="4Gt-9E-UPs"/>
+                        <outlet property="createNewProjectView" destination="viK-3j-Qn0" id="vu9-QL-zMR"/>
+                        <outlet property="frameRateTextField" destination="pBp-jS-N55" id="9Xm-Vk-C6z"/>
+                        <outlet property="projectImageView" destination="ogu-sc-jWJ" id="CIY-55-t7h"/>
+                        <outlet property="projectNameTextField" destination="ejc-Nf-Stj" id="zmA-gS-oBW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZA3-Hk-feM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="pB6-9U-Xc1" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="813.5678391959799" y="103.59712230215828"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="thumbnail_00" width="1000" height="1000"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
+        <image name="video.badge.plus" catalog="system" width="128" height="90"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
