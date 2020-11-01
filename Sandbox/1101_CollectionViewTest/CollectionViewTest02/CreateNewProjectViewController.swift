@@ -35,7 +35,6 @@ class CreateNewProjectViewController: UIViewController {
     let imagePicker: UIImagePickerController! = UIImagePickerController()
     var captureImage: UIImage!
     var videoURL: URL!
-    var flagImageSave = false
     
     
     override func viewDidLoad() {
@@ -81,10 +80,16 @@ class CreateNewProjectViewController: UIViewController {
       present(imagePicker, animated: false, completion: nil)
     }
     
+    func extractFirstFrame() {
+        let asset = AVAsset(url: videoURL)
+        let generator = AVAssetImageGenerator.init(asset: asset)
+        let cgImage = try! generator.copyCGImage(at: CMTime(seconds: 0, preferredTimescale: 1), actualTime: nil)
+        captureImage = UIImage(cgImage: cgImage)
+    }
+    
+    
     @IBAction func loadVideoButtonTapped(_ sender: UIButton) {
         if (UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
-            flagImageSave = false
-            
 
             imagePicker.sourceType = .photoLibrary
             imagePicker.mediaTypes = [kUTTypeMovie as String]
@@ -103,11 +108,12 @@ class CreateNewProjectViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-
+        extractFirstFrame()
+        
         guard segue.identifier == "CreateProject",
               let projectName = projectNameTextField.text,
               let frameRate = frameRateTextField.text,
-              let thumbnail = UIImage(named: "BasicThumbnail") else { return }
+              let thumbnail = captureImage else { return }
         tempNewProject = TemporaryProject(projectName: projectName, frameRate: Int(frameRate)!, thumbNail: thumbnail)
     }
 
@@ -137,15 +143,16 @@ extension CreateNewProjectViewController: UIImagePickerControllerDelegate, UINav
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         
-        
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! NSString
         
         if mediaType.isEqual(to: kUTTypeMovie as NSString as String) {
-            if flagImageSave {
                 videoURL = (info[UIImagePickerController.InfoKey.mediaURL] as! URL)
-                
+                extractFirstFrame()
                 UISaveVideoAtPathToSavedPhotosAlbum(videoURL.relativePath, self, nil, nil)
-            }
+        }
+        
+        if let firstFrameImage = captureImage {
+            projectImageView.image = firstFrameImage
         }
         
         self.dismiss(animated: true, completion: nil)

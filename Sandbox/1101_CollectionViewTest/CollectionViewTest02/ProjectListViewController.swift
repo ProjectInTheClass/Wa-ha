@@ -94,7 +94,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         let project = self.items![indexPath.row]
         
         cell.projectNameLabel?.text = project.projectName
-        cell.projectThumbnailImage.image = UIImage(named: "BasicThumbnail")
+//        cell.projectThumbnailImage.image = UIImage(named: "BasicThumbnail")
+        
+        cell.projectThumbnailImage.image = UIImage(data: project.thumbnail!)
+            
         cell.projectThumbnailImage.layer.cornerRadius = cell.projectThumbnailImage.frame.width/8
         
         //Delete Cell
@@ -118,10 +121,13 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         if let tempNewProject = sourceViewController.tempNewProject {
             
             let newProject = Project(context: self.context)
+            
+            let imageData: Data = tempNewProject.thumbNail.pngData()! as Data
+            
             // Create a New Project
             newProject.projectName = tempNewProject.projectName
             newProject.frameRate = Int64(tempNewProject.frameRate)
-            // newProject.thumbnail = UIImage(named: "BasicThumbnail")
+            newProject.thumbnail = imageData
             
             // Save the data
             do{

@@ -77,7 +77,6 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.85516560080000004" green="0.50019168849999995" blue="0.63922309879999994" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="P5n-ul-zfF" secondAttribute="bottom" constant="8" id="NL9-zT-e1j"/>
                                                 <constraint firstAttribute="trailing" secondItem="ex2-c7-NCz" secondAttribute="trailing" id="Nnh-mk-9Hj"/>
