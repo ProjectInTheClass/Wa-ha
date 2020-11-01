@@ -138,7 +138,7 @@
                                                             <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                         </button>
                                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DzI-sn-HVR">
-                                                            <rect key="frame" x="256" y="11" width="708" height="48"/>
+                                                            <rect key="frame" x="256" y="0.0" width="708" height="70"/>
                                                             <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3Rs-Zl-ccA">
                                                                 <size key="itemSize" width="128" height="128"/>
@@ -148,7 +148,7 @@
                                                             </collectionViewFlowLayout>
                                                             <cells>
                                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="rvv-rC-61t">
-                                                                    <rect key="frame" x="0.0" y="-40" width="128" height="128"/>
+                                                                    <rect key="frame" x="0.0" y="-29" width="128" height="128"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YJH-0A-Bmn">
                                                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
@@ -161,12 +161,12 @@
                                                     <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstItem="dGn-HU-KAa" firstAttribute="leading" secondItem="55n-2c-5Ia" secondAttribute="trailing" constant="10" id="0h3-Cn-YwT"/>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="DzI-sn-HVR" secondAttribute="bottom" id="941-B6-bxY"/>
+                                                        <constraint firstAttribute="bottom" secondItem="DzI-sn-HVR" secondAttribute="bottom" id="57M-qg-ul6"/>
                                                         <constraint firstItem="55n-2c-5Ia" firstAttribute="centerY" secondItem="1Ad-fk-IQu" secondAttribute="centerY" id="BWS-6p-rLg"/>
                                                         <constraint firstItem="dGn-HU-KAa" firstAttribute="centerY" secondItem="1Ad-fk-IQu" secondAttribute="centerY" id="LVf-19-Ffw"/>
+                                                        <constraint firstItem="DzI-sn-HVR" firstAttribute="top" secondItem="1Ad-fk-IQu" secondAttribute="top" id="LiQ-mP-ZsD"/>
                                                         <constraint firstItem="zf2-OL-wHD" firstAttribute="centerY" secondItem="1Ad-fk-IQu" secondAttribute="centerY" id="MqU-Mj-8SI"/>
                                                         <constraint firstItem="zf2-OL-wHD" firstAttribute="leading" secondItem="1Ad-fk-IQu" secondAttribute="leadingMargin" id="PGf-4w-SPD"/>
-                                                        <constraint firstItem="DzI-sn-HVR" firstAttribute="top" secondItem="1Ad-fk-IQu" secondAttribute="topMargin" id="STu-aT-Jfq"/>
                                                         <constraint firstItem="55n-2c-5Ia" firstAttribute="leading" secondItem="zf2-OL-wHD" secondAttribute="trailing" constant="20" id="kcC-BH-J8h"/>
                                                         <constraint firstItem="DzI-sn-HVR" firstAttribute="leading" secondItem="dGn-HU-KAa" secondAttribute="trailing" constant="20" id="oYI-av-HoD"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="DzI-sn-HVR" secondAttribute="trailing" id="tw4-EJ-we7"/>

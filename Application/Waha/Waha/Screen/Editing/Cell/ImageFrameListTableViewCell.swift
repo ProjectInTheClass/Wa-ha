@@ -66,14 +66,41 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FrameCollectionViewCell", for: indexPath) as! FrameCollectionViewCell
         cell.imgview.image = imageArray[indexPath.row]
-        cell.layer.cornerRadius = 10
+        cell.imgview.backgroundColor = .lightGray
+        cell.imgview.layer.cornerRadius = 10
         
-        if indexPath.row == selectedIndex {
-            cell.backgroundColor = .green
+        if index == 0 {
+            cell.roundCorners(corners: [.topLeft, .topRight], radius: 10)
         }else{
-            cell.backgroundColor = .white
+            cell.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10)
         }
         
+        if indexPath.row == selectedIndex {
+            if index == 0 {
+                cell.border_top.backgroundColor = .green
+                cell.border_left.backgroundColor = .green
+                cell.border_right.backgroundColor = .green
+                cell.border_bottom.backgroundColor = .green
+            }else{
+                
+                cell.border_top.backgroundColor = .green
+                cell.border_bottom.backgroundColor = .green
+                cell.border_left.backgroundColor = .green
+                cell.border_right.backgroundColor = .green
+            }
+        }else{
+            if index == 0 {
+                cell.border_bottom.backgroundColor = .clear
+                cell.border_top.backgroundColor = .clear
+                cell.border_left.backgroundColor = .clear
+                cell.border_right.backgroundColor = .clear
+            }else{
+                cell.border_top.backgroundColor = .clear
+                cell.border_bottom.backgroundColor = .clear
+                cell.border_left.backgroundColor = .clear
+                cell.border_right.backgroundColor = .clear
+            }
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
