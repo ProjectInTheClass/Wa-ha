@@ -151,25 +151,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     override var prefersHomeIndicatorAutoHidden: Bool {
         return true
     }
-    //rotating view
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let canvasScale = canvasView.bounds.width/canvasWidth
-        canvasView.minimumZoomScale = canvasScale
-        canvasView.maximumZoomScale = canvasScale
-        canvasView.zoomScale = canvasScale
-        canvasView.contentOffset = CGPoint(x: 0, y: -canvasView.adjustedContentInset.top)
-    }
-    private func updateContentSizeForDrawing(){
-        let drawing = canvasView.drawing
-        let contentHeight: CGFloat
-        if drawing.bounds.isNull {
-            contentHeight = max(canvasView.bounds.height, (drawing.bounds.maxY + self.canvasOverscrollHeight) * canvasView.zoomScale)
-        }else {
-            contentHeight = canvasView.bounds.height
-        }
-        canvasView.contentSize = CGSize(width: canvasWidth * canvasView.zoomScale, height: contentHeight)
-    }
+
     private func selectSaveMode(){
         // alert view for select save mode
         let alert = UIAlertController(title: "Save Video With", message: "", preferredStyle: .actionSheet)
