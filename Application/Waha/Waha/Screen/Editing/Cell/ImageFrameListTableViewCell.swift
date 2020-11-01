@@ -20,6 +20,7 @@ class ImageFrameListTableViewCell: UITableViewCell {
     
     var imageArray : [UIImage] = []
     var delegate : frameSelectDelegate! = nil
+    var selectedIndex : Int = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,15 +45,7 @@ class ImageFrameListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-    
-    func returnSelectedIndex() -> Int {
-        let point = convert(collectionview.center, to: collectionview)
-        let index : Int = Int(round((point.x - collectionview.frame.width/2)/110))
-        if index >= 0 && index < imageArray.count {
-            return index
-        }
-        return 0
-    }
+
     
 }
 extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -67,7 +60,7 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
         cell.imgview.image = imageArray[indexPath.row]
         cell.layer.cornerRadius = 10
         
-        if indexPath.row == returnSelectedIndex() {
+        if indexPath.row == selectedIndex {
             cell.backgroundColor = .green
         }else{
             cell.backgroundColor = .white
@@ -75,21 +68,25 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
         
         return cell
     }
-    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //        delegate.selectedIndex(index: indexPath.row)
-    //    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate.selectedIndex(index: indexPath.row)
+    }
 }
 extension ImageFrameListTableViewCell : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         scrollDelegate?.didScrolled(to: scrollView.contentOffset.x)
-        let point = convert(collectionview.center, to: collectionview)
-        let index : Int = Int(round((point.x - collectionview.frame.width/2.2)/CGFloat(imageArray.count)))
-        if index >= 0 && index < imageArray.count {
-            delegate.selectedIndex(index: index)
-        }
+//        let point = convert(collectionview.center, to: collectionview)
+//        let index : Int = Int(round((point.x - collectionview.frame.width/2.2)/CGFloat(imageArray.count)))
+//        if index >= 0 && index < imageArray.count {
+//            delegate.selectedIndex(index: index)
+//        }
+        
+        
     }
-    //    62프레임 0부터 6810.0 109로 나눔
 }
 
 //same scroll refer
 //https://stackoverflow.com/questions/48461698/synchronised-scrolling-uicollectionviews-in-uitableviewcell-in-swift/48463426
+
+//https://stackoverflow.com/questions/35045155/how-to-create-a-centered-uicollectionview-like-in-spotifys-player

@@ -305,6 +305,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
+                cell.selectedIndex = selectedIndex
                 return cell
             }
         }else{
@@ -315,6 +316,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
+                cell.selectedIndex = selectedIndex
                 return cell
             }
         }
