@@ -209,8 +209,8 @@
                         <outlet property="containerView" destination="iFB-k8-Yqd" id="G7Z-Hk-BJu"/>
                         <outlet property="lbTitle" destination="wLY-C2-4aO" id="0cn-NM-RKW"/>
                         <outlet property="tableView" destination="Js6-8M-Sxk" id="lxW-3s-BWy"/>
-                        <outlet property="tmpImageView" destination="ZO4-cz-eLq" id="Njj-mx-G6a"/>
                         <outlet property="toolBar" destination="fQQ-Jy-ypr" id="jSV-79-v2b"/>
+                        <outlet property="videoFrameView" destination="ZO4-cz-eLq" id="Njj-mx-G6a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AMt-ws-KkW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
