@@ -26,7 +26,7 @@ class MainVC: UIViewController {
         
         print(NSHomeDirectory())
     }
-        
+    
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -67,10 +67,11 @@ class MainVC: UIViewController {
     }
     
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
+        
+        imageArray.removeAll()
         let convertedFps = 15
-        
-        
-        showActivityIndicator()
+    
+        self.showActivityIndicator()
         
         //https://stackoverflow.com/questions/42665271/swift-get-all-frames-from-video
         let videoURL : URL = url
@@ -96,7 +97,7 @@ class MainVC: UIViewController {
         // TODO: match read speed & write speed
         while(Int32(index) < Int32(duration * Double(convertedFps))){
             let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(convertedFps))
-//            print("time: \(time)")
+            //            print("time: \(time)")
             var image: CGImage?
             do {
                 try image = generator.copyCGImage(at: time, actualTime: nil)
@@ -105,10 +106,10 @@ class MainVC: UIViewController {
                 return
             }
             let pngImage: UIImage = UIImage(cgImage: image!)
-            let imageName: String = "\(selectedProjName)_original_\(index).png"
+            let imageName: String = "\(self.selectedProjName)_original_\(index).png"
             ImageFileManager.shared.saveImage(image: pngImage, name: imageName){
                 [weak self] onSuccess in
-//                print("saveImage onSuccess: \(onSuccess), \(imageName)")
+                //                print("saveImage onSuccess: \(onSuccess), \(imageName)")
             }
             
             let thumbnailSize = CGSize(width: 160.0, height: 90.0)
@@ -119,11 +120,13 @@ class MainVC: UIViewController {
             image = nil
             let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
-            imageArray.append(thumbnailImage!)
+            self.imageArray.append(thumbnailImage!)
             index = index + 1
         }
         print("image frame count : \(self.imageArray.count)")
-        hideActivityIndicator()
+        
+        self.hideActivityIndicator()
+        
         goProjectVC()
     }
 }
@@ -169,7 +172,7 @@ extension MainVC : UIImagePickerControllerDelegate {
                 }
                 
                 let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-
+                
                 alert.addAction(ok)
                 alert.addAction(cancel)
                 

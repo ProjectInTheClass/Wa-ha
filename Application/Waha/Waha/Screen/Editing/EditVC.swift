@@ -22,7 +22,7 @@ protocol collectionViewDidScrollDelegate : EditVC{
 
 class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
-    
+    let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
     
     //pencilKt
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -33,7 +33,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     //View
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lbTitle: UILabel!
-    @IBOutlet weak var tmpImageView: UIImageView!
+    @IBOutlet weak var videoFrameView: UIImageView!
     @IBOutlet weak var toolBar: UIView!
     @IBOutlet weak var containerView: UIView!
     
@@ -43,6 +43,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     var thumbnailArray : [UIImage] = []
     var selectedIndex : Int = 0
     var projName : String = ""
+    var isPencilUsing : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +60,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             thumbnailArray.append(UIImage())
         }
         let fileName = "\(self.projName)_original_\(0)"
-        self.tmpImageView.image = ImageFileManager.shared.getSavedImage(named: fileName)
+        self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
         setupTableView()
     }
     private func setupTableView(){
@@ -74,6 +75,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         tableView.layer.opacity = opacity
     }
     private func setupCanvasView(){
+     
         // TODO: canvas도 thumnail과 original image 분리
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
@@ -99,6 +101,8 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         containerView.isMultipleTouchEnabled = true
         
         
+        
+        
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchRecognized(pinch:)))
         pinchGesture.delegate = self
         containerView.addGestureRecognizer(pinchGesture)
@@ -108,16 +112,17 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         containerView.addGestureRecognizer(rotate)
     }
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
-        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
-            
-            let translation = gestureRecognizer.translation(in: self.view)
-            // note: 'view' is optional and need to be unwrapped
-            gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x + translation.x, y: gestureRecognizer.view!.center.y + translation.y)
-            gestureRecognizer.setTranslation(CGPoint.zero, in: self.view)
+        if isPencilUsing == false {
+            if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+                let translation = gestureRecognizer.translation(in: self.view)
+                // note: 'view' is optional and need to be unwrapped
+                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x + translation.x, y: gestureRecognizer.view!.center.y + translation.y)
+                gestureRecognizer.setTranslation(CGPoint.zero, in: self.view)
+            }
         }
         
+        
     }
-    
     @objc func pinchRecognized(pinch: UIPinchGestureRecognizer) {
         if let view = pinch.view {
             view.transform = view.transform.scaledBy(x: pinch.scale, y: pinch.scale)
@@ -140,6 +145,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
     
     @IBAction func actionBack(_ sender: Any) {
+        imageArray.removeAll()
+        canvasArray.removeAll()
+        thumbnailArray.removeAll()
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func actionExport(_ sender: Any) {
@@ -151,25 +159,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     override var prefersHomeIndicatorAutoHidden: Bool {
         return true
     }
-    //rotating view
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let canvasScale = canvasView.bounds.width/canvasWidth
-        canvasView.minimumZoomScale = canvasScale
-        canvasView.maximumZoomScale = canvasScale
-        canvasView.zoomScale = canvasScale
-        canvasView.contentOffset = CGPoint(x: 0, y: -canvasView.adjustedContentInset.top)
-    }
-    private func updateContentSizeForDrawing(){
-        let drawing = canvasView.drawing
-        let contentHeight: CGFloat
-        if drawing.bounds.isNull {
-            contentHeight = max(canvasView.bounds.height, (drawing.bounds.maxY + self.canvasOverscrollHeight) * canvasView.zoomScale)
-        }else {
-            contentHeight = canvasView.bounds.height
-        }
-        canvasView.contentSize = CGSize(width: canvasWidth * canvasView.zoomScale, height: contentHeight)
-    }
+
     private func selectSaveMode(){
         // alert view for select save mode
         let alert = UIAlertController(title: "Save Video With", message: "", preferredStyle: .actionSheet)
@@ -265,7 +255,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func combineLayersAndConvertVideo(){
         //add two image
         // TODO: - 나중에 image + image가 아니라 drawing + image로 해야함
-        let size = CGSize(width: tmpImageView.frame.size.width, height: tmpImageView.frame.size.height)
+        let size = CGSize(width: videoFrameView.frame.size.width, height: videoFrameView.frame.size.height)
         let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         
         var mergedImage : [UIImage] = []
@@ -305,6 +295,9 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
+                cell.selectedIndex = selectedIndex
+                cell.index = indexPath.row
+                cell.sliderDelegate = self
                 return cell
             }
         }else{
@@ -315,6 +308,9 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
+                cell.selectedIndex = selectedIndex
+                cell.index = indexPath.row
+                cell.sliderDelegate = self
                 return cell
             }
         }
@@ -322,28 +318,20 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
     }
 }
 extension EditVC : PKCanvasViewDelegate, PKToolPickerObserver {
-    //문제가 칠하지 않고 그냥 스크롤만 해도 호출되서 성능이 떨어짐
     func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
         //펜을 쓸때는 panning gesture disable
-        for gesture in containerView.gestureRecognizers! {
-            gesture.isEnabled = false
-        }
+        isPencilUsing = true
     }
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        //        print("canvasViewDrawingDidChange called")
         saveToCanvasArray(canvas: canvasView)
         //make thumbnail image at background
         DispatchQueue.global(qos: .background).async {
             //selectedIndex가 바뀔수 있어서 call된 시점의 selectedIndex를 넣어줌
             self.drawingToImage(from: canvasView, index: self.selectedIndex)
         }
-        //        updateContentSizeForDrawing()
     }
     func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
-        //        print("canvasViewDidEndUsingTool called")
-        for gesture in containerView.gestureRecognizers! {
-            gesture.isEnabled = true
-        }
+        isPencilUsing = false
     }
 }
 extension EditVC : collectionViewDidScrollDelegate {
@@ -361,11 +349,23 @@ extension EditVC : frameSelectDelegate {
         print("selectedIndexDelegate \(index)")
         DispatchQueue.main.async {
             let fileName = "\(self.projName)_original_\(index)"
-            self.tmpImageView.image = ImageFileManager.shared.getSavedImage(named: fileName)
+            self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
             //            self.tmpImageView.image = self.imageArray[index]
             self.canvasView.drawing = self.canvasArray[index]
         }
         selectedIndex = index
+    }
+}
+extension EditVC : sliderDelegate {
+    func sliderDidMoved(value: Float, layer: Int) {
+        switch layer {
+        case 0:
+            videoFrameView.alpha = CGFloat(value)
+        case 1:
+            canvasView.alpha = CGFloat(value)
+        default:
+            break
+        }
     }
 }
 

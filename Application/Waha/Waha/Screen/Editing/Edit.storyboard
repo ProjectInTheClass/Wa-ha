@@ -29,7 +29,7 @@
                                         <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="jQu-5j-t1P" secondAttribute="trailing" id="1x9-cH-nfE"/>
                                     <constraint firstItem="jQu-5j-t1P" firstAttribute="top" secondItem="iFB-k8-Yqd" secondAttribute="top" id="27q-co-U8M"/>
@@ -120,11 +120,14 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="980" height="70"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="zf2-OL-wHD">
+                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="zf2-OL-wHD">
                                                             <rect key="frame" x="14" y="20" width="134" height="31"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="130" id="F3C-bx-7aj"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <action selector="actionSlider:" destination="9Fa-vg-Mdi" eventType="valueChanged" id="u6Q-Vy-kaE"/>
+                                                            </connections>
                                                         </slider>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55n-2c-5Ia">
                                                             <rect key="frame" x="166" y="20" width="30" height="30"/>
@@ -206,8 +209,8 @@
                         <outlet property="containerView" destination="iFB-k8-Yqd" id="G7Z-Hk-BJu"/>
                         <outlet property="lbTitle" destination="wLY-C2-4aO" id="0cn-NM-RKW"/>
                         <outlet property="tableView" destination="Js6-8M-Sxk" id="lxW-3s-BWy"/>
-                        <outlet property="tmpImageView" destination="ZO4-cz-eLq" id="Njj-mx-G6a"/>
                         <outlet property="toolBar" destination="fQQ-Jy-ypr" id="jSV-79-v2b"/>
+                        <outlet property="videoFrameView" destination="ZO4-cz-eLq" id="Njj-mx-G6a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AMt-ws-KkW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
