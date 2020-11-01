@@ -11,7 +11,9 @@ import UIKit
 protocol frameSelectDelegate {
     func selectedIndex(index : Int)
 }
-
+protocol sliderDelegate {
+    func sliderDidMoved(value : Float, layer : Int)
+}
 
 class ImageFrameListTableViewCell: UITableViewCell {
     
@@ -20,7 +22,9 @@ class ImageFrameListTableViewCell: UITableViewCell {
     
     var imageArray : [UIImage] = []
     var delegate : frameSelectDelegate! = nil
+    var sliderDelegate : sliderDelegate! = nil
     var selectedIndex : Int = 0
+    var index : Int = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,6 +44,10 @@ class ImageFrameListTableViewCell: UITableViewCell {
         //select center item
     }
     
+   
+    @IBAction func actionSlider(_ sender: UISlider) {
+        sliderDelegate.sliderDidMoved(value: sender.value, layer: index)
+    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -22,7 +22,7 @@ protocol collectionViewDidScrollDelegate : EditVC{
 
 class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
-    
+    let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
     
     //pencilKt
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -288,6 +288,8 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 cell.delegate = self
                 cell.scrollDelegate = self
                 cell.selectedIndex = selectedIndex
+                cell.index = indexPath.row
+                cell.sliderDelegate = self
                 return cell
             }
         }else{
@@ -299,6 +301,8 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 cell.delegate = self
                 cell.scrollDelegate = self
                 cell.selectedIndex = selectedIndex
+                cell.index = indexPath.row
+                cell.sliderDelegate = self
                 return cell
             }
         }
@@ -350,6 +354,18 @@ extension EditVC : frameSelectDelegate {
             self.canvasView.drawing = self.canvasArray[index]
         }
         selectedIndex = index
+    }
+}
+extension EditVC : sliderDelegate {
+    func sliderDidMoved(value: Float, layer: Int) {
+        switch layer {
+        case 0:
+            tmpImageView.alpha = CGFloat(value)
+        case 1:
+            canvasView.alpha = CGFloat(value)
+        default:
+            break
+        }
     }
 }
 
