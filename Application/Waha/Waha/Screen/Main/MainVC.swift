@@ -20,11 +20,18 @@ class MainVC: UIViewController {
     var imageArray : [UIImage] = []
     var selectedProjName : String = "project"
     
+    let activityIndicator = UIActivityIndicatorView(style:.large)
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        
+        setupActivityIndicator()
         print(NSHomeDirectory())
+    }
+    private func setupActivityIndicator(){
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
     }
     
     private func setupCollectionView() {
@@ -67,67 +74,72 @@ class MainVC: UIViewController {
     }
     
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
-        
+
         imageArray.removeAll()
         let convertedFps = 15
-    
-        self.showActivityIndicator()
         
-        //https://stackoverflow.com/questions/42665271/swift-get-all-frames-from-video
-        let videoURL : URL = url
-        var generator : AVAssetImageGenerator!
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        self.view.isUserInteractionEnabled = false
         
-        let asset : AVAsset = AVAsset(url: videoURL)
-        let duration: Float64 = CMTimeGetSeconds(asset.duration)
-        generator = AVAssetImageGenerator(asset: asset)
-        generator.appliesPreferredTrackTransform = true
-        generator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: Int32(convertedFps))
-        generator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: Int32(convertedFps))
         
-        let tracks = asset.tracks(withMediaType: .video)
-        let fps = ceil((tracks.first?.nominalFrameRate)!)
-        let totalFrameNum = Int(Double(fps) * duration)
-        
-        print("duration: \(duration)")
-        print("total frame: \(totalFrameNum)")
-        print("fps: \(fps)")
-        
-        var index = 0
-        
-        // TODO: match read speed & write speed
-        while(Int32(index) < Int32(duration * Double(convertedFps))){
-            let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(convertedFps))
-            //            print("time: \(time)")
-            var image: CGImage?
-            do {
-                try image = generator.copyCGImage(at: time, actualTime: nil)
-            }catch {
-                print("pass")
-                return
-            }
-            let pngImage: UIImage = UIImage(cgImage: image!)
-            let imageName: String = "\(self.selectedProjName)_original_\(index).png"
-            ImageFileManager.shared.saveImage(image: pngImage, name: imageName){
-                [weak self] onSuccess in
-                //                print("saveImage onSuccess: \(onSuccess), \(imageName)")
-            }
+        DispatchQueue.background {
             
-            let thumbnailSize = CGSize(width: 160.0, height: 90.0)
-            let rect = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
-            UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
-            let tmpImg = UIImage(cgImage: image!)
-            tmpImg.draw(in: rect)
-            image = nil
-            let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            self.imageArray.append(thumbnailImage!)
-            index = index + 1
+            //https://stackoverflow.com/questions/42665271/swift-get-all-frames-from-video
+            let videoURL : URL = url
+            var generator : AVAssetImageGenerator!
+            let asset : AVAsset = AVAsset(url: videoURL)
+            let duration: Float64 = CMTimeGetSeconds(asset.duration)
+            generator = AVAssetImageGenerator(asset: asset)
+            generator.appliesPreferredTrackTransform = true
+            generator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: Int32(convertedFps))
+            generator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: Int32(convertedFps))
+            let tracks = asset.tracks(withMediaType: .video)
+            let fps = ceil((tracks.first?.nominalFrameRate)!)
+            let totalFrameNum = Int(Double(fps) * duration)
+            print("duration: \(duration)")
+            print("total frame: \(totalFrameNum)")
+            print("fps: \(fps)")
+            var index = 0
+            // TODO: match read speed & write speed
+            while(Int32(index) < Int32(duration * Double(convertedFps))){
+                let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(convertedFps))
+                //            print("time: \(time)")
+                var image: CGImage?
+                do {
+                    try image = generator.copyCGImage(at: time, actualTime: nil)
+                }catch {
+                    print("pass")
+                    return
+                }
+                let pngImage: UIImage = UIImage(cgImage: image!)
+                let imageName: String = "\(self.selectedProjName)_original_\(index).png"
+                ImageFileManager.shared.saveImage(image: pngImage, name: imageName){
+                    [weak self] onSuccess in
+                    //                print("saveImage onSuccess: \(onSuccess), \(imageName)")
+                }
+                
+                let thumbnailSize = CGSize(width: 160.0, height: 90.0)
+                let rect = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
+                UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
+                let tmpImg = UIImage(cgImage: image!)
+                tmpImg.draw(in: rect)
+                image = nil
+                let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                self.imageArray.append(thumbnailImage!)
+                index = index + 1
+            }
+            print("image frame count : \(self.imageArray.count)")
+            
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+                self.view.isUserInteractionEnabled = true
+                self.goProjectVC()
+
+            }
         }
-        print("image frame count : \(self.imageArray.count)")
-        
-        self.hideActivityIndicator()
-        
-        goProjectVC()
     }
 }
 extension MainVC : UINavigationControllerDelegate {
@@ -228,3 +240,17 @@ extension MainVC : UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension DispatchQueue {
+
+    static func background(_ task: @escaping () -> ()) {
+        DispatchQueue.global(qos: .background).async {
+            task()
+        }
+    }
+
+    static func main(_ task: @escaping () -> ()) {
+        DispatchQueue.main.async {
+            task()
+        }
+    }
+}

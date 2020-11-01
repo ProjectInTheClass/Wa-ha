@@ -145,9 +145,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
     
     @IBAction func actionBack(_ sender: Any) {
-        imageArray.removeAll()
-        canvasArray.removeAll()
-        thumbnailArray.removeAll()
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func actionExport(_ sender: Any) {
@@ -288,10 +285,11 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            //for video frame thumbnail
+            //for drawing layer thumbnail
+
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
-                cell.imageArray = imageArray
+                cell.imageArray = thumbnailArray
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
@@ -301,10 +299,11 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
         }else{
-            //for drawing layer thumbnail
+            //for video frame thumbnail
+
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
-                cell.imageArray = thumbnailArray
+                cell.imageArray = imageArray
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
@@ -359,9 +358,9 @@ extension EditVC : frameSelectDelegate {
 extension EditVC : sliderDelegate {
     func sliderDidMoved(value: Float, layer: Int) {
         switch layer {
-        case 0:
-            videoFrameView.alpha = CGFloat(value)
         case 1:
+            videoFrameView.alpha = CGFloat(value)
+        case 0:
             canvasView.alpha = CGFloat(value)
         default:
             break
