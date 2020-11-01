@@ -75,6 +75,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         tableView.layer.opacity = opacity
     }
     private func setupCanvasView(){
+     
         // TODO: canvas도 thumnail과 original image 분리
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
@@ -122,7 +123,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
         
     }
-    
     @objc func pinchRecognized(pinch: UIPinchGestureRecognizer) {
         if let view = pinch.view {
             view.transform = view.transform.scaledBy(x: pinch.scale, y: pinch.scale)
@@ -145,6 +145,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
     
     @IBAction func actionBack(_ sender: Any) {
+        imageArray.removeAll()
+        canvasArray.removeAll()
+        thumbnailArray.removeAll()
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func actionExport(_ sender: Any) {

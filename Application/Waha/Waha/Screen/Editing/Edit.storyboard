@@ -29,7 +29,7 @@
                                         <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="jQu-5j-t1P" secondAttribute="trailing" id="1x9-cH-nfE"/>
                                     <constraint firstItem="jQu-5j-t1P" firstAttribute="top" secondItem="iFB-k8-Yqd" secondAttribute="top" id="27q-co-U8M"/>
