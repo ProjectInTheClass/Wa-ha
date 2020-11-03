@@ -46,21 +46,33 @@ class ViewController: UIViewController {
     
     
     @IBAction func deleteProjectButtonTapped(_ sender: UIButton) {
-        let projectToRemove = items?[sender.tag]
+        let deleteAlert = UIAlertController(title: "Delete Project", message: "Deletion is permanent and can't be reversed", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+           
+            let projectToRemove = self.items?[sender.tag]
 
-        // Remove the project
-    
-        self.context.delete(projectToRemove!)
+            // Remove the project
+        
+            self.context.delete(projectToRemove!)
 
-        // Save the data
-        do{
-            try self.context.save()
-        } catch {
+            // Save the data
+            do{
+                try self.context.save()
+            } catch {
 
+            }
+
+            // Re-fetch the data
+            self.fetchProject()
         }
-
-        // Re-fetch the data
-        self.fetchProject()
+        
+        let cancleAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        
+        deleteAlert.addAction(cancleAction)
+        deleteAlert.addAction(deleteAction)
+        present(deleteAlert, animated: true, completion: nil)
+        
         
     }
     

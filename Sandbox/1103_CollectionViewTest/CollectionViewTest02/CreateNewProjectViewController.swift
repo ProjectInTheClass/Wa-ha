@@ -109,12 +109,13 @@ class CreateNewProjectViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        extractFirstFrame()
+
         
         guard segue.identifier == "CreateProject",
               let projectName = projectNameTextField.text,
               let frameRate = frameRateTextField.text,
               let thumbnail = captureImage else { return }
+        extractFirstFrame()
         tempNewProject = TemporaryProject(projectName: projectName, frameRate: Int(frameRate)!, thumbNail: thumbnail)
     }
 
