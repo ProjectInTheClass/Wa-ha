@@ -10,7 +10,7 @@
 		AB2FFD392544154000B335A0 /* CreateNewProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2FFD382544154000B335A0 /* CreateNewProjectViewController.swift */; };
 		AB2FFD3D2546F37F00B335A0 /* TemporaryProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2FFD3C2546F37F00B335A0 /* TemporaryProjectFile.swift */; };
 		AB4B2504252C47A800BB5280 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B2503252C47A800BB5280 /* AppDelegate.swift */; };
-		AB4B2506252C47A800BB5280 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B2505252C47A800BB5280 /* SceneDelegate.swift */; };
+		AB4B2506252C47A800BB5280 /* ProjectListSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B2505252C47A800BB5280 /* ProjectListSceneDelegate.swift */; };
 		AB4B2508252C47A800BB5280 /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B2507252C47A800BB5280 /* ProjectListViewController.swift */; };
 		AB4B250B252C47A800BB5280 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB4B2509252C47A800BB5280 /* Main.storyboard */; };
 		AB4B250D252C47A900BB5280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB4B250C252C47A900BB5280 /* Assets.xcassets */; };
@@ -26,7 +26,7 @@
 		AB2FFD3C2546F37F00B335A0 /* TemporaryProjectFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryProjectFile.swift; sourceTree = "<group>"; };
 		AB4B2500252C47A800BB5280 /* 201012_Waha_ProjectList_v001.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 201012_Waha_ProjectList_v001.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB4B2503252C47A800BB5280 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AB4B2505252C47A800BB5280 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		AB4B2505252C47A800BB5280 /* ProjectListSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListSceneDelegate.swift; sourceTree = "<group>"; };
 		AB4B2507252C47A800BB5280 /* ProjectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
 		AB4B250A252C47A800BB5280 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB4B250C252C47A900BB5280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 				ABE65E33254DB41D004E1955 /* Resources */,
 				AB63309225374B3300202065 /* ProjectModel */,
 				AB4B2503252C47A800BB5280 /* AppDelegate.swift */,
-				AB4B2505252C47A800BB5280 /* SceneDelegate.swift */,
+				AB4B2505252C47A800BB5280 /* ProjectListSceneDelegate.swift */,
 				AB4B2507252C47A800BB5280 /* ProjectListViewController.swift */,
 				AB2FFD3C2546F37F00B335A0 /* TemporaryProjectFile.swift */,
 				AB4B2509252C47A800BB5280 /* Main.storyboard */,
@@ -176,7 +176,7 @@
 				AB4B2508252C47A800BB5280 /* ProjectListViewController.swift in Sources */,
 				ABA3F709254D1EEB003293E8 /* Project+CoreDataClass.swift in Sources */,
 				AB4B2504252C47A800BB5280 /* AppDelegate.swift in Sources */,
-				AB4B2506252C47A800BB5280 /* SceneDelegate.swift in Sources */,
+				AB4B2506252C47A800BB5280 /* ProjectListSceneDelegate.swift in Sources */,
 				AB2FFD392544154000B335A0 /* CreateNewProjectViewController.swift in Sources */,
 				AB2FFD3D2546F37F00B335A0 /* TemporaryProjectFile.swift in Sources */,
 				AB4B2519252C48DE00BB5280 /* ProjectCell.swift in Sources */,

@@ -172,7 +172,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Cancel"/>
                                             <connections>
-                                                <segue destination="pB6-9U-Xc1" kind="unwind" unwindAction="unwindToProjectListWithSegue:" id="hNu-6g-H8o"/>
+                                                <segue destination="pB6-9U-Xc1" kind="unwind" identifier="CancleNewProject" unwindAction="unwindToProjectListWithSegue:" id="hNu-6g-H8o"/>
                                             </connections>
                                         </button>
                                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Choose Frame Rate" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pBp-jS-N55">

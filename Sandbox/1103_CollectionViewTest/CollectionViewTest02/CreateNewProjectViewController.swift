@@ -52,6 +52,7 @@ class CreateNewProjectViewController: UIViewController {
         
     }
     
+
     func myAlert(_ title: String, message: String) {
         
         let alert = UIAlertController(title: "Select Video", message: "message", preferredStyle: .actionSheet)
@@ -93,7 +94,7 @@ class CreateNewProjectViewController: UIViewController {
 
             imagePicker.sourceType = .photoLibrary
             imagePicker.mediaTypes = [kUTTypeMovie as String]
-            imagePicker.allowsEditing = false
+            imagePicker.allowsEditing = true
             
             present(imagePicker, animated: true, completion: nil)
         } else{
@@ -148,7 +149,6 @@ extension CreateNewProjectViewController: UIImagePickerControllerDelegate, UINav
         if mediaType.isEqual(to: kUTTypeMovie as NSString as String) {
                 videoURL = (info[UIImagePickerController.InfoKey.mediaURL] as! URL)
                 extractFirstFrame()
-                UISaveVideoAtPathToSavedPhotosAlbum(videoURL.relativePath, self, nil, nil)
         }
         
         if let firstFrameImage = captureImage {

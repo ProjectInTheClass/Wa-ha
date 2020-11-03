@@ -25,9 +25,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        setupFlowLayout()
 //        getThumbnail()
         projectListCollectionView.dataSource = self
         projectListCollectionView.delegate = self
@@ -35,8 +33,17 @@ class ViewController: UIViewController {
         // 코어 데이터에서 아이템 가져오기
         fetchProject()
         
-
     }
+    
+    private func setupFlowLayout() {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumInteritemSpacing = 20
+        flowLayout.minimumLineSpacing = 20
+        flowLayout.itemSize = CGSize(width: 150 , height: 180)
+        flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        self.projectListCollectionView.collectionViewLayout = flowLayout
+    }
+    
     
     @IBAction func deleteProjectButtonTapped(_ sender: UIButton) {
         let projectToRemove = items?[sender.tag]
