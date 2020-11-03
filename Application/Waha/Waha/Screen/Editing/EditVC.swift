@@ -48,6 +48,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        lbTitle.text = projName
         setupProject()
         setupCanvasView()
         print("tableView image count : \(imageArray.count)")
