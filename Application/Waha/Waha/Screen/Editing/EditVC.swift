@@ -261,7 +261,15 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         assetWriter!.startWriting()
         assetWriter!.startSession(atSourceTime: CMTime.zero)
         
-        canvasView.backgroundColor = .white
+        var backgroundImage : UIImage?
+        
+        UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
+        if let context = UIGraphicsGetCurrentContext(){
+            context.setFillColor(UIColor.white.cgColor)
+            context.fill(CGRect(origin: .zero, size: size))
+            backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
+        }
+        UIGraphicsEndPDFContext()
         
         let mediaInputQueue = DispatchQueue(label: "mediaInputQueue")
         assetWriterInput!.requestMediaDataWhenReady(on: mediaInputQueue){
@@ -274,9 +282,21 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
 //                    let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
                     
-                    let pixelBuffer = self.newPixelBufferFrom(cgImage: image.cgImage!)
+                    UIGraphicsBeginImageContext(size)
+                    backgroundImage!.draw(in: areaSize)
+                    image.draw(in: areaSize, blendMode: .normal, alpha: 1)
+                    let newImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+                    UIGraphicsEndImageContext()
                     
-                    let time : CMTime = CMTimeMake(value: Int64(i), timescale: Int32(self.convertedFPS!))
+                    let pixelBuffer = self.newPixelBufferFrom(cgImage: newImage.cgImage!)
+                    
+                    let time : CMTime
+                    if(i == 0){
+                        time = CMTime.zero
+                    }else{
+                        time = CMTimeMake(value: Int64(i), timescale: Int32(self.convertedFPS!))
+                    }
+                    
                     
                     writerAdaptor?.append(pixelBuffer!, withPresentationTime: time)
                 }
