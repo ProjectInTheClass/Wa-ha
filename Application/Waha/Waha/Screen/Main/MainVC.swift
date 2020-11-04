@@ -19,10 +19,10 @@ class MainVC: UIViewController {
     var projectArray : [String] = ["프로젝트 추가","예시1","예시2"]
     var imageArray : [UIImage] = []
     var selectedProjName : String = "project"
-    
+    var convertedFPS : Int? = 15
     let activityIndicator = UIActivityIndicatorView(style:.large)
-
-    
+    var videourl : URL?
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
@@ -53,6 +53,8 @@ class MainVC: UIViewController {
         let vc = storyboard.instantiateViewController(identifier: "EditVC") as? EditVC
         vc?.imageArray = imageArray
         vc?.projName = selectedProjName
+        vc?.videourl = videourl
+        vc?.convertedFPS = convertedFPS
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     
@@ -76,12 +78,10 @@ class MainVC: UIViewController {
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
 
         imageArray.removeAll()
-        let convertedFps = 15
         
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         self.view.isUserInteractionEnabled = false
-        
         
         DispatchQueue.background {
             
@@ -92,8 +92,8 @@ class MainVC: UIViewController {
             let duration: Float64 = CMTimeGetSeconds(asset.duration)
             generator = AVAssetImageGenerator(asset: asset)
             generator.appliesPreferredTrackTransform = true
-            generator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: Int32(convertedFps))
-            generator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: Int32(convertedFps))
+            generator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: Int32(self.convertedFPS!))
+            generator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: Int32(self.convertedFPS!))
             let tracks = asset.tracks(withMediaType: .video)
             let fps = ceil((tracks.first?.nominalFrameRate)!)
             let totalFrameNum = Int(Double(fps) * duration)
@@ -102,8 +102,8 @@ class MainVC: UIViewController {
             print("fps: \(fps)")
             var index = 0
             // TODO: match read speed & write speed
-            while(Int32(index) < Int32(duration * Double(convertedFps))){
-                let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(convertedFps))
+            while(Int32(index) < Int32(duration * Double(self.convertedFPS!))){
+                let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(self.convertedFPS!))
                 //            print("time: \(time)")
                 var image: CGImage?
                 do {
@@ -164,7 +164,7 @@ extension MainVC : UIImagePickerControllerDelegate {
                 //3
                 print("media type : \(mediaType)")
                 print("url: \(url)")
-                
+                videourl = url
                 // alert view for initialize project name
                 let alert = UIAlertController(title: "Write Project Name", message: "", preferredStyle: .alert)
                 

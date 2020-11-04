@@ -44,6 +44,8 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     var selectedIndex : Int = 0
     var projName : String = ""
     var isPencilUsing : Bool = false
+    var videourl : URL?
+    var convertedFPS : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +83,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
         canvasView.isScrollEnabled = false
-        canvasView.allowsFingerDrawing = false
+        canvasView.allowsFingerDrawing = true
         if let window = parent?.view.window,
            let toolPicker = PKToolPicker.shared(for: window) {
             toolPicker.setVisible(true, forFirstResponder: canvasView)
@@ -219,7 +221,103 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     }
     private func convertImages2Video(useOriginalImage: Bool, fileName: String){
         print("start save video")
+        print(videourl!.absoluteString)
+        videourl!.deleteLastPathComponent()
+        let fileURL = videourl!.absoluteString + "\(fileName).MOV"
+        let outputURL : URL? = URL(string: fileURL)
+        var assetWriter : AVAssetWriter? = nil
+        do{
+            assetWriter = try AVAssetWriter(outputURL: outputURL!, fileType: AVFileType.mov)
+        } catch let asseterror{
+            print("Error: \(asseterror)")
+        }
+        
+        let size = CGSize(width: videoFrameView.frame.size.width, height: videoFrameView.frame.size.height)
+
+        // set output video properties
+        let videoSettings: [String : Any] = [
+            AVVideoCodecKey: AVVideoCodecType.h264,
+            AVVideoHeightKey: size.height,
+            AVVideoWidthKey: size.width
+        ]
+        let assetWriterInput : AVAssetWriterInput? = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
+        
+        if(assetWriter!.canAdd(assetWriterInput!)){
+            assetWriter!.add(assetWriterInput!)
+        }else{
+            // show error message
+        }
+        
+        let attributes: [String : Any] = [
+            String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA,
+            String(kCVPixelBufferWidthKey): size.width,
+            String(kCVPixelBufferHeightKey): size.height,
+            String(kCVPixelBufferCGImageCompatibilityKey): kCFBooleanTrue as Any,
+            String(kCVPixelBufferCGBitmapContextCompatibilityKey): kCFBooleanTrue as Any
+        ]
+        
+        let writerAdaptor : AVAssetWriterInputPixelBufferAdaptor? = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: assetWriterInput!, sourcePixelBufferAttributes: attributes)
+
+        assetWriter!.startWriting()
+        assetWriter!.startSession(atSourceTime: CMTime.zero)
+        
+        canvasView.backgroundColor = .white
+        
+        let mediaInputQueue = DispatchQueue(label: "mediaInputQueue")
+        assetWriterInput!.requestMediaDataWhenReady(on: mediaInputQueue){
+            for i in 0...self.canvasArray.count - 1{
+                if(assetWriterInput!.isReadyForMoreMediaData){
+                    let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+                    
+//                    self.canvasView.drawing = self.canvasArray[i]
+                    
+                    let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
+//                    let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
+                    
+                    let pixelBuffer = self.newPixelBufferFrom(cgImage: image.cgImage!)
+                    
+                    let time : CMTime = CMTimeMake(value: Int64(i), timescale: Int32(self.convertedFPS!))
+                    
+                    writerAdaptor?.append(pixelBuffer!, withPresentationTime: time)
+                }
+            }
+            assetWriterInput!.markAsFinished()
+            assetWriter!.finishWriting(completionHandler: {
+                Thread.sleep(forTimeInterval: 0.5)
+                DispatchQueue.main.sync {
+                    print("Completed?", assetWriter!.status == AVAssetWriter.Status.completed)
+                    UISaveVideoAtPathToSavedPhotosAlbum(outputURL!.relativePath, self, nil, nil)
+                }
+            })
+        }
+        
         // TODO
+//        UISaveVideoAtPathToSavedPhotosAlbum(self.videourl!.relativePath, self, nil, nil)
+        print("output URL: \(outputURL!.absoluteString)")
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func newPixelBufferFrom(cgImage:CGImage) -> CVPixelBuffer?{
+        let options:[String: Any] = [kCVPixelBufferCGImageCompatibilityKey as String: true, kCVPixelBufferCGBitmapContextCompatibilityKey as String: true]
+        var pxbuffer:CVPixelBuffer?
+        let frameWidth = 480 //CANVAS_SIZE
+        let frameHeight = 360 //CANVAS_SIZE
+
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, frameWidth, frameHeight, kCVPixelFormatType_32ARGB, options as CFDictionary?, &pxbuffer)
+        // TODO: throw exception in case of error, don't use assert
+        assert(status == kCVReturnSuccess && pxbuffer != nil, "newPixelBuffer failed")
+
+        CVPixelBufferLockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        let pxdata = CVPixelBufferGetBaseAddress(pxbuffer!)
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        let context = CGContext(data: pxdata, width: frameWidth, height: frameHeight, bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pxbuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
+        // TODO: throw exception in case of error, don't use assert
+        assert(context != nil, "context is nil")
+
+        context!.concatenate(CGAffineTransform.identity)
+        context!.draw(cgImage, in: CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height))
+        CVPixelBufferUnlockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        return pxbuffer
     }
     private func saveDrawingToCameraRoll(){
         UIGraphicsBeginImageContextWithOptions(canvasView.bounds.size, false, UIScreen.main.scale)
