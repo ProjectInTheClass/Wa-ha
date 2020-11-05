@@ -16,7 +16,11 @@ class ProjectCell: UICollectionViewCell {
     @IBOutlet weak var projectNameLabel: UILabel!
     @IBOutlet weak var deleteProjectButton: UIButton!
     
-    
+    var isEditing: Bool = false {
+        didSet {
+            deleteProjectButton.isHidden = !deleteProjectButton.isHidden
+        }
+    }
     
 
 }

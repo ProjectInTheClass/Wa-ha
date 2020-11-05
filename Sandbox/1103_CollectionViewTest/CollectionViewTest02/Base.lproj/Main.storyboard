@@ -20,25 +20,51 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MVo-hA-4sM">
                                 <rect key="frame" x="0.0" y="0.0" width="1194" height="75"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUw-MD-CYr">
-                                        <rect key="frame" x="1134" y="3" width="30" height="66"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="45"/>
-                                        <state key="normal" title="+"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IUw-MD-CYr">
+                                        <rect key="frame" x="1139" y="25" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="H3I-NM-tfQ"/>
+                                            <constraint firstAttribute="width" constant="40" id="c5s-HR-ao3"/>
+                                        </constraints>
+                                        <state key="normal" title="+" image="Pencil_v002"/>
                                         <connections>
                                             <segue destination="rGZ-ae-xhF" kind="presentation" id="aqj-iC-59E"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wa-ha" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uw0-8o-Cji">
+                                        <rect key="frame" x="554" y="29" width="86.5" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYg-Vj-bDe">
+                                        <rect key="frame" x="1084" y="25" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="DHh-Uf-mrT"/>
+                                            <constraint firstAttribute="width" constant="40" id="SRt-ko-UkG"/>
+                                            <constraint firstAttribute="height" constant="40" id="gaH-Ef-DkJ"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="tQq-8S-MH3"/>
+                                        </constraints>
+                                        <state key="normal" title="+" image="Delete"/>
+                                        <connections>
+                                            <action selector="deleteModeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OSk-hB-sOp"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="3Nx-Ej-VsG"/>
-                                    <constraint firstAttribute="trailing" secondItem="IUw-MD-CYr" secondAttribute="trailing" constant="30" id="Dyj-y6-2hD"/>
-                                    <constraint firstItem="IUw-MD-CYr" firstAttribute="top" secondItem="MVo-hA-4sM" secondAttribute="top" constant="3" id="b0U-lV-8wQ"/>
+                                    <constraint firstItem="IUw-MD-CYr" firstAttribute="leading" secondItem="eYg-Vj-bDe" secondAttribute="trailing" constant="15" id="Rov-Vs-bpk"/>
+                                    <constraint firstItem="uw0-8o-Cji" firstAttribute="centerX" secondItem="MVo-hA-4sM" secondAttribute="centerX" id="Wpt-3d-mzR"/>
+                                    <constraint firstAttribute="bottom" secondItem="IUw-MD-CYr" secondAttribute="bottom" constant="10" id="fQa-u0-hbe"/>
+                                    <constraint firstAttribute="trailing" secondItem="IUw-MD-CYr" secondAttribute="trailing" constant="15" id="gwp-9M-w4h"/>
+                                    <constraint firstAttribute="bottom" secondItem="eYg-Vj-bDe" secondAttribute="bottom" constant="10" id="jbw-9h-4Lm"/>
+                                    <constraint firstAttribute="bottom" secondItem="uw0-8o-Cji" secondAttribute="bottom" constant="10" id="v49-NQ-6S9"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X3L-Ag-Xg5">
                                 <rect key="frame" x="0.0" y="75" width="1194" height="759"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="X02-fA-Vyd">
                                     <size key="itemSize" width="150" height="180"/>
                                     <size key="estimatedItemSize" width="150" height="180"/>
@@ -67,11 +93,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7cp-Ny-yaX">
-                                                    <rect key="frame" x="122" y="8" width="20" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7cp-Ny-yaX">
+                                                    <rect key="frame" x="115" y="5" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="qvd-M5-DXg"/>
+                                                        <constraint firstAttribute="height" constant="30" id="z2C-3x-I96"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="tintColor" systemColor="systemRedColor"/>
-                                                    <state key="normal" image="trash" catalog="system"/>
+                                                    <state key="normal" image="28"/>
                                                     <connections>
                                                         <action selector="deleteProjectButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bw4-SO-qy2"/>
                                                     </connections>
@@ -81,8 +111,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="P5n-ul-zfF" secondAttribute="bottom" constant="8" id="NL9-zT-e1j"/>
                                                 <constraint firstAttribute="trailing" secondItem="ex2-c7-NCz" secondAttribute="trailing" id="Nnh-mk-9Hj"/>
                                                 <constraint firstItem="ex2-c7-NCz" firstAttribute="leading" secondItem="UZi-7z-FgF" secondAttribute="leading" id="Tme-b4-k5J"/>
+                                                <constraint firstItem="7cp-Ny-yaX" firstAttribute="trailing" secondItem="ex2-c7-NCz" secondAttribute="trailing" constant="-5" id="V6x-Ow-GoY"/>
                                                 <constraint firstItem="ex2-c7-NCz" firstAttribute="top" secondItem="UZi-7z-FgF" secondAttribute="top" id="W2j-yy-7qD"/>
                                                 <constraint firstItem="P5n-ul-zfF" firstAttribute="leading" secondItem="UZi-7z-FgF" secondAttribute="leading" constant="8" id="lTc-S6-Nf7"/>
+                                                <constraint firstItem="7cp-Ny-yaX" firstAttribute="top" secondItem="UZi-7z-FgF" secondAttribute="top" constant="5" id="m95-2C-aRy"/>
                                                 <constraint firstAttribute="trailing" secondItem="P5n-ul-zfF" secondAttribute="trailing" constant="8" id="r1w-SG-muH"/>
                                             </constraints>
                                         </collectionViewCellContentView>
@@ -100,7 +132,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="MVo-hA-4sM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8zm-zW-PPM"/>
-                            <constraint firstItem="MVo-hA-4sM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Y51-7j-cag"/>
+                            <constraint firstItem="MVo-hA-4sM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Y51-7j-cag"/>
                             <constraint firstItem="X3L-Ag-Xg5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bPs-Vf-iUg"/>
                             <constraint firstItem="MVo-hA-4sM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hFo-jJ-xh8"/>
                             <constraint firstAttribute="bottom" secondItem="X3L-Ag-Xg5" secondAttribute="bottom" id="uNG-h3-TkI"/>
@@ -110,6 +142,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="QTF-w6-8T3"/>
                     <connections>
+                        <outlet property="DeleteModeButton" destination="eYg-Vj-bDe" id="uLd-e2-gFw"/>
                         <outlet property="createNewProjectButton" destination="IUw-MD-CYr" id="TvH-te-MXu"/>
                         <outlet property="introMenu" destination="MVo-hA-4sM" id="1Si-yJ-6jT"/>
                         <outlet property="projectListCollectionView" destination="X3L-Ag-Xg5" id="x8G-ZV-hrw"/>
@@ -206,8 +239,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="28" width="35" height="35"/>
+        <image name="Delete" width="1080" height="1080"/>
+        <image name="Pencil_v002" width="1080" height="1080"/>
         <image name="thumbnail_00" width="1000" height="1000"/>
-        <image name="trash" catalog="system" width="121" height="128"/>
         <image name="video.badge.plus" catalog="system" width="128" height="90"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

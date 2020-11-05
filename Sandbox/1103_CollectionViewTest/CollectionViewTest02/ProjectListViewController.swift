@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
 
     @IBOutlet weak var createNewProjectButton: UIButton!
+    @IBOutlet weak var DeleteModeButton: UIButton!
     @IBOutlet weak var introMenu: UIView!
     @IBOutlet weak var projectListCollectionView: UICollectionView!
     
@@ -33,6 +34,23 @@ class ViewController: UIViewController {
         // 코어 데이터에서 아이템 가져오기
         fetchProject()
         
+        //인트로 메뉴 UIView 디자인
+        introMenu.layer.shadowColor = UIColor.black.cgColor
+        introMenu.layer.shadowOffset = CGSize(width: 0, height: 0)
+        introMenu.layer.shadowRadius = 20
+        introMenu.layer.shadowOpacity = 0.3
+        
+        
+    }
+    
+    
+    @IBAction func deleteModeButtonTapped(_ sender: Any) {
+        projectListCollectionView.indexPathsForVisibleItems.forEach { (indexPath) in
+            let cell = projectListCollectionView.cellForItem(at: indexPath) as! ProjectCell
+            
+            cell.isEditing = !isEditing
+        }
+
     }
     
     private func setupFlowLayout() {
@@ -113,7 +131,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         let project = self.items![indexPath.row]
         
         cell.projectNameLabel?.text = project.projectName
-//        cell.projectThumbnailImage.image = UIImage(named: "BasicThumbnail")
         
         cell.projectThumbnailImage.image = UIImage(data: project.thumbnail!)
             
@@ -122,11 +139,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource{
         //Delete Cell
         cell.deleteProjectButton.tag = indexPath.row
         cell.deleteProjectButton.addTarget(self, action: #selector(deleteProjectButtonTapped(_:)), for: .touchUpInside)
-        
-
-        
-        
-//        cell.layer.cornerRadius = cell.frame.height / 2
     
         return cell
 }
