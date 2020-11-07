@@ -23,6 +23,9 @@ protocol collectionViewDidScrollDelegate : EditVC{
 class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
     let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+    var initialCenter = CGPoint()
+    var changedScale = CGFloat()
+    var changedAngle = CGFloat()
     
     //pencilKt
     @IBOutlet weak var canvasView: PKCanvasView!
@@ -53,6 +56,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         print("tableView image count : \(imageArray.count)")
         setupGesture()
         
+        
+        initialCenter = self.containerView.center
+        
     }
     private func setupProject(){
         for _ in 0..<imageArray.count {
@@ -75,7 +81,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         tableView.layer.opacity = opacity
     }
     private func setupCanvasView(){
-     
+        
         // TODO: canvas도 thumnail과 original image 분리
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
@@ -113,7 +119,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     }
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if isPencilUsing == false {
+            
             if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+                
                 let translation = gestureRecognizer.translation(in: self.view)
                 // note: 'view' is optional and need to be unwrapped
                 gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x + translation.x, y: gestureRecognizer.view!.center.y + translation.y)
@@ -124,6 +132,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
     }
     @objc func pinchRecognized(pinch: UIPinchGestureRecognizer) {
+        changedScale = pinch.scale
         if let view = pinch.view {
             view.transform = view.transform.scaledBy(x: pinch.scale, y: pinch.scale)
             pinch.scale = 1
@@ -131,6 +140,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
     @objc func handleRotate(recognizer : UIRotationGestureRecognizer) {
+        changedAngle = recognizer.rotation
         if let view = recognizer.view {
             view.transform = view.transform.rotated(by: recognizer.rotation)
             recognizer.rotation = 0
@@ -152,11 +162,19 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         selectSaveMode()
     }
     
+    @IBAction func actionRestoreScreen(_ sender: Any) {
+        restoreScreen()
+    }
     //hide home indicator for better performance
     override var prefersHomeIndicatorAutoHidden: Bool {
         return true
     }
-
+    private func restoreScreen(){
+        containerView.center = initialCenter
+//        containerView.transform = containerView.transform.scaledBy(x: -changedScale, y: -changedScale)
+        containerView.transform = CGAffineTransform(rotationAngle: changedAngle * CGFloat(Double.pi)/180)
+            
+    }
     private func selectSaveMode(){
         // alert view for select save mode
         let alert = UIAlertController(title: "Save Video With", message: "", preferredStyle: .actionSheet)
