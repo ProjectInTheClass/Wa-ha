@@ -44,7 +44,7 @@ class ImageFrameListTableViewCell: UITableViewCell {
         //select center item
     }
     
-   
+    
     @IBAction func actionSlider(_ sender: UISlider) {
         sliderDelegate.sliderDidMoved(value: sender.value, layer: index)
     }
@@ -53,7 +53,7 @@ class ImageFrameListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-
+    
     
 }
 extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -76,30 +76,17 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
         }
         
         if indexPath.row == selectedIndex {
-            if index == 0 {
-                cell.border_top.backgroundColor = .green
-                cell.border_left.backgroundColor = .green
-                cell.border_right.backgroundColor = .green
-                cell.border_bottom.backgroundColor = .green
-            }else{
-                
-                cell.border_top.backgroundColor = .green
-                cell.border_bottom.backgroundColor = .green
-                cell.border_left.backgroundColor = .green
-                cell.border_right.backgroundColor = .green
-            }
+            cell.border_top.backgroundColor = .green
+            cell.border_left.backgroundColor = .green
+            cell.border_right.backgroundColor = .green
+            cell.border_bottom.backgroundColor = .green
+            
         }else{
-            if index == 0 {
-                cell.border_bottom.backgroundColor = .clear
-                cell.border_top.backgroundColor = .clear
-                cell.border_left.backgroundColor = .clear
-                cell.border_right.backgroundColor = .clear
-            }else{
-                cell.border_top.backgroundColor = .clear
-                cell.border_bottom.backgroundColor = .clear
-                cell.border_left.backgroundColor = .clear
-                cell.border_right.backgroundColor = .clear
-            }
+            cell.border_bottom.backgroundColor = .clear
+            cell.border_top.backgroundColor = .clear
+            cell.border_left.backgroundColor = .clear
+            cell.border_right.backgroundColor = .clear
+            
         }
         return cell
     }
@@ -111,11 +98,11 @@ extension ImageFrameListTableViewCell : UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         scrollDelegate?.didScrolled(to: scrollView.contentOffset.x)
-//        let point = convert(collectionview.center, to: collectionview)
-//        let index : Int = Int(round((point.x - collectionview.frame.width/2.2)/CGFloat(imageArray.count)))
-//        if index >= 0 && index < imageArray.count {
-//            delegate.selectedIndex(index: index)
-//        }
+        //        let point = convert(collectionview.center, to: collectionview)
+        //        let index : Int = Int(round((point.x - collectionview.frame.width/2.2)/CGFloat(imageArray.count)))
+        //        if index >= 0 && index < imageArray.count {
+        //            delegate.selectedIndex(index: index)
+        //        }
         
         
     }

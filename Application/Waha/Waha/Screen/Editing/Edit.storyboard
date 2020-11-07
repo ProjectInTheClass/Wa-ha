@@ -88,10 +88,20 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjl-G4-74o">
+                                        <rect key="frame" x="958" y="15" width="78" height="30"/>
+                                        <state key="normal" title="화면원래대로">
+                                            <color key="titleColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="actionRestoreScreen:" destination="Pmg-62-vOM" eventType="touchUpInside" id="afm-21-504"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="wLY-C2-4aO" firstAttribute="centerY" secondItem="wJW-H7-N33" secondAttribute="centerY" id="2J7-Lb-JnN"/>
+                                    <constraint firstItem="ZWe-zL-3kW" firstAttribute="leading" secondItem="xjl-G4-74o" secondAttribute="trailing" constant="10" id="45Y-Jq-9qV"/>
                                     <constraint firstItem="lwg-Yx-v7R" firstAttribute="leading" secondItem="UaT-Cu-b6Z" secondAttribute="trailing" constant="10" id="A2D-vm-ymv"/>
                                     <constraint firstItem="wLY-C2-4aO" firstAttribute="centerX" secondItem="wJW-H7-N33" secondAttribute="centerX" id="BLR-h4-C3J"/>
                                     <constraint firstAttribute="trailing" secondItem="lwg-Yx-v7R" secondAttribute="trailing" constant="20" id="DQi-gW-REC"/>
@@ -102,6 +112,7 @@
                                     <constraint firstItem="lwg-Yx-v7R" firstAttribute="centerY" secondItem="wJW-H7-N33" secondAttribute="centerY" id="b83-wa-IG6"/>
                                     <constraint firstItem="UaT-Cu-b6Z" firstAttribute="leading" secondItem="ZWe-zL-3kW" secondAttribute="trailing" constant="10" id="kym-0X-8WO"/>
                                     <constraint firstItem="C7x-zh-rXX" firstAttribute="centerY" secondItem="wJW-H7-N33" secondAttribute="centerY" id="l0E-79-vEE"/>
+                                    <constraint firstItem="xjl-G4-74o" firstAttribute="centerY" secondItem="wJW-H7-N33" secondAttribute="centerY" id="pRC-ME-J1x"/>
                                     <constraint firstItem="ZWe-zL-3kW" firstAttribute="centerY" secondItem="wJW-H7-N33" secondAttribute="centerY" id="rd2-8H-9Ru"/>
                                     <constraint firstItem="C7x-zh-rXX" firstAttribute="leading" secondItem="xHI-CA-Blb" secondAttribute="trailing" constant="20" id="uJE-f0-Com"/>
                                 </constraints>
