@@ -1,6 +1,6 @@
 # WaHa-iOS
 - Waha iOS 레포 입니다.
-- [Github Page](https://wa-ha.github.io/WaHa-iOS/)
+- [Github Page](https://projectintheclass.github.io/Wa-ha/)
 
 
 ### 팀원
