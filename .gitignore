@@ -46,3 +46,4 @@ DerivedData/
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode,cocoapods
 .DS_Store
+.gitignore
