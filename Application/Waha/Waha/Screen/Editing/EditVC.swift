@@ -49,6 +49,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     var isPencilUsing : Bool = false
     var videourl : URL?
     var convertedFPS : Int?
+    var videoSize : CGSize?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +90,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
         canvasView.isScrollEnabled = false
-        canvasView.allowsFingerDrawing = true
+        canvasView.allowsFingerDrawing = false
         if let window = parent?.view.window,
            let toolPicker = PKToolPicker.shared(for: window) {
             toolPicker.setVisible(true, forFirstResponder: canvasView)
@@ -250,13 +251,11 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             print("Error: \(asseterror)")
         }
         
-        let size = CGSize(width: videoFrameView.frame.size.width, height: videoFrameView.frame.size.height)
-
         // set output video properties
         let videoSettings: [String : Any] = [
             AVVideoCodecKey: AVVideoCodecType.h264,
-            AVVideoHeightKey: size.height,
-            AVVideoWidthKey: size.width
+            AVVideoHeightKey: videoSize!.height,
+            AVVideoWidthKey: videoSize!.width
         ]
         let assetWriterInput : AVAssetWriterInput? = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
         
@@ -268,8 +267,8 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
         let attributes: [String : Any] = [
             String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA,
-            String(kCVPixelBufferWidthKey): size.width,
-            String(kCVPixelBufferHeightKey): size.height,
+            String(kCVPixelBufferWidthKey): videoSize!.width,
+            String(kCVPixelBufferHeightKey): videoSize!.height,
             String(kCVPixelBufferCGImageCompatibilityKey): kCFBooleanTrue as Any,
             String(kCVPixelBufferCGBitmapContextCompatibilityKey): kCFBooleanTrue as Any
         ]
@@ -281,10 +280,10 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
         var backgroundImage : UIImage?
         
-        UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
+        UIGraphicsBeginImageContextWithOptions(videoSize!, true, 0.0)
         if let context = UIGraphicsGetCurrentContext(){
             context.setFillColor(UIColor.white.cgColor)
-            context.fill(CGRect(origin: .zero, size: size))
+            context.fill(CGRect(origin: .zero, size: videoSize!))
             backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
         }
         UIGraphicsEndPDFContext()
@@ -293,18 +292,27 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         assetWriterInput!.requestMediaDataWhenReady(on: mediaInputQueue){
             for i in 0...self.canvasArray.count - 1{
                 if(assetWriterInput!.isReadyForMoreMediaData){
-                    let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-                    
-//                    self.canvasView.drawing = self.canvasArray[i]
-                    
+                    let areaSize = CGRect(x: 0, y: 0, width: self.videoSize!.width, height: self.videoSize!.height)
+
                     let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
-//                    let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
                     
-                    UIGraphicsBeginImageContext(size)
-                    backgroundImage!.draw(in: areaSize)
-                    image.draw(in: areaSize, blendMode: .normal, alpha: 1)
-                    let newImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-                    UIGraphicsEndImageContext()
+                    let newImage : UIImage
+                    
+                    if(useOriginalImage){
+                        UIGraphicsBeginImageContext(self.videoSize!)
+                        let originalImage = ImageFileManager.shared.getSavedImage(named: "\(self.projName)_original_\(i)")
+                        originalImage!.draw(in: areaSize)
+                        image.draw(in: areaSize, blendMode: .normal, alpha: 1)
+                        newImage = UIGraphicsGetImageFromCurrentImageContext()!
+                        UIGraphicsEndImageContext()
+                    }else{
+                        UIGraphicsBeginImageContext(self.videoSize!)
+                        backgroundImage!.draw(in: areaSize)
+                        image.draw(in: areaSize, blendMode: .normal, alpha: 1)
+                        newImage = UIGraphicsGetImageFromCurrentImageContext()!
+                        UIGraphicsEndImageContext()
+                    }
+                    
                     
                     let pixelBuffer = self.newPixelBufferFrom(cgImage: newImage.cgImage!)
                     
@@ -338,9 +346,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func newPixelBufferFrom(cgImage:CGImage) -> CVPixelBuffer?{
         let options:[String: Any] = [kCVPixelBufferCGImageCompatibilityKey as String: true, kCVPixelBufferCGBitmapContextCompatibilityKey as String: true]
         var pxbuffer:CVPixelBuffer?
-        let frameWidth = 480 //CANVAS_SIZE
-        let frameHeight = 360 //CANVAS_SIZE
-
+        let frameWidth = Int(self.videoSize!.width) //CANVAS_SIZE
+        let frameHeight = Int(self.videoSize!.height) //CANVAS_SIZE
+        
         let status = CVPixelBufferCreate(kCFAllocatorDefault, frameWidth, frameHeight, kCVPixelFormatType_32ARGB, options as CFDictionary?, &pxbuffer)
         // TODO: throw exception in case of error, don't use assert
         assert(status == kCVReturnSuccess && pxbuffer != nil, "newPixelBuffer failed")
