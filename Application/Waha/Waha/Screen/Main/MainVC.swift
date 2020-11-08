@@ -99,11 +99,24 @@ class MainVC: UIViewController {
             let tracks = asset.tracks(withMediaType: .video)
             let fps = ceil((tracks.first?.nominalFrameRate)!)
             let totalFrameNum = Int(Double(fps) * duration)
+            
+            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            let documentsDirectory = paths[0]
+            let docURL = URL(string: documentsDirectory)!
+            let dataPath = docURL.appendingPathComponent("\(self.selectedProjName)")
+            if !FileManager.default.fileExists(atPath: dataPath.absoluteString) {
+                do {
+                    try FileManager.default.createDirectory(atPath: dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    print(error.localizedDescription);
+                }
+            }
+            
             print("duration: \(duration)")
             print("total frame: \(totalFrameNum)")
             print("fps: \(fps)")
             var index = 0
-            // TODO: match read speed & write speed
+            
             while(Int32(index) < Int32(duration * Double(self.convertedFPS!))){
                 let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(self.convertedFPS!))
                 //            print("time: \(time)")
@@ -116,7 +129,7 @@ class MainVC: UIViewController {
                 }
                 let pngImage: UIImage = UIImage(cgImage: image!)
                 if(self.videoSize == nil) {self.videoSize = pngImage.size}
-                let imageName: String = "\(self.selectedProjName)_original_\(index).png"
+                let imageName: String = "\(self.selectedProjName)/original_\(index).png"
                 ImageFileManager.shared.saveImage(image: pngImage, name: imageName){
                     [weak self] onSuccess in
                     //                print("saveImage onSuccess: \(onSuccess), \(imageName)")
