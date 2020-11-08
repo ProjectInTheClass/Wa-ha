@@ -77,7 +77,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             canvasArray.append(PKDrawing())
             thumbnailArray.append(UIImage())
         }
-        let fileName = "\(self.projName)_original_\(0)"
+        let fileName = "\(self.projName)/original_\(0)"
         self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
         setupTableView()
     }
@@ -223,7 +223,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             var index = 0
             Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
                 DispatchQueue.main.async {
-                    let fileName = "\(self.projName)_original_\(index)"
+                    let fileName = "\(self.projName)/original_\(index)"
                     self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
                     self.canvasView.drawing = self.canvasArray[index]
                     if direction {
@@ -247,7 +247,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             var index = 0
             Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
                 DispatchQueue.main.async {
-                    let fileName = "\(self.projName)_original_\(index)"
+                    let fileName = "\(self.projName)/original_\(index)"
                     self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
                     self.canvasView.drawing = self.canvasArray[index]
                     index += 1
@@ -270,7 +270,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             var index = 0
             Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
                 DispatchQueue.main.async {
-                    let fileName = "\(self.projName)_original_\(index)"
+                    let fileName = "\(self.projName)/original_\(index)"
                     self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
                     self.canvasView.drawing = self.canvasArray[index]
                     index += 1
@@ -427,7 +427,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     
                     if(useOriginalImage){
                         UIGraphicsBeginImageContext(self.videoSize!)
-                        let originalImage = ImageFileManager.shared.getSavedImage(named: "\(self.projName)_original_\(i)")
+                        let originalImage = ImageFileManager.shared.getSavedImage(named: "\(self.projName)/original_\(i)")
                         originalImage!.draw(in: areaSize)
                         image.draw(in: areaSize, blendMode: .normal, alpha: 1)
                         newImage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -620,7 +620,7 @@ extension EditVC : frameSelectDelegate {
     func selectedIndex(index: Int) {
         print("selectedIndexDelegate \(index)")
         DispatchQueue.main.async {
-            let fileName = "\(self.projName)_original_\(index)"
+            let fileName = "\(self.projName)/original_\(index)"
             self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
             //            self.tmpImageView.image = self.imageArray[index]
             self.canvasView.drawing = self.canvasArray[index]
