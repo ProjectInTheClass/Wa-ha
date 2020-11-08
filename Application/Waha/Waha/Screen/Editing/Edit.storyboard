@@ -138,18 +138,27 @@
                                         <state key="normal" image="74">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="actionPlayoptionLoop:" destination="Pmg-62-vOM" eventType="touchUpInside" id="bWj-tL-i6X"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaT-Cu-b6Z">
                                         <rect key="frame" x="1053" y="18" width="24" height="24"/>
                                         <state key="normal" image="75">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="actionPlayoptionMultiple:" destination="Pmg-62-vOM" eventType="touchUpInside" id="5Vd-yx-5Fc"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwg-Yx-v7R">
                                         <rect key="frame" x="1087" y="18" width="24" height="24"/>
                                         <state key="normal" image="78">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="actionPlayoptionSingle:" destination="Pmg-62-vOM" eventType="touchUpInside" id="zqW-bz-rYa"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C7x-zh-rXX">
                                         <rect key="frame" x="96" y="6.5" width="46" height="47"/>
@@ -182,6 +191,9 @@
                                             <constraint firstAttribute="width" constant="46" id="JAI-Uo-pJ0"/>
                                         </constraints>
                                         <state key="normal" image="play"/>
+                                        <connections>
+                                            <action selector="actionPlay:" destination="Pmg-62-vOM" eventType="touchUpInside" id="L9C-ik-gCT"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
@@ -225,6 +237,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnPlay_0" destination="ZWe-zL-3kW" id="a5y-C4-rre"/>
+                        <outlet property="btnPlay_1" destination="UaT-Cu-b6Z" id="m3h-1n-xdh"/>
+                        <outlet property="btnPlay_2" destination="lwg-Yx-v7R" id="2l8-EL-ARV"/>
                         <outlet property="canvasView" destination="jQu-5j-t1P" id="ZgE-sg-wTY"/>
                         <outlet property="containerView" destination="iFB-k8-Yqd" id="G7Z-Hk-BJu"/>
                         <outlet property="lbTitle" destination="wLY-C2-4aO" id="0cn-NM-RKW"/>

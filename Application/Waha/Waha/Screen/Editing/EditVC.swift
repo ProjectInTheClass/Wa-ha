@@ -32,6 +32,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     let canvasWidth: CGFloat = 768
     let canvasOverscrollHeight: CGFloat = 500
     
+    @IBOutlet weak var btnPlay_0: UIButton!
+    @IBOutlet weak var btnPlay_1: UIButton!
+    @IBOutlet weak var btnPlay_2: UIButton!
     
     //View
     @IBOutlet weak var tableView: UITableView!
@@ -49,6 +52,8 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     var isPencilUsing : Bool = false
     var videourl : URL?
     var convertedFPS : Int?
+    var selectedPlayOption : Int = 0
+    var videoIsPlaying = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,7 +143,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         changedScale = pinch.scale
         if let view = pinch.view {
             view.transform = view.transform.scaledBy(x: pinch.scale, y: pinch.scale)
-//            view.transform = view.transform.inverted()
+            //            view.transform = view.transform.inverted()
             pinch.scale = 1
         }
     }
@@ -164,10 +169,122 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         //        saveDrawingToCameraRoll()
         selectSaveMode()
     }
-    
     @IBAction func actionRestoreScreen(_ sender: Any) {
         restoreScreen()
     }
+    
+    @IBAction func actionPlay(_ sender: Any) {
+        videoIsPlaying.toggle()
+        print("play video \(videoIsPlaying)")
+        if videoIsPlaying == true {
+            restoreScreen()
+            toolBar.isHidden = true
+            playTmpVideo(selectedPlayOption)
+        }else{
+            toolBar.isHidden = false
+        }
+    }
+    @IBAction func actionPlayoptionSingle(_ sender: Any) {
+        btnPlay_0.backgroundColor = .clear
+        btnPlay_1.backgroundColor = .clear
+        btnPlay_2.backgroundColor = .black
+        selectedPlayOption = 2
+        
+
+    }
+    @IBAction func actionPlayoptionMultiple(_ sender: Any) {
+        btnPlay_0.backgroundColor = .clear
+        btnPlay_1.backgroundColor = .black
+        btnPlay_2.backgroundColor = .clear
+        selectedPlayOption = 1
+    }
+    @IBAction func actionPlayoptionLoop(_ sender: Any) {
+        btnPlay_0.backgroundColor = .black
+        btnPlay_1.backgroundColor = .clear
+        btnPlay_2.backgroundColor = .clear
+        selectedPlayOption = 0
+    }
+    
+    
+    
+    //playing current work
+    private func playTmpVideo(_ option : Int) {
+        let timeInterval = 0.01
+        //0 무한루프 <->
+        //1 한쪽 반복 ->|
+        //2 한번 ->
+        switch option {
+        case 0:
+            var direction = true
+            var index = 0
+            Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
+                DispatchQueue.main.async {
+                    let fileName = "\(self.projName)_original_\(index)"
+                    self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
+                    self.canvasView.drawing = self.canvasArray[index]
+                    if direction {
+                        index += 1
+                    }else{
+                        index -= 1
+                    }
+                }
+                if index == self.canvasArray.count-1 {
+                    direction = false
+                }else if index == 0 {
+                    direction = true
+                }
+                if !self.videoIsPlaying {
+                    timer.invalidate()
+                }
+            }
+            
+            
+        case 1:
+            var index = 0
+            Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
+                DispatchQueue.main.async {
+                    let fileName = "\(self.projName)_original_\(index)"
+                    self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
+                    self.canvasView.drawing = self.canvasArray[index]
+                    index += 1
+                }
+                if index == self.canvasArray.count-1 {
+                    if self.videoIsPlaying == true {
+                        index = 0
+                    }else{
+                        timer.invalidate()
+                    }
+                }
+                if !self.videoIsPlaying {
+                    timer.invalidate()
+                }
+            }
+            
+            
+            
+        case 2:
+            var index = 0
+            Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
+                DispatchQueue.main.async {
+                    let fileName = "\(self.projName)_original_\(index)"
+                    self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
+                    self.canvasView.drawing = self.canvasArray[index]
+                    index += 1
+                }
+                if index == self.canvasArray.count-1 {
+                    timer.invalidate()
+                }
+                if !self.videoIsPlaying {
+                    timer.invalidate()
+                }
+            }
+            
+        default:
+            break
+        }
+        
+    }
+    
     //hide home indicator for better performance
     override var prefersHomeIndicatorAutoHidden: Bool {
         return true
@@ -175,9 +292,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func restoreScreen(){
         containerView.transform = containerView.transform.inverted()
         containerView.center = initialCenter
-//        containerView.transform = containerView.transform.scaledBy(x: -changedScale, y: -changedScale)
+        //        containerView.transform = containerView.transform.scaledBy(x: -changedScale, y: -changedScale)
         containerView.transform = CGAffineTransform(rotationAngle: changedAngle * CGFloat(Double.pi)/180)
-            
+        
     }
     private func selectSaveMode(){
         // alert view for select save mode
@@ -252,7 +369,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         }
         
         let size = CGSize(width: videoFrameView.frame.size.width, height: videoFrameView.frame.size.height)
-
+        
         // set output video properties
         let videoSettings: [String : Any] = [
             AVVideoCodecKey: AVVideoCodecType.h264,
@@ -276,7 +393,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         ]
         
         let writerAdaptor : AVAssetWriterInputPixelBufferAdaptor? = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: assetWriterInput!, sourcePixelBufferAttributes: attributes)
-
+        
         assetWriter!.startWriting()
         assetWriter!.startSession(atSourceTime: CMTime.zero)
         
@@ -296,10 +413,10 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 if(assetWriterInput!.isReadyForMoreMediaData){
                     let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
                     
-//                    self.canvasView.drawing = self.canvasArray[i]
+                    //                    self.canvasView.drawing = self.canvasArray[i]
                     
                     let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
-//                    let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
+                    //                    let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
                     
                     UIGraphicsBeginImageContext(size)
                     backgroundImage!.draw(in: areaSize)
@@ -331,7 +448,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         }
         
         // TODO
-//        UISaveVideoAtPathToSavedPhotosAlbum(self.videourl!.relativePath, self, nil, nil)
+        //        UISaveVideoAtPathToSavedPhotosAlbum(self.videourl!.relativePath, self, nil, nil)
         print("output URL: \(outputURL!.absoluteString)")
         self.navigationController?.popViewController(animated: true)
     }
@@ -341,18 +458,18 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         var pxbuffer:CVPixelBuffer?
         let frameWidth = 480 //CANVAS_SIZE
         let frameHeight = 360 //CANVAS_SIZE
-
+        
         let status = CVPixelBufferCreate(kCFAllocatorDefault, frameWidth, frameHeight, kCVPixelFormatType_32ARGB, options as CFDictionary?, &pxbuffer)
         // TODO: throw exception in case of error, don't use assert
         assert(status == kCVReturnSuccess && pxbuffer != nil, "newPixelBuffer failed")
-
+        
         CVPixelBufferLockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0))
         let pxdata = CVPixelBufferGetBaseAddress(pxbuffer!)
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
         let context = CGContext(data: pxdata, width: frameWidth, height: frameHeight, bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pxbuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
         // TODO: throw exception in case of error, don't use assert
         assert(context != nil, "context is nil")
-
+        
         context!.concatenate(CGAffineTransform.identity)
         context!.draw(cgImage, in: CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height))
         CVPixelBufferUnlockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0))
@@ -424,7 +541,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             //for drawing layer thumbnail
-
+            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
                 cell.imageArray = thumbnailArray
@@ -438,7 +555,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
             }
         }else{
             //for video frame thumbnail
-
+            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
                 cell.imageArray = imageArray
