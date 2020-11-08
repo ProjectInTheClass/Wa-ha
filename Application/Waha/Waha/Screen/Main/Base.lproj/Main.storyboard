@@ -3,7 +3,7 @@
     <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -18,18 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wa-ha" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVN-bN-3Gi">
-                                <rect key="frame" x="44" y="55" width="140.5" height="58.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="49"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Cd0-UC-Ap9">
-                                <rect key="frame" x="0.0" y="113.5" width="1194" height="56"/>
+                                <rect key="frame" x="0.0" y="100" width="1194" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uTu-uN-4ah">
-                                <rect key="frame" x="0.0" y="169.5" width="1194" height="644.5"/>
+                                <rect key="frame" x="0.0" y="156" width="1194" height="658"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="74z-wz-kC7">
                                     <size key="itemSize" width="128" height="128"/>
@@ -48,27 +42,135 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RuO-D3-6fy">
+                                <rect key="frame" x="0.0" y="0.0" width="1194" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sNY-Ys-JWL">
+                                        <rect key="frame" x="1073" y="35" width="99" height="30"/>
+                                        <state key="normal" title="새 프로젝트 추가"/>
+                                        <connections>
+                                            <action selector="actionCreateProject:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6xc-Qh-ZVZ"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wa-ha" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVN-bN-3Gi">
+                                        <rect key="frame" x="22" y="21" width="140.5" height="58.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="49"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                <constraints>
+                                    <constraint firstItem="sNY-Ys-JWL" firstAttribute="centerY" secondItem="RuO-D3-6fy" secondAttribute="centerY" id="2Cg-1c-O4l"/>
+                                    <constraint firstAttribute="trailing" secondItem="sNY-Ys-JWL" secondAttribute="trailing" constant="22" id="ByK-Gw-rD8"/>
+                                    <constraint firstItem="eVN-bN-3Gi" firstAttribute="leading" secondItem="RuO-D3-6fy" secondAttribute="leading" constant="22" id="TEs-aV-fxs"/>
+                                    <constraint firstAttribute="height" constant="100" id="qPm-Go-ZKf"/>
+                                    <constraint firstItem="eVN-bN-3Gi" firstAttribute="centerY" secondItem="RuO-D3-6fy" secondAttribute="centerY" id="uft-qr-but"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Cd0-UC-Ap9" firstAttribute="top" secondItem="eVN-bN-3Gi" secondAttribute="bottom" id="GUD-Ab-87l"/>
-                            <constraint firstItem="eVN-bN-3Gi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="44" id="IPm-nD-bZ5"/>
+                            <constraint firstItem="RuO-D3-6fy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3Yv-id-Pjs"/>
+                            <constraint firstItem="uTu-uN-4ah" firstAttribute="top" secondItem="Cd0-UC-Ap9" secondAttribute="bottom" id="3p4-o1-js5"/>
+                            <constraint firstItem="RuO-D3-6fy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6ON-of-xWm"/>
+                            <constraint firstItem="Cd0-UC-Ap9" firstAttribute="top" secondItem="RuO-D3-6fy" secondAttribute="bottom" id="BaX-r6-Hd2"/>
                             <constraint firstItem="uTu-uN-4ah" firstAttribute="top" secondItem="Cd0-UC-Ap9" secondAttribute="bottom" id="NUg-El-vJ1"/>
                             <constraint firstAttribute="trailing" secondItem="Cd0-UC-Ap9" secondAttribute="trailing" id="QJS-cb-6m8"/>
                             <constraint firstItem="uTu-uN-4ah" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Z3U-7m-6Rv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uTu-uN-4ah" secondAttribute="trailing" id="ble-zA-wJx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="uTu-uN-4ah" secondAttribute="bottom" id="hVe-9B-6My"/>
-                            <constraint firstItem="eVN-bN-3Gi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="55" id="sAH-hk-IFN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RuO-D3-6fy" secondAttribute="trailing" id="qnz-Za-6f1"/>
                             <constraint firstItem="Cd0-UC-Ap9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uUJ-qv-T5i"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pfe-89-IKP"/>
                     <connections>
+                        <outlet property="NewProjectButton" destination="gzE-3L-mJw" id="asP-WQ-4JR"/>
+                        <outlet property="addVideoButton" destination="Jfq-gu-Gx2" id="c6O-CK-aMn"/>
+                        <outlet property="cancleCreateNewProjectButton" destination="nAO-tL-LhC" id="TlJ-kw-Nit"/>
                         <outlet property="collectionView" destination="uTu-uN-4ah" id="e7t-hL-2Nr"/>
+                        <outlet property="createNewProjectLabel" destination="34r-c5-Qqm" id="Rp4-oR-1Uh"/>
+                        <outlet property="createNewProjectView" destination="j6j-Z8-iod" id="Q2X-5c-xoB"/>
+                        <outlet property="createProjectView" destination="vSD-13-fIi" id="2xC-vU-wp8"/>
+                        <outlet property="frameRateTextField" destination="ruD-YH-B0P" id="g70-c0-d3J"/>
+                        <outlet property="projectImageView" destination="jq5-md-P6u" id="AxG-sd-ugR"/>
+                        <outlet property="projectNameTextField" destination="FBW-cH-m3J" id="91U-J0-lCi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="vSD-13-fIi">
+                    <rect key="frame" x="0.0" y="0.0" width="329" height="435"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j6j-Z8-iod">
+                            <rect key="frame" x="0.0" y="0.0" width="329" height="435"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a New Project" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34r-c5-Qqm">
+                                    <rect key="frame" x="79" y="19" width="171" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jq5-md-P6u">
+                                    <rect key="frame" x="44" y="70" width="240" height="128"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jfq-gu-Gx2">
+                                    <rect key="frame" x="44" y="70" width="240" height="128"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="video.badge.plus" catalog="system"/>
+                                    <connections>
+                                        <action selector="loadVideoButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tcp-YZ-heN"/>
+                                    </connections>
+                                </button>
+                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Project Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FBW-cH-m3J">
+                                    <rect key="frame" x="44" y="206" width="240" height="34"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzE-3L-mJw">
+                                    <rect key="frame" x="141" y="368" width="46" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Create"/>
+                                    <connections>
+                                        <action selector="actionCreateProjectDone:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XXs-hw-LxU"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nAO-tL-LhC">
+                                    <rect key="frame" x="140" y="397" width="48" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Cancel"/>
+                                    <connections>
+                                        <action selector="actionCancelCreateProject:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TwU-mw-lCx"/>
+                                    </connections>
+                                </button>
+                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Choose Frame Rate" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ruD-YH-B0P">
+                                    <rect key="frame" x="44" y="248" width="240" height="34"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemGray5Color"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="329" id="Mff-V4-XTE"/>
+                                <constraint firstAttribute="height" constant="435" id="esv-DL-D5L"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="vg5-Bd-TTp"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="j6j-Z8-iod" firstAttribute="leading" secondItem="vg5-Bd-TTp" secondAttribute="leading" id="6ib-h9-wBi"/>
+                        <constraint firstAttribute="trailing" secondItem="j6j-Z8-iod" secondAttribute="trailing" id="YGs-Vc-aR5"/>
+                        <constraint firstAttribute="bottom" secondItem="j6j-Z8-iod" secondAttribute="bottom" id="qTz-TZ-zJz"/>
+                        <constraint firstItem="j6j-Z8-iod" firstAttribute="top" secondItem="vg5-Bd-TTp" secondAttribute="top" id="yhf-Gk-g3X"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="846.2311557788945" y="105.75539568345324"/>
         </scene>
@@ -91,8 +193,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="video.badge.plus" catalog="system" width="128" height="90"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
