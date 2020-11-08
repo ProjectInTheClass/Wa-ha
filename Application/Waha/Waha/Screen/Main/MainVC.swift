@@ -22,7 +22,8 @@ class MainVC: UIViewController {
     var convertedFPS : Int? = 15
     let activityIndicator = UIActivityIndicatorView(style:.large)
     var videourl : URL?
-        
+    var videoSize : CGSize?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
@@ -55,6 +56,7 @@ class MainVC: UIViewController {
         vc?.projName = selectedProjName
         vc?.videourl = videourl
         vc?.convertedFPS = convertedFPS
+        vc?.videoSize = videoSize
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     
@@ -113,6 +115,7 @@ class MainVC: UIViewController {
                     return
                 }
                 let pngImage: UIImage = UIImage(cgImage: image!)
+                if(self.videoSize == nil) {self.videoSize = pngImage.size}
                 let imageName: String = "\(self.selectedProjName)_original_\(index).png"
                 ImageFileManager.shared.saveImage(image: pngImage, name: imageName){
                     [weak self] onSuccess in
