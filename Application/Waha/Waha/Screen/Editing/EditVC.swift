@@ -138,10 +138,10 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         changedScale = pinch.scale
         if let view = pinch.view {
             view.transform = view.transform.scaledBy(x: pinch.scale, y: pinch.scale)
+//            view.transform = view.transform.inverted()
             pinch.scale = 1
         }
     }
-    
     @objc func handleRotate(recognizer : UIRotationGestureRecognizer) {
         changedAngle = recognizer.rotation
         if let view = recognizer.view {
@@ -173,6 +173,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         return true
     }
     private func restoreScreen(){
+        containerView.transform = containerView.transform.inverted()
         containerView.center = initialCenter
 //        containerView.transform = containerView.transform.scaledBy(x: -changedScale, y: -changedScale)
         containerView.transform = CGAffineTransform(rotationAngle: changedAngle * CGFloat(Double.pi)/180)
