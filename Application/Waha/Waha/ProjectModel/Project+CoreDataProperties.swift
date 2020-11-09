@@ -1,8 +1,8 @@
 //
 //  Project+CoreDataProperties.swift
-//  201012_Waha_ProjectList_v001
+//  
 //
-//  Created by Teo Hwang on 2020/10/31.
+//  Created by USER on 2020/11/08.
 //
 //
 
@@ -19,9 +19,6 @@ extension Project {
     @NSManaged public var frameRate: Int64
     @NSManaged public var projectName: String?
     @NSManaged public var thumbnail: Data?
-
-}
-
-extension Project : Identifiable {
+    @NSManaged public var videoURL: String?
 
 }
