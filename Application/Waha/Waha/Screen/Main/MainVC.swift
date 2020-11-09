@@ -192,6 +192,14 @@ extension MainVC : UIImagePickerControllerDelegate {
                     if ((alert.textFields?[0].text)! != ""){
                         self.selectedProjName = (alert.textFields?[0].text)!
                     }else{
+                        /*
+                        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+                        let documentsDirectory = paths[0]
+                        let docURL = URL(string: documentsDirectory)!
+                        var i = 0
+                        let dataPath = docURL.appendingPathComponent("Wa-ha_project_\(i)")
+                        if !FileManager.default.fileExists(atPath: dataPath.absoluteString)
+                        */
                         self.selectedProjName = "Wa-ha_project_\(self.projectArray.count)"
                     }
                     print((alert.textFields?[0].text)!)
