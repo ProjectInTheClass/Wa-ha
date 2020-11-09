@@ -42,7 +42,7 @@ class MainVC: UIViewController {
     var projectArray : [String] = ["프로젝트 추가","예시1","예시2"]
     var imageArray : [UIImage] = []
     var selectedProjName : String = "project"
-    var convertedFPS : Int? = 15
+    var convertedFPS : Int = 15
     let activityIndicator = UIActivityIndicatorView(style:.large)
     var videoSize : CGSize?
     
@@ -88,8 +88,6 @@ class MainVC: UIViewController {
         
         // 코어 데이터에서 아이템 가져오기
         fetchProject()
-        
-        
         
     }
     
@@ -171,6 +169,7 @@ class MainVC: UIViewController {
         let projectName = projectNameTextField.text
         let frameRate = frameRateTextField.text
         let thumbnail = captureImage
+
         tempNewProject = TemporaryProject(projectName: projectName!, frameRate: Int(frameRate!)!, thumbNail: thumbnail!, videoURL: videoURL.path)
         
      
@@ -185,6 +184,10 @@ class MainVC: UIViewController {
         newProject.thumbnail = imageData
         newProject.videoURL = videoURL.path
         
+        // will be deprecated: until fetch from coredata is completed
+        convertedFPS = Int(frameRate!)!
+        selectedProjName = projectName!
+
         // Save the data
         do{
             try self.context.save()
@@ -202,7 +205,7 @@ class MainVC: UIViewController {
         frameRateTextField.text = ""
         captureImage = nil
         projectImageView.image = nil
-      
+        
         video2ImageGenerator(video_url: videoURL, mediaType: mediaType as String)
     }
     @IBAction func actionCancelCreateProject(_ sender: Any) {
@@ -260,8 +263,8 @@ class MainVC: UIViewController {
             let duration: Float64 = CMTimeGetSeconds(asset.duration)
             generator = AVAssetImageGenerator(asset: asset)
             generator.appliesPreferredTrackTransform = true
-            generator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: Int32(self.convertedFPS!))
-            generator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: Int32(self.convertedFPS!))
+            generator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: Int32(self.convertedFPS))
+            generator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: Int32(self.convertedFPS))
             let tracks = asset.tracks(withMediaType: .video)
             let fps = ceil((tracks.first?.nominalFrameRate)!)
             let totalFrameNum = Int(Double(fps) * duration)
@@ -283,8 +286,8 @@ class MainVC: UIViewController {
             print("fps: \(fps)")
             var index = 0
             
-            while(Int32(index) < Int32(duration * Double(self.convertedFPS!))){
-                let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(self.convertedFPS!))
+            while(Int32(index) < Int32(duration * Double(self.convertedFPS))){
+                let time:CMTime = CMTimeMake(value: Int64(index), timescale: Int32(self.convertedFPS))
                 //            print("time: \(time)")
                 var image: CGImage?
                 do {
