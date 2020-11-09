@@ -51,6 +51,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     var projName : String = ""
     var isPencilUsing : Bool = false
     var videourl : URL?
+    var outputURL : URL?
     var convertedFPS : Int?
 
     var selectedPlayOption : Int = 0
@@ -362,17 +363,16 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func convertImages2Video(useOriginalImage: Bool, fileName: String){
         print("start save video")
         print(videourl!.absoluteString)
-        videourl!.deleteLastPathComponent()
-        let fileURL = videourl!.absoluteString + "\(fileName).MOV"
-        let outputURL : URL? = URL(string: fileURL)
+        var tmpurl = videourl
+        tmpurl!.deleteLastPathComponent()
+        let fileURL = tmpurl!.absoluteString + "\(fileName).MOV"
+        outputURL = URL(string: fileURL)
         var assetWriter : AVAssetWriter? = nil
         do{
             assetWriter = try AVAssetWriter(outputURL: outputURL!, fileType: AVFileType.mov)
         } catch let asseterror{
             print("Error: \(asseterror)")
         }
-        
- //       let size = CGSize(width: videoFrameView.frame.size.width, height: videoFrameView.frame.size.height)
         
         // set output video properties
         let videoSettings: [String : Any] = [
@@ -419,10 +419,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
 
                     let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
                     
-                    //                    self.canvasView.drawing = self.canvasArray[i]
-                    
-                    //let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
-                    //                    let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
                     let newImage : UIImage
                     
                     if(useOriginalImage){
@@ -459,16 +455,69 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 Thread.sleep(forTimeInterval: 0.5)
                 DispatchQueue.main.sync {
                     print("Completed?", assetWriter!.status == AVAssetWriter.Status.completed)
-                    UISaveVideoAtPathToSavedPhotosAlbum(outputURL!.relativePath, self, nil, nil)
+                    UISaveVideoAtPathToSavedPhotosAlbum(self.outputURL!.relativePath, self, #selector(self.videoSaved(_:didFinishSavingWithError:contextInfo:)), nil)
                 }
             })
         }
         
         // TODO
-        //        UISaveVideoAtPathToSavedPhotosAlbum(self.videourl!.relativePath, self, nil, nil)
-        print("output URL: \(outputURL!.absoluteString)")
-        self.navigationController?.popViewController(animated: true)
+                
     }
+    
+    @objc func videoSaved(_ videoPath: NSString, didFinishSavingWithError error:NSError?, contextInfo: UnsafeRawPointer){
+        if let error = error {
+                // we got back an error!
+                let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            } else {
+                self.removeTmpFiles()
+                
+                let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+                
+                let ok = UIAlertAction(title: "OK", style: .default){(ok) in
+                    self.navigationController?.popViewController(animated: true)
+                }
+                ac.addAction(ok)
+                present(ac, animated: true)
+
+            }
+    }
+    
+    private func removeTmpFiles(){
+        // remove project folder & contents
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        let docURL = URL(string: documentsDirectory)!
+        let dataPath = docURL.appendingPathComponent("\(self.projName)")
+        
+        do {
+            let fileManager = FileManager.default
+            // Check if file exists
+            if fileManager.fileExists(atPath: dataPath.relativeString) {
+                // Delete file
+                try fileManager.removeItem(atPath: dataPath.relativeString)
+            } else {
+                print("File \(dataPath.relativeString) does not exist")
+            }
+        } catch {
+            print("An error took place: \(error)")
+        }
+        
+        // remove tmp videos
+        do {
+            let fileManager = FileManager.default
+            // Check if file exists
+            try fileManager.removeItem(atPath: videourl!.path)
+            try fileManager.removeItem(atPath: outputURL!.path)
+  
+       
+
+        } catch {
+            print("An error took place: \(error)")
+        }
+    }
+    
     
     private func newPixelBufferFrom(cgImage:CGImage) -> CVPixelBuffer?{
         let options:[String: Any] = [kCVPixelBufferCGImageCompatibilityKey as String: true, kCVPixelBufferCGBitmapContextCompatibilityKey as String: true]
@@ -543,8 +592,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             mergedImage.append(newImage)
         }
         
-        
-        
     }
     
     
@@ -558,8 +605,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            //for drawing layer thumbnail
-            
+            // for drawing layer thumbnail
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
                 cell.imageArray = thumbnailArray

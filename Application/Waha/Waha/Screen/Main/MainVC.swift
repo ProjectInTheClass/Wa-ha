@@ -163,7 +163,7 @@ class MainVC: UIViewController {
     }
     @IBAction func actionCreateProjectDone(_ sender: Any) {
         if projectNameTextField.text == "" || frameRateTextField.text == "" {
-            self.alert(title: "응안되")
+            self.alert(title: "응안돼")
         }
 
         extractFirstFrame()
@@ -202,7 +202,7 @@ class MainVC: UIViewController {
         frameRateTextField.text = ""
         captureImage = nil
         projectImageView.image = nil
-        
+      
         video2ImageGenerator(video_url: videoURL, mediaType: mediaType as String)
     }
     @IBAction func actionCancelCreateProject(_ sender: Any) {
@@ -324,6 +324,7 @@ class MainVC: UIViewController {
         }
     }
 }
+
 extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
