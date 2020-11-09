@@ -59,6 +59,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
   
     var videoSize : CGSize?
     
+    var videoAlpha : CGFloat = 1.0
+    var canvasAlpha : CGFloat = 1.0
+    
     let activityIndicator = UIActivityIndicatorView(style:.large)
     
     override func viewDidLoad() {
@@ -438,14 +441,16 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     if(useOriginalImage){
                         UIGraphicsBeginImageContext(self.videoSize!)
                         let originalImage = ImageFileManager.shared.getSavedImage(named: "\(self.projName)/original_\(i)")
-                        originalImage!.draw(in: areaSize)
-                        image.draw(in: areaSize, blendMode: .normal, alpha: 1)
+                        backgroundImage!.draw(in: areaSize, blendMode: .normal, alpha: 1)
+                        originalImage!.draw(in: areaSize, blendMode: .normal, alpha: self.videoAlpha)
+                        image.draw(in: areaSize, blendMode: .normal, alpha: self.canvasAlpha)
+                        
                         newImage = UIGraphicsGetImageFromCurrentImageContext()!
                         UIGraphicsEndImageContext()
                     }else{
                         UIGraphicsBeginImageContext(self.videoSize!)
-                        backgroundImage!.draw(in: areaSize)
-                        image.draw(in: areaSize, blendMode: .normal, alpha: 1)
+                        backgroundImage!.draw(in: areaSize, blendMode: .normal, alpha: 1)
+                        image.draw(in: areaSize, blendMode: .normal, alpha: self.canvasAlpha)
                         newImage = UIGraphicsGetImageFromCurrentImageContext()!
                         UIGraphicsEndImageContext()
                     }
@@ -699,8 +704,10 @@ extension EditVC : sliderDelegate {
         switch layer {
         case 1:
             videoFrameView.alpha = CGFloat(value)
+            videoAlpha = CGFloat(value)
         case 0:
             canvasView.alpha = CGFloat(value)
+            canvasAlpha = CGFloat(value)
         default:
             break
         }
