@@ -31,7 +31,7 @@ class ImageFrameListTableViewCell: UITableViewCell {
         // Initialization code
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: collectionview.frame.width/2-100, bottom: 0, right: collectionview.frame.width/2)
+//        layout.sectionInset = UIEdgeInsets(top: 0, left: collectionview.frame.width/2-100, bottom: 0, right: collectionview.frame.width/2)
         collectionview.collectionViewLayout = layout
         
         //import Nib

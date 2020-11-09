@@ -78,9 +78,9 @@
 				AB4B2509252C47A800BB5280 /* Main.storyboard */,
 				AB4B250C252C47A900BB5280 /* Assets.xcassets */,
 				AB2FFD382544154000B335A0 /* CreateNewProjectViewController.swift */,
+				AB4B2518252C48DE00BB5280 /* ProjectCell.swift */,
 				AB4B250E252C47A900BB5280 /* LaunchScreen.storyboard */,
 				AB4B2511252C47A900BB5280 /* Info.plist */,
-				AB4B2518252C48DE00BB5280 /* ProjectCell.swift */,
 				AB63308925373D4A00202065 /* WahaProjectModel.xcdatamodeld */,
 			);
 			path = CollectionViewTest02;

@@ -32,6 +32,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     let canvasWidth: CGFloat = 768
     let canvasOverscrollHeight: CGFloat = 500
     
+    @IBOutlet weak var btnPlay_0: UIButton!
+    @IBOutlet weak var btnPlay_1: UIButton!
+    @IBOutlet weak var btnPlay_2: UIButton!
     
     //View
     @IBOutlet weak var tableView: UITableView!
@@ -48,7 +51,15 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     var projName : String = ""
     var isPencilUsing : Bool = false
     var videourl : URL?
+    var outputURL : URL?
     var convertedFPS : Int?
+
+    var selectedPlayOption : Int = 0
+    var videoIsPlaying = false
+  
+    var videoSize : CGSize?
+    
+    let activityIndicator = UIActivityIndicatorView(style:.large)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +79,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             canvasArray.append(PKDrawing())
             thumbnailArray.append(UIImage())
         }
-        let fileName = "\(self.projName)_original_\(0)"
+        let fileName = "\(self.projName)/original_\(0)"
         self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
         setupTableView()
     }
@@ -89,7 +100,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
         canvasView.isScrollEnabled = false
-        canvasView.allowsFingerDrawing = true
+        canvasView.allowsFingerDrawing = false
         if let window = parent?.view.window,
            let toolPicker = PKToolPicker.shared(for: window) {
             toolPicker.setVisible(true, forFirstResponder: canvasView)
@@ -138,10 +149,10 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         changedScale = pinch.scale
         if let view = pinch.view {
             view.transform = view.transform.scaledBy(x: pinch.scale, y: pinch.scale)
+            //            view.transform = view.transform.inverted()
             pinch.scale = 1
         }
     }
-    
     @objc func handleRotate(recognizer : UIRotationGestureRecognizer) {
         changedAngle = recognizer.rotation
         if let view = recognizer.view {
@@ -164,19 +175,132 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         //        saveDrawingToCameraRoll()
         selectSaveMode()
     }
-    
     @IBAction func actionRestoreScreen(_ sender: Any) {
         restoreScreen()
     }
+    
+    @IBAction func actionPlay(_ sender: Any) {
+        videoIsPlaying.toggle()
+        print("play video \(videoIsPlaying)")
+        if videoIsPlaying == true {
+            restoreScreen()
+            toolBar.isHidden = true
+            playTmpVideo(selectedPlayOption)
+        }else{
+            toolBar.isHidden = false
+        }
+    }
+    @IBAction func actionPlayoptionSingle(_ sender: Any) {
+        btnPlay_0.backgroundColor = .clear
+        btnPlay_1.backgroundColor = .clear
+        btnPlay_2.backgroundColor = .black
+        selectedPlayOption = 2
+        
+
+    }
+    @IBAction func actionPlayoptionMultiple(_ sender: Any) {
+        btnPlay_0.backgroundColor = .clear
+        btnPlay_1.backgroundColor = .black
+        btnPlay_2.backgroundColor = .clear
+        selectedPlayOption = 1
+    }
+    @IBAction func actionPlayoptionLoop(_ sender: Any) {
+        btnPlay_0.backgroundColor = .black
+        btnPlay_1.backgroundColor = .clear
+        btnPlay_2.backgroundColor = .clear
+        selectedPlayOption = 0
+    }
+    
+    
+    
+    //playing current work
+    private func playTmpVideo(_ option : Int) {
+        let timeInterval = 0.01
+        //0 무한루프 <->
+        //1 한쪽 반복 ->|
+        //2 한번 ->
+        switch option {
+        case 0:
+            var direction = true
+            var index = 0
+            Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
+                DispatchQueue.main.async {
+                    let fileName = "\(self.projName)/original_\(index)"
+                    self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
+                    self.canvasView.drawing = self.canvasArray[index]
+                    if direction {
+                        index += 1
+                    }else{
+                        index -= 1
+                    }
+                }
+                if index == self.canvasArray.count-1 {
+                    direction = false
+                }else if index == 0 {
+                    direction = true
+                }
+                if !self.videoIsPlaying {
+                    timer.invalidate()
+                }
+            }
+            
+            
+        case 1:
+            var index = 0
+            Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
+                DispatchQueue.main.async {
+                    let fileName = "\(self.projName)/original_\(index)"
+                    self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
+                    self.canvasView.drawing = self.canvasArray[index]
+                    index += 1
+                }
+                if index == self.canvasArray.count-1 {
+                    if self.videoIsPlaying == true {
+                        index = 0
+                    }else{
+                        timer.invalidate()
+                    }
+                }
+                if !self.videoIsPlaying {
+                    timer.invalidate()
+                }
+            }
+            
+            
+            
+        case 2:
+            var index = 0
+            Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
+                DispatchQueue.main.async {
+                    let fileName = "\(self.projName)/original_\(index)"
+                    self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
+                    self.canvasView.drawing = self.canvasArray[index]
+                    index += 1
+                }
+                if index == self.canvasArray.count-1 {
+                    timer.invalidate()
+                }
+                if !self.videoIsPlaying {
+                    timer.invalidate()
+                }
+            }
+            
+        default:
+            break
+        }
+        
+    }
+    
     //hide home indicator for better performance
     override var prefersHomeIndicatorAutoHidden: Bool {
         return true
     }
     private func restoreScreen(){
+        containerView.transform = containerView.transform.inverted()
         containerView.center = initialCenter
-//        containerView.transform = containerView.transform.scaledBy(x: -changedScale, y: -changedScale)
+        //        containerView.transform = containerView.transform.scaledBy(x: -changedScale, y: -changedScale)
         containerView.transform = CGAffineTransform(rotationAngle: changedAngle * CGFloat(Double.pi)/180)
-            
+        
     }
     private func selectSaveMode(){
         // alert view for select save mode
@@ -225,9 +349,20 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             }else{
                 fileName = "Wa-ha_project"
             }
-            print((alert.textFields?[0].text)!)
-            print(fileName!)
-            self.convertImages2Video(useOriginalImage: useOriginalImage, fileName: fileName!)
+            self.activityIndicator.center = self.view.center
+            self.view.addSubview(self.activityIndicator)
+            
+                
+            self.activityIndicator.startAnimating()
+            self.activityIndicator.isHidden = false
+            self.view.isUserInteractionEnabled = false
+            
+//            print((alert.textFields?[0].text)!)
+//            print(fileName!)
+            DispatchQueue.background {
+                self.convertImages2Video(useOriginalImage: useOriginalImage, fileName: fileName!)
+            }
+            
         }
         
         let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
@@ -240,9 +375,11 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func convertImages2Video(useOriginalImage: Bool, fileName: String){
         print("start save video")
         print(videourl!.absoluteString)
-        videourl!.deleteLastPathComponent()
-        let fileURL = videourl!.absoluteString + "\(fileName).MOV"
-        let outputURL : URL? = URL(string: fileURL)
+        var tmpurl = videourl
+        tmpurl!.deleteLastPathComponent()
+        let fileURL = tmpurl!.absoluteString + "\(fileName).MOV"
+        outputURL = URL(string: fileURL)
+        
         var assetWriter : AVAssetWriter? = nil
         do{
             assetWriter = try AVAssetWriter(outputURL: outputURL!, fileType: AVFileType.mov)
@@ -250,13 +387,11 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             print("Error: \(asseterror)")
         }
         
-        let size = CGSize(width: videoFrameView.frame.size.width, height: videoFrameView.frame.size.height)
-
         // set output video properties
         let videoSettings: [String : Any] = [
             AVVideoCodecKey: AVVideoCodecType.h264,
-            AVVideoHeightKey: size.height,
-            AVVideoWidthKey: size.width
+            AVVideoHeightKey: videoSize!.height,
+            AVVideoWidthKey: videoSize!.width
         ]
         let assetWriterInput : AVAssetWriterInput? = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
         
@@ -268,43 +403,53 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
         let attributes: [String : Any] = [
             String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA,
-            String(kCVPixelBufferWidthKey): size.width,
-            String(kCVPixelBufferHeightKey): size.height,
+            String(kCVPixelBufferWidthKey): videoSize!.width,
+            String(kCVPixelBufferHeightKey): videoSize!.height,
             String(kCVPixelBufferCGImageCompatibilityKey): kCFBooleanTrue as Any,
             String(kCVPixelBufferCGBitmapContextCompatibilityKey): kCFBooleanTrue as Any
         ]
         
         let writerAdaptor : AVAssetWriterInputPixelBufferAdaptor? = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: assetWriterInput!, sourcePixelBufferAttributes: attributes)
-
+        
         assetWriter!.startWriting()
         assetWriter!.startSession(atSourceTime: CMTime.zero)
         
         var backgroundImage : UIImage?
         
-        UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
+        UIGraphicsBeginImageContextWithOptions(videoSize!, true, 0.0)
         if let context = UIGraphicsGetCurrentContext(){
             context.setFillColor(UIColor.white.cgColor)
-            context.fill(CGRect(origin: .zero, size: size))
+            context.fill(CGRect(origin: .zero, size: videoSize!))
             backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
         }
         UIGraphicsEndPDFContext()
         
         let mediaInputQueue = DispatchQueue(label: "mediaInputQueue")
+        
         assetWriterInput!.requestMediaDataWhenReady(on: mediaInputQueue){
             for i in 0...self.canvasArray.count - 1{
                 if(assetWriterInput!.isReadyForMoreMediaData){
-                    let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-                    
-//                    self.canvasView.drawing = self.canvasArray[i]
-                    
+                    let areaSize = CGRect(x: 0, y: 0, width: self.videoSize!.width, height: self.videoSize!.height)
+
                     let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
-//                    let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
                     
-                    UIGraphicsBeginImageContext(size)
-                    backgroundImage!.draw(in: areaSize)
-                    image.draw(in: areaSize, blendMode: .normal, alpha: 1)
-                    let newImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-                    UIGraphicsEndImageContext()
+                    let newImage : UIImage
+                    
+                    if(useOriginalImage){
+                        UIGraphicsBeginImageContext(self.videoSize!)
+                        let originalImage = ImageFileManager.shared.getSavedImage(named: "\(self.projName)/original_\(i)")
+                        originalImage!.draw(in: areaSize)
+                        image.draw(in: areaSize, blendMode: .normal, alpha: 1)
+                        newImage = UIGraphicsGetImageFromCurrentImageContext()!
+                        UIGraphicsEndImageContext()
+                    }else{
+                        UIGraphicsBeginImageContext(self.videoSize!)
+                        backgroundImage!.draw(in: areaSize)
+                        image.draw(in: areaSize, blendMode: .normal, alpha: 1)
+                        newImage = UIGraphicsGetImageFromCurrentImageContext()!
+                        UIGraphicsEndImageContext()
+                    }
+                    
                     
                     let pixelBuffer = self.newPixelBufferFrom(cgImage: newImage.cgImage!)
                     
@@ -318,40 +463,100 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     
                     writerAdaptor?.append(pixelBuffer!, withPresentationTime: time)
                 }
+                
             }
+
             assetWriterInput!.markAsFinished()
             assetWriter!.finishWriting(completionHandler: {
                 Thread.sleep(forTimeInterval: 0.5)
                 DispatchQueue.main.sync {
                     print("Completed?", assetWriter!.status == AVAssetWriter.Status.completed)
-                    UISaveVideoAtPathToSavedPhotosAlbum(outputURL!.relativePath, self, nil, nil)
+                    UISaveVideoAtPathToSavedPhotosAlbum(self.outputURL!.relativePath, self, #selector(self.videoSaved(_:didFinishSavingWithError:contextInfo:)), nil)
                 }
             })
         }
         
+        
         // TODO
-//        UISaveVideoAtPathToSavedPhotosAlbum(self.videourl!.relativePath, self, nil, nil)
-        print("output URL: \(outputURL!.absoluteString)")
-        self.navigationController?.popViewController(animated: true)
+                
     }
+    
+    @objc func videoSaved(_ videoPath: NSString, didFinishSavingWithError error:NSError?, contextInfo: UnsafeRawPointer){
+        if let error = error {
+                // we got back an error!
+                let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            } else {
+                activityIndicator.isHidden = true
+                activityIndicator.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+                self.removeTmpFiles()
+                
+                let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+                
+                let ok = UIAlertAction(title: "OK", style: .default){(ok) in
+                    self.navigationController?.popViewController(animated: true)
+                }
+                ac.addAction(ok)
+                present(ac, animated: true)
+
+            }
+    }
+    
+    private func removeTmpFiles(){
+        // remove project folder & contents
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        let docURL = URL(string: documentsDirectory)!
+        let dataPath = docURL.appendingPathComponent("\(self.projName)")
+        
+        do {
+            let fileManager = FileManager.default
+            // Check if file exists
+            if fileManager.fileExists(atPath: dataPath.relativeString) {
+                // Delete file
+                try fileManager.removeItem(atPath: dataPath.relativeString)
+            } else {
+                print("File \(dataPath.relativeString) does not exist")
+            }
+        } catch {
+            print("An error took place: \(error)")
+        }
+        
+        // remove tmp videos
+        do {
+            let fileManager = FileManager.default
+            // Check if file exists
+            try fileManager.removeItem(atPath: videourl!.path)
+            try fileManager.removeItem(atPath: outputURL!.path)
+  
+       
+
+        } catch {
+            print("An error took place: \(error)")
+        }
+    }
+    
     
     private func newPixelBufferFrom(cgImage:CGImage) -> CVPixelBuffer?{
         let options:[String: Any] = [kCVPixelBufferCGImageCompatibilityKey as String: true, kCVPixelBufferCGBitmapContextCompatibilityKey as String: true]
         var pxbuffer:CVPixelBuffer?
-        let frameWidth = 480 //CANVAS_SIZE
-        let frameHeight = 360 //CANVAS_SIZE
 
+        let frameWidth = Int(self.videoSize!.width) //CANVAS_SIZE
+        let frameHeight = Int(self.videoSize!.height) //CANVAS_SIZE
+        
         let status = CVPixelBufferCreate(kCFAllocatorDefault, frameWidth, frameHeight, kCVPixelFormatType_32ARGB, options as CFDictionary?, &pxbuffer)
         // TODO: throw exception in case of error, don't use assert
         assert(status == kCVReturnSuccess && pxbuffer != nil, "newPixelBuffer failed")
-
+        
         CVPixelBufferLockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0))
         let pxdata = CVPixelBufferGetBaseAddress(pxbuffer!)
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
         let context = CGContext(data: pxdata, width: frameWidth, height: frameHeight, bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pxbuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
         // TODO: throw exception in case of error, don't use assert
         assert(context != nil, "context is nil")
-
+        
         context!.concatenate(CGAffineTransform.identity)
         context!.draw(cgImage, in: CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height))
         CVPixelBufferUnlockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0))
@@ -407,8 +612,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             mergedImage.append(newImage)
         }
         
-        
-        
     }
     
     
@@ -422,8 +625,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            //for drawing layer thumbnail
-
+            // for drawing layer thumbnail
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
                 cell.imageArray = thumbnailArray
@@ -437,7 +639,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
             }
         }else{
             //for video frame thumbnail
-
+            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
                 cell.imageArray = imageArray
@@ -484,7 +686,7 @@ extension EditVC : frameSelectDelegate {
     func selectedIndex(index: Int) {
         print("selectedIndexDelegate \(index)")
         DispatchQueue.main.async {
-            let fileName = "\(self.projName)_original_\(index)"
+            let fileName = "\(self.projName)/original_\(index)"
             self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
             //            self.tmpImageView.image = self.imageArray[index]
             self.canvasView.drawing = self.canvasArray[index]

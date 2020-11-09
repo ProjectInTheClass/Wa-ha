@@ -12,11 +12,19 @@ class ProjectCollectionCell: UICollectionViewCell {
 
     @IBOutlet weak var projectImageView: UIImageView!
     @IBOutlet weak var lbName: UILabel!
-    @IBOutlet weak var btnInfo: UIButton!
+    @IBOutlet weak var fpsLabel: UILabel!
+    @IBOutlet weak var deleteProjectButton: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    var isEditing: Bool = false {
+        didSet {
+            deleteProjectButton.isHidden = !deleteProjectButton.isHidden
+        }
     }
 
 }

@@ -13,11 +13,13 @@ struct TemporaryProject {
     var projectName: String
     var frameRate: Int
     var thumbNail: UIImage
+    var videoURL : String
     
-    init(projectName: String, frameRate: Int, thumbNail: UIImage) {
+    init(projectName: String, frameRate: Int, thumbNail: UIImage, videoURL : String) {
         self.projectName = projectName
         self.frameRate = frameRate
         self.thumbNail = thumbNail
+        self.videoURL = videoURL
     }
     
 }
