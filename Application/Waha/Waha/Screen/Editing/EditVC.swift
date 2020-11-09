@@ -58,7 +58,8 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     var videoIsPlaying = false
   
     var videoSize : CGSize?
-
+    
+    let activityIndicator = UIActivityIndicatorView(style:.large)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -348,9 +349,20 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             }else{
                 fileName = "Wa-ha_project"
             }
-            print((alert.textFields?[0].text)!)
-            print(fileName!)
-            self.convertImages2Video(useOriginalImage: useOriginalImage, fileName: fileName!)
+            self.activityIndicator.center = self.view.center
+            self.view.addSubview(self.activityIndicator)
+            
+                
+            self.activityIndicator.startAnimating()
+            self.activityIndicator.isHidden = false
+            self.view.isUserInteractionEnabled = false
+            
+//            print((alert.textFields?[0].text)!)
+//            print(fileName!)
+            DispatchQueue.background {
+                self.convertImages2Video(useOriginalImage: useOriginalImage, fileName: fileName!)
+            }
+            
         }
         
         let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
@@ -367,6 +379,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         tmpurl!.deleteLastPathComponent()
         let fileURL = tmpurl!.absoluteString + "\(fileName).MOV"
         outputURL = URL(string: fileURL)
+        
         var assetWriter : AVAssetWriter? = nil
         do{
             assetWriter = try AVAssetWriter(outputURL: outputURL!, fileType: AVFileType.mov)
@@ -412,6 +425,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         UIGraphicsEndPDFContext()
         
         let mediaInputQueue = DispatchQueue(label: "mediaInputQueue")
+        
         assetWriterInput!.requestMediaDataWhenReady(on: mediaInputQueue){
             for i in 0...self.canvasArray.count - 1{
                 if(assetWriterInput!.isReadyForMoreMediaData){
@@ -449,7 +463,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     
                     writerAdaptor?.append(pixelBuffer!, withPresentationTime: time)
                 }
+                
             }
+
             assetWriterInput!.markAsFinished()
             assetWriter!.finishWriting(completionHandler: {
                 Thread.sleep(forTimeInterval: 0.5)
@@ -459,6 +475,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 }
             })
         }
+        
         
         // TODO
                 
@@ -471,6 +488,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 ac.addAction(UIAlertAction(title: "OK", style: .default))
                 present(ac, animated: true)
             } else {
+                activityIndicator.isHidden = true
+                activityIndicator.stopAnimating()
+                self.view.isUserInteractionEnabled = true
                 self.removeTmpFiles()
                 
                 let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)

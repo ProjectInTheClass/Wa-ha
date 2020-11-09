@@ -356,7 +356,6 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
     //clicklistener
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("tap \(indexPath.row)")
-
     }
 }
 extension MainVC : UICollectionViewDelegateFlowLayout {
