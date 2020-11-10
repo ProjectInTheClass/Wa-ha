@@ -160,53 +160,77 @@ class MainVC: UIViewController {
         }
     }
     @IBAction func actionCreateProjectDone(_ sender: Any) {
-        if projectNameTextField.text == "" || frameRateTextField.text == "" {
-            self.alert(title: "응안돼")
+        var errorOccurred : Bool = false
+        
+        let errorAlert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        errorAlert.popoverPresentationController?.sourceView = self.view
+        errorAlert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        if videoURL == nil {
+            errorOccurred = true
+            errorAlert.title = "please select video"
         }
-
-        extractFirstFrame()
+        else if projectNameTextField.text == ""{
+            errorOccurred = true
+            errorAlert.title = "please write project name"
+        }
+        else if frameRateTextField.text == "" {
+            errorOccurred = true
+            errorAlert.title = "please select frame rate"
+        }
         
-        let projectName = projectNameTextField.text
-        let frameRate = frameRateTextField.text
-        let thumbnail = captureImage
-
-        tempNewProject = TemporaryProject(projectName: projectName!, frameRate: Int(frameRate!)!, thumbNail: thumbnail!, videoURL: videoURL.path)
-        
-     
-        
-        let newProject = Project(context: self.context)
-        
-        let imageData: Data = tempNewProject!.thumbNail.pngData()! as Data
-        
-        // Create a New Project
-        newProject.projectName = tempNewProject?.projectName
-        newProject.frameRate = Int64(tempNewProject!.frameRate)
-        newProject.thumbnail = imageData
-        newProject.videoURL = videoURL.path
-        
-        // will be deprecated: until fetch from coredata is completed
-        convertedFPS = Int(frameRate!)!
-        selectedProjName = projectName!
-
-        // Save the data
-        do{
-            try self.context.save()
+        if(errorOccurred){
+            let cancel = UIAlertAction(title: "cancel", style: .destructive) { (cancel) in
+                    
+                }
+            errorAlert.addAction(cancel)
+            present(errorAlert, animated: true, completion: nil)
+        }else{
+            extractFirstFrame()
             
-        } catch {
-            print("saving error")
+            let projectName = projectNameTextField.text
+            let frameRate = frameRateTextField.text
+            let thumbnail = captureImage
+
+            tempNewProject = TemporaryProject(projectName: projectName!, frameRate: Int(frameRate!)!, thumbNail: thumbnail!, videoURL: videoURL.path)
+            
+         
+            
+            let newProject = Project(context: self.context)
+            
+            let imageData: Data = tempNewProject!.thumbNail.pngData()! as Data
+            
+            // Create a New Project
+            newProject.projectName = tempNewProject?.projectName
+            newProject.frameRate = Int64(tempNewProject!.frameRate)
+            newProject.thumbnail = imageData
+            newProject.videoURL = videoURL.path
+            
+            // will be deprecated: until fetch from coredata is completed
+            convertedFPS = Int(frameRate!)!
+            selectedProjName = projectName!
+
+            // Save the data
+            do{
+                try self.context.save()
+                
+            } catch {
+                print("saving error")
+            }
+            
+            // Refetch
+            self.fetchProject()
+            
+            createProjectView.isHidden = true
+            tempNewProject = nil
+            projectNameTextField.text = ""
+            frameRateTextField.allowsEditingTextAttributes = false
+            frameRateTextField.text = ""
+            captureImage = nil
+            projectImageView.image = nil
+            
+            video2ImageGenerator(video_url: videoURL, mediaType: mediaType as String)
         }
         
-        // Refetch
-        self.fetchProject()
-        
-        createProjectView.isHidden = true
-        tempNewProject = nil
-        projectNameTextField.text = ""
-        frameRateTextField.text = ""
-        captureImage = nil
-        projectImageView.image = nil
-        
-        video2ImageGenerator(video_url: videoURL, mediaType: mediaType as String)
     }
     @IBAction func actionCancelCreateProject(_ sender: Any) {
         createProjectView.isHidden = true
