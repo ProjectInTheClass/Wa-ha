@@ -65,6 +65,7 @@ class MainVC: UIViewController {
         frameRatePickerView.dataSource = self
         frameRatePickerView.delegate = self
         imagePicker.delegate = self
+        frameRateTextField.isUserInteractionEnabled = false
     }
     
     @IBAction func choooseFrameRate(_ sender: Any){
@@ -168,8 +169,9 @@ class MainVC: UIViewController {
         }
     }
     @IBAction func actionCreateProjectDone(_ sender: Any) {
-        var errorOccurred : Bool = false
+       
         
+        var errorOccurred : Bool = false
         let errorAlert = UIAlertController(title: "", message: "", preferredStyle: .alert)
         errorAlert.popoverPresentationController?.sourceView = self.view
         errorAlert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
@@ -186,13 +188,27 @@ class MainVC: UIViewController {
             errorAlert.title = "please select frame rate"
         }
         
+        // check project name whether overlapped
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        let docURL = URL(string: documentsDirectory)!
+        let dataPath = docURL.appendingPathComponent("\(projectNameTextField.text!)")
+
+        if projectNameTextField.text != "" && FileManager.default.fileExists(atPath: dataPath.absoluteString) {
+            errorOccurred = true
+            errorAlert.title = "project name: [\(projectNameTextField.text!)] is already existed"
+        }
+        
         if(errorOccurred){
-            let cancel = UIAlertAction(title: "cancel", style: .destructive) { (cancel) in
-                    
-                }
+            let cancel = UIAlertAction(title: "cancel", style: .destructive)
             errorAlert.addAction(cancel)
             present(errorAlert, animated: true, completion: nil)
         }else{
+            do {
+                try FileManager.default.createDirectory(atPath: dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription);
+            }
             extractFirstFrame()
             
             let projectName = projectNameTextField.text
@@ -283,17 +299,6 @@ class MainVC: UIViewController {
             let fps = ceil((tracks.first?.nominalFrameRate)!)
             let totalFrameNum = Int(Double(fps) * duration)
             
-            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            let documentsDirectory = paths[0]
-            let docURL = URL(string: documentsDirectory)!
-            let dataPath = docURL.appendingPathComponent("\(self.selectedProjName)")
-            if !FileManager.default.fileExists(atPath: dataPath.absoluteString) {
-                do {
-                    try FileManager.default.createDirectory(atPath: dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
-                } catch {
-                    print(error.localizedDescription);
-                }
-            }
             
             print("duration: \(duration)")
             print("total frame: \(totalFrameNum)")

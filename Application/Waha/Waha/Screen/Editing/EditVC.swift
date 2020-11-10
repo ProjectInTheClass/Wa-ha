@@ -72,10 +72,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         setupCanvasView()
         print("tableView image count : \(imageArray.count)")
         setupGesture()
-        
+        setupPlaytmp()
         
         initialCenter = self.containerView.center
-        
     }
     private func setupProject(){
         for _ in 0..<imageArray.count {
@@ -135,6 +134,13 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         let rotate = UIRotationGestureRecognizer.init(target: self, action: #selector(handleRotate(recognizer:)))
         rotate.delegate = self
         containerView.addGestureRecognizer(rotate)
+    }
+    private func setupPlaytmp(){
+        // initialize play tmp
+        btnPlay_0.backgroundColor = .clear
+        btnPlay_1.backgroundColor = .clear
+        btnPlay_2.backgroundColor = .black
+        selectedPlayOption = 2
     }
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if isPencilUsing == false {
