@@ -1,23 +1,29 @@
 {
   "images" : [
     {
+<<<<<<< HEAD:Application/Waha/Waha/Asset/Assets.xcassets/pencil.imageset/Contents.json
       "filename" : "pencil.png",
+=======
+      "scale" : "1x",
+>>>>>>> 08c05e4f1739fdc6aa6ad8897c0d3a7e4d904005:Application/Waha/Waha/Asset/Assets.xcassets/export.imageset/Contents.json
       "idiom" : "universal",
-      "scale" : "1x"
+      "filename" : "export.png"
     },
     {
       "filename" : "pencil@2x.png",
       "idiom" : "universal",
+      "filename" : "export@2x.png",
       "scale" : "2x"
     },
     {
       "filename" : "pencil@3x.png",
       "idiom" : "universal",
+      "filename" : "export@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   }
 }

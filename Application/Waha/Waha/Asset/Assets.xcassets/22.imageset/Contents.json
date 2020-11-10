@@ -1,23 +1,29 @@
 {
   "images" : [
     {
+<<<<<<< HEAD:Application/Waha/Waha/Asset/Assets.xcassets/22.imageset/Contents.json
       "filename" : "22.png",
+=======
+>>>>>>> 08c05e4f1739fdc6aa6ad8897c0d3a7e4d904005:Application/Waha/Waha/Asset/Assets.xcassets/78.imageset/Contents.json
       "idiom" : "universal",
+      "filename" : "78.png",
       "scale" : "1x"
     },
     {
       "filename" : "22@2x.png",
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "78@2x.png"
     },
     {
       "filename" : "22@3x.png",
       "idiom" : "universal",
+      "filename" : "78@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   }
 }

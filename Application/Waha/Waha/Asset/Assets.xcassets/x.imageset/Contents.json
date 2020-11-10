@@ -1,17 +1,29 @@
 {
   "images" : [
     {
+<<<<<<< HEAD:Application/Waha/Waha/Asset/Assets.xcassets/x.imageset/Contents.json
       "filename" : "x.png",
+=======
+      "filename" : "22.png",
+>>>>>>> 08c05e4f1739fdc6aa6ad8897c0d3a7e4d904005:Application/Waha/Waha/Asset/Assets.xcassets/22.imageset/Contents.json
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+<<<<<<< HEAD:Application/Waha/Waha/Asset/Assets.xcassets/x.imageset/Contents.json
       "filename" : "x@2x.png",
+=======
+      "filename" : "22@2x.png",
+>>>>>>> 08c05e4f1739fdc6aa6ad8897c0d3a7e4d904005:Application/Waha/Waha/Asset/Assets.xcassets/22.imageset/Contents.json
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+<<<<<<< HEAD:Application/Waha/Waha/Asset/Assets.xcassets/x.imageset/Contents.json
       "filename" : "x@3x.png",
+=======
+      "filename" : "22@3x.png",
+>>>>>>> 08c05e4f1739fdc6aa6ad8897c0d3a7e4d904005:Application/Waha/Waha/Asset/Assets.xcassets/22.imageset/Contents.json
       "idiom" : "universal",
       "scale" : "3x"
     }
