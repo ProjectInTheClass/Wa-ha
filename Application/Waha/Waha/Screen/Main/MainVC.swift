@@ -11,6 +11,7 @@ import AVKit
 import MobileCoreServices
 import Photos
 import MediaPlayer
+import CoreData
 
 class MainVC: UIViewController {
     
@@ -152,6 +153,43 @@ class MainVC: UIViewController {
         captureImage = UIImage(cgImage: cgImage)
     }
     
+    @IBAction func deleteModeButtonTapped(_ sender: Any) {
+        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
+            let cell = collectionView.cellForItem(at: indexPath) as! ProjectCollectionCell
+            
+            cell.isEditing = !isEditing
+        }
+
+    }
+    
+    @objc func deleteProjectButtonTapped(_ sender: UIButton) {
+        let deleteAlert = UIAlertController(title: "Delete Project", message: "Deletion is permanent and can't be reversed", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+           
+            let projectToRemove = self.items?[sender.tag]
+
+            // Remove the project
+        
+            self.context.delete(projectToRemove!)
+
+            // Save the data
+            do{
+                try self.context.save()
+            } catch {
+
+            }
+
+            // Re-fetch the data
+            self.fetchProject()
+        }
+        
+        let cancleAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        
+        deleteAlert.addAction(cancleAction)
+        deleteAlert.addAction(deleteAction)
+        present(deleteAlert, animated: true, completion: nil)
+    }
     
     @IBAction func actionCreateProject(_ sender: Any) {
         createProjectView.isHidden = false
@@ -367,6 +405,8 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
             
             cell.projectImageView.layer.cornerRadius = 20
             
+            cell.deleteProjectButton.tag = indexPath.row
+            cell.deleteProjectButton.addTarget(self, action: #selector(deleteProjectButtonTapped(_:)), for: .touchUpInside)
             
             return cell
         }
@@ -375,7 +415,10 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
     //clicklistener
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("tap \(indexPath.row)")
+        
     }
+    
+    
 }
 extension MainVC : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

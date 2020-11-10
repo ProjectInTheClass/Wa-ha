@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ProjectCollectionCell" customModule="Waha" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProjectCollectionCell" id="gTV-IL-0wX" customClass="ProjectCollectionCell" customModule="Waha" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="328" height="385"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -58,6 +58,9 @@
                                     <constraint firstAttribute="height" constant="25" id="h5t-q4-BhD"/>
                                 </constraints>
                                 <state key="normal" image="x"/>
+                                <connections>
+                                    <action selector="deleteButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Enb-nz-5fb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

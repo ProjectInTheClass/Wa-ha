@@ -1,15 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "dd2D3F937097375E6B7488B1B5D.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "rwdevcon-bg.png",
+      "filename" : "dd2D3F937097375E6B7488B1B5D@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "dd2D3F937097375E6B7488B1B5D@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

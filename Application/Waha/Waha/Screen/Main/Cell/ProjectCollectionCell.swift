@@ -26,5 +26,12 @@ class ProjectCollectionCell: UICollectionViewCell {
             deleteProjectButton.isHidden = !deleteProjectButton.isHidden
         }
     }
-
+    
+    var delete = false
+    
+    @IBAction func deleteButtonTapped(_ sender: UIButton!) {
+        delete = true
+    }
+    
+    
 }

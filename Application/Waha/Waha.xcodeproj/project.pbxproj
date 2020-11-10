@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41FD5EBAEC11FF55D5AD332F /* Pods_Waha.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46924F31C2348C43630D20B3 /* Pods_Waha.framework */; };
 		8346BB8F250B946700BD861D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8346BB8E250B946700BD861D /* AppDelegate.swift */; };
 		8346BB91250B946700BD861D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8346BB90250B946700BD861D /* SceneDelegate.swift */; };
 		8346BB93250B946700BD861D /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8346BB92250B946700BD861D /* MainVC.swift */; };
 		8346BB96250B946700BD861D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8346BB94250B946700BD861D /* Main.storyboard */; };
-		8346BB98250B946A00BD861D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8346BB97250B946A00BD861D /* Assets.xcassets */; };
 		8346BB9B250B946A00BD861D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8346BB99250B946A00BD861D /* LaunchScreen.storyboard */; };
 		8346BBD2250CCD0400BD861D /* ProjectCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8346BBD0250CCD0400BD861D /* ProjectCollectionCell.swift */; };
 		8346BBD3250CCD0400BD861D /* ProjectCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8346BBD1250CCD0400BD861D /* ProjectCollectionCell.xib */; };
@@ -22,9 +22,9 @@
 		8389548D251F72770057F85C /* FrameCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8389548B251F72770057F85C /* FrameCollectionViewCell.xib */; };
 		83A764F5251ECDDD00495FFC /* Video2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A764F4251ECDDD00495FFC /* Video2Image.swift */; };
 		83A764F9251F63A100495FFC /* ImageFrameListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A764F8251F63A100495FFC /* ImageFrameListTableViewCell.swift */; };
-		AB2BFBB12D15C2760F3C0414 /* Pods_Waha.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1C0A23D32A892DF6C97E98 /* Pods_Waha.framework */; };
-		CE8EF3A52557D393009A5C35 /* WahaProjectModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE8EF3A32557D393009A5C35 /* WahaProjectModel.xcdatamodeld */; };
-		CE8EF3A82557D3D7009A5C35 /* TemporaryProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8EF3A72557D3D7009A5C35 /* TemporaryProjectFile.swift */; };
+		AB9857C8255AF38000E295C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB9857C7255AF38000E295C9 /* Assets.xcassets */; };
+		ABE1E8BF255AD30900C09E34 /* TemporaryProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE1E8BC255AD30900C09E34 /* TemporaryProjectFile.swift */; };
+		ABE1E8C0255AD30900C09E34 /* WahaProjectModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ABE1E8BD255AD30900C09E34 /* WahaProjectModel.xcdatamodeld */; };
 		CEDE0C82254436C50085F513 /* PanRotatePinchUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE0C81254436C50085F513 /* PanRotatePinchUIView.swift */; };
 		EB20CF342559028D0071FDA6 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB20CF332559028D0071FDA6 /* Project+CoreDataProperties.swift */; };
 		EB20CF37255902940071FDA6 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB20CF36255902940071FDA6 /* Project+CoreDataClass.swift */; };
@@ -32,14 +32,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13B7D443CA3A83D0FE447892 /* Pods-Waha.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waha.release.xcconfig"; path = "Target Support Files/Pods-Waha/Pods-Waha.release.xcconfig"; sourceTree = "<group>"; };
-		4F1C0A23D32A892DF6C97E98 /* Pods_Waha.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Waha.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		32B6369E4FAC54E730EBD568 /* Pods-Waha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waha.debug.xcconfig"; path = "Target Support Files/Pods-Waha/Pods-Waha.debug.xcconfig"; sourceTree = "<group>"; };
+		46924F31C2348C43630D20B3 /* Pods_Waha.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Waha.framework; path = "../../../../../../../../../Users/teo/Library/Developer/Xcode/DerivedData/Waha-fuxubnmfyxeghkdicosievhiwnmt/Build/Products/Debug-iphoneos/Pods_Waha.framework"; sourceTree = SDKROOT; };
 		8346BB8B250B946700BD861D /* Waha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8346BB8E250B946700BD861D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8346BB90250B946700BD861D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8346BB92250B946700BD861D /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		8346BB95250B946700BD861D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8346BB97250B946A00BD861D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8346BB9A250B946A00BD861D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8346BB9C250B946A00BD861D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8346BBD0250CCD0400BD861D /* ProjectCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCollectionCell.swift; sourceTree = "<group>"; };
@@ -51,13 +50,14 @@
 		8389548B251F72770057F85C /* FrameCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FrameCollectionViewCell.xib; sourceTree = "<group>"; };
 		83A764F4251ECDDD00495FFC /* Video2Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video2Image.swift; sourceTree = "<group>"; };
 		83A764F8251F63A100495FFC /* ImageFrameListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFrameListTableViewCell.swift; sourceTree = "<group>"; };
-		CE8EF3A42557D393009A5C35 /* WahaProjectModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WahaProjectModel.xcdatamodel; sourceTree = "<group>"; };
-		CE8EF3A72557D3D7009A5C35 /* TemporaryProjectFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemporaryProjectFile.swift; path = ../../../../Sandbox/1101_CollectionViewTest/CollectionViewTest02/TemporaryProjectFile.swift; sourceTree = "<group>"; };
+		AB9857C7255AF38000E295C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ABE1E8BC255AD30900C09E34 /* TemporaryProjectFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryProjectFile.swift; sourceTree = "<group>"; };
+		ABE1E8BE255AD30900C09E34 /* WahaProjectModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WahaProjectModel.xcdatamodel; sourceTree = "<group>"; };
 		CEDE0C81254436C50085F513 /* PanRotatePinchUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanRotatePinchUIView.swift; sourceTree = "<group>"; };
+		CF815C02935860B380EBF0D4 /* Pods-Waha.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waha.release.xcconfig"; path = "Target Support Files/Pods-Waha/Pods-Waha.release.xcconfig"; sourceTree = "<group>"; };
 		EB20CF332559028D0071FDA6 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		EB20CF36255902940071FDA6 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		EB442D61253F14B300ECE67F /* ImageFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileManager.swift; sourceTree = "<group>"; };
-		ED477A788BD046A20CF48E7E /* Pods-Waha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waha.debug.xcconfig"; path = "Target Support Files/Pods-Waha/Pods-Waha.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,18 +65,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB2BFBB12D15C2760F3C0414 /* Pods_Waha.framework in Frameworks */,
+				41FD5EBAEC11FF55D5AD332F /* Pods_Waha.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1FA64569A7C2DD2F7E2D7F1A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				46924F31C2348C43630D20B3 /* Pods_Waha.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2AA0ACA6678F9CAB3760F604 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				ED477A788BD046A20CF48E7E /* Pods-Waha.debug.xcconfig */,
-				13B7D443CA3A83D0FE447892 /* Pods-Waha.release.xcconfig */,
+				32B6369E4FAC54E730EBD568 /* Pods-Waha.debug.xcconfig */,
+				CF815C02935860B380EBF0D4 /* Pods-Waha.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -87,7 +95,7 @@
 				8346BB8D250B946700BD861D /* Waha */,
 				8346BB8C250B946700BD861D /* Products */,
 				2AA0ACA6678F9CAB3760F604 /* Pods */,
-				FB3A6A9D87872D6664A84ACD /* Frameworks */,
+				1FA64569A7C2DD2F7E2D7F1A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,7 +140,7 @@
 		8346BBD6250CCD2600BD861D /* Asset */ = {
 			isa = PBXGroup;
 			children = (
-				8346BB97250B946A00BD861D /* Assets.xcassets */,
+				AB9857C7255AF38000E295C9 /* Assets.xcassets */,
 				8346BB99250B946A00BD861D /* LaunchScreen.storyboard */,
 				8346BBD9250CD59F00BD861D /* Utils.swift */,
 			);
@@ -186,18 +194,10 @@
 			children = (
 				EB20CF36255902940071FDA6 /* Project+CoreDataClass.swift */,
 				EB20CF332559028D0071FDA6 /* Project+CoreDataProperties.swift */,
-				CE8EF3A32557D393009A5C35 /* WahaProjectModel.xcdatamodeld */,
-				CE8EF3A72557D3D7009A5C35 /* TemporaryProjectFile.swift */,
+				ABE1E8BC255AD30900C09E34 /* TemporaryProjectFile.swift */,
+				ABE1E8BD255AD30900C09E34 /* WahaProjectModel.xcdatamodeld */,
 			);
 			path = ProjectModel;
-			sourceTree = "<group>";
-		};
-		FB3A6A9D87872D6664A84ACD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4F1C0A23D32A892DF6C97E98 /* Pods_Waha.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,7 +207,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8346BB9F250B946A00BD861D /* Build configuration list for PBXNativeTarget "Waha" */;
 			buildPhases = (
-				40C0AFAF3211376794787130 /* [CP] Check Pods Manifest.lock */,
+				9A9FBDD861B6FCC7FB7D886F /* [CP] Check Pods Manifest.lock */,
 				8346BB87250B946700BD861D /* Sources */,
 				8346BB88250B946700BD861D /* Frameworks */,
 				8346BB89250B946700BD861D /* Resources */,
@@ -259,10 +259,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB9857C8255AF38000E295C9 /* Assets.xcassets in Resources */,
 				8346BB9B250B946A00BD861D /* LaunchScreen.storyboard in Resources */,
 				8346BBD3250CCD0400BD861D /* ProjectCollectionCell.xib in Resources */,
 				8389548D251F72770057F85C /* FrameCollectionViewCell.xib in Resources */,
-				8346BB98250B946A00BD861D /* Assets.xcassets in Resources */,
 				8346BBE1250CD7B100BD861D /* Edit.storyboard in Resources */,
 				8346BB96250B946700BD861D /* Main.storyboard in Resources */,
 			);
@@ -271,7 +271,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		40C0AFAF3211376794787130 /* [CP] Check Pods Manifest.lock */ = {
+		9A9FBDD861B6FCC7FB7D886F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -300,6 +300,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABE1E8BF255AD30900C09E34 /* TemporaryProjectFile.swift in Sources */,
+				ABE1E8C0255AD30900C09E34 /* WahaProjectModel.xcdatamodeld in Sources */,
 				8346BBDA250CD59F00BD861D /* Utils.swift in Sources */,
 				8346BB93250B946700BD861D /* MainVC.swift in Sources */,
 				8346BBD2250CCD0400BD861D /* ProjectCollectionCell.swift in Sources */,
@@ -310,9 +312,7 @@
 				8389548C251F72770057F85C /* FrameCollectionViewCell.swift in Sources */,
 				8346BB91250B946700BD861D /* SceneDelegate.swift in Sources */,
 				EB20CF37255902940071FDA6 /* Project+CoreDataClass.swift in Sources */,
-				CE8EF3A52557D393009A5C35 /* WahaProjectModel.xcdatamodeld in Sources */,
 				EB20CF342559028D0071FDA6 /* Project+CoreDataProperties.swift in Sources */,
-				CE8EF3A82557D3D7009A5C35 /* TemporaryProjectFile.swift in Sources */,
 				83A764F5251ECDDD00495FFC /* Video2Image.swift in Sources */,
 				8346BBE3250CD7C000BD861D /* EditVC.swift in Sources */,
 			);
@@ -458,11 +458,11 @@
 		};
 		8346BBA0250B946A00BD861D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED477A788BD046A20CF48E7E /* Pods-Waha.debug.xcconfig */;
+			baseConfigurationReference = 32B6369E4FAC54E730EBD568 /* Pods-Waha.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9Y5NYS23KM;
+				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				INFOPLIST_FILE = Waha/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -477,11 +477,11 @@
 		};
 		8346BBA1250B946A00BD861D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13B7D443CA3A83D0FE447892 /* Pods-Waha.release.xcconfig */;
+			baseConfigurationReference = CF815C02935860B380EBF0D4 /* Pods-Waha.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9Y5NYS23KM;
+				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				INFOPLIST_FILE = Waha/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -518,14 +518,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		CE8EF3A32557D393009A5C35 /* WahaProjectModel.xcdatamodeld */ = {
+		ABE1E8BD255AD30900C09E34 /* WahaProjectModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				CE8EF3A42557D393009A5C35 /* WahaProjectModel.xcdatamodel */,
+				ABE1E8BE255AD30900C09E34 /* WahaProjectModel.xcdatamodel */,
 			);
-			currentVersion = CE8EF3A42557D393009A5C35 /* WahaProjectModel.xcdatamodel */;
-			name = WahaProjectModel.xcdatamodeld;
-			path = ../../../../Sandbox/1101_CollectionViewTest/CollectionViewTest02/WahaProjectModel.xcdatamodeld;
+			currentVersion = ABE1E8BE255AD30900C09E34 /* WahaProjectModel.xcdatamodel */;
+			path = WahaProjectModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
