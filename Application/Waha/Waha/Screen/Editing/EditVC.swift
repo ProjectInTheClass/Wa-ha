@@ -59,6 +59,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
   
     var videoSize : CGSize?
     
+    var videoAlpha : CGFloat = 1.0
+    var canvasAlpha : CGFloat = 1.0
+    
     let activityIndicator = UIActivityIndicatorView(style:.large)
     
     override func viewDidLoad() {
@@ -69,10 +72,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         setupCanvasView()
         print("tableView image count : \(imageArray.count)")
         setupGesture()
-        
+        setupPlaytmp()
         
         initialCenter = self.containerView.center
-        
     }
     private func setupProject(){
         for _ in 0..<imageArray.count {
@@ -93,6 +95,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         tableView.layer.cornerRadius = cornerRadidus
         toolBar.layer.opacity = opacity
         tableView.layer.opacity = opacity
+        
     }
     private func setupCanvasView(){
         
@@ -110,6 +113,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         }
         canvasView.backgroundColor = .clear
         canvasView.isOpaque = false
+        
     }
     private func setupGesture(){
         //        https://stackoverflow.com/questions/45402639/pinch-pan-and-rotate-text-simultaneously-like-snapchat-swift-3
@@ -130,6 +134,13 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         let rotate = UIRotationGestureRecognizer.init(target: self, action: #selector(handleRotate(recognizer:)))
         rotate.delegate = self
         containerView.addGestureRecognizer(rotate)
+    }
+    private func setupPlaytmp(){
+        // initialize play tmp
+        btnPlay_0.backgroundColor = .clear
+        btnPlay_1.backgroundColor = .clear
+        btnPlay_2.backgroundColor = .black
+        selectedPlayOption = 2
     }
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if isPencilUsing == false {
@@ -173,7 +184,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     }
     @IBAction func actionExport(_ sender: Any) {
         //        saveDrawingToCameraRoll()
-        selectSaveMode()
+        writeSaveFileName()
     }
     @IBAction func actionRestoreScreen(_ sender: Any) {
         restoreScreen()
@@ -302,40 +313,10 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         containerView.transform = CGAffineTransform(rotationAngle: changedAngle * CGFloat(Double.pi)/180)
         
     }
-    private func selectSaveMode(){
-        // alert view for select save mode
-        let alert = UIAlertController(title: "Save Video With", message: "", preferredStyle: .actionSheet)
-        
-        let cancel = UIAlertAction(title: "cancel", style: .destructive, handler: nil)
-        
-        let drawingOnly = UIAlertAction(title: "Drawing Only", style: .default){(drawingOnly) in
-            self.writeSaveFileName(useOriginalImage: false)
-        }
-        
-        let drawingOnImage = UIAlertAction(title: "Drawing + Original", style: .default){(drawingOnImage) in
-            self.writeSaveFileName(useOriginalImage: true)
-        }
-        
-        alert.addAction(drawingOnly)
-        alert.addAction(drawingOnImage)
-        alert.addAction(cancel)
-        
-        if UIDevice.current.userInterfaceIdiom == .pad { // if device is iPad
-            if let popoverController = alert.popoverPresentationController {
-                // set present position of action sheet
-                popoverController.sourceView = self.view
-                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY, width: 0, height: 0)
-                popoverController.permittedArrowDirections = []
-                self.present(alert, animated: true, completion: nil)
-            }
-        }else{
-            self.present(alert, animated: true, completion: nil)
-        }
-        
-    }
-    private func writeSaveFileName(useOriginalImage: Bool){
+
+    private func writeSaveFileName(){
         // alert view for
-        let alert = UIAlertController(title: "Save Video With", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Save Video As", message: "", preferredStyle: .alert)
         
         alert.addTextField{(myTextField) in
             myTextField.placeholder = "e.g. Wa-ha_project"
@@ -360,7 +341,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
 //            print((alert.textFields?[0].text)!)
 //            print(fileName!)
             DispatchQueue.background {
-                self.convertImages2Video(useOriginalImage: useOriginalImage, fileName: fileName!)
+                self.convertImages2Video(fileName: fileName!)
             }
             
         }
@@ -372,7 +353,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
         self.present(alert, animated: true, completion: nil)
     }
-    private func convertImages2Video(useOriginalImage: Bool, fileName: String){
+    private func convertImages2Video(fileName: String){
         print("start save video")
         print(videourl!.absoluteString)
         var tmpurl = videourl
@@ -435,22 +416,16 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     
                     let newImage : UIImage
                     
-                    if(useOriginalImage){
-                        UIGraphicsBeginImageContext(self.videoSize!)
-                        let originalImage = ImageFileManager.shared.getSavedImage(named: "\(self.projName)/original_\(i)")
-                        originalImage!.draw(in: areaSize)
-                        image.draw(in: areaSize, blendMode: .normal, alpha: 1)
-                        newImage = UIGraphicsGetImageFromCurrentImageContext()!
-                        UIGraphicsEndImageContext()
-                    }else{
-                        UIGraphicsBeginImageContext(self.videoSize!)
-                        backgroundImage!.draw(in: areaSize)
-                        image.draw(in: areaSize, blendMode: .normal, alpha: 1)
-                        newImage = UIGraphicsGetImageFromCurrentImageContext()!
-                        UIGraphicsEndImageContext()
-                    }
+                    UIGraphicsBeginImageContext(self.videoSize!)
+                    let originalImage = ImageFileManager.shared.getSavedImage(named: "\(self.projName)/original_\(i)")
+                    backgroundImage!.draw(in: areaSize, blendMode: .normal, alpha: 1)
+                    originalImage!.draw(in: areaSize, blendMode: .normal, alpha: self.videoAlpha)
+                    image.draw(in: areaSize, blendMode: .normal, alpha: self.canvasAlpha)
                     
+                    newImage = UIGraphicsGetImageFromCurrentImageContext()!
+                    UIGraphicsEndImageContext()
                     
+                
                     let pixelBuffer = self.newPixelBufferFrom(cgImage: newImage.cgImage!)
                     
                     let time : CMTime
@@ -603,7 +578,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             
             let bottomImage = imageArray[index]
             let topImage = imageArray[index]
-            
+                        
             UIGraphicsBeginImageContext(size)
             bottomImage.draw(in: areaSize)
             topImage.draw(in: areaSize, blendMode: .normal, alpha: 1)
@@ -699,8 +674,10 @@ extension EditVC : sliderDelegate {
         switch layer {
         case 1:
             videoFrameView.alpha = CGFloat(value)
+            videoAlpha = CGFloat(value)
         case 0:
             canvasView.alpha = CGFloat(value)
+            canvasAlpha = CGFloat(value)
         default:
             break
         }

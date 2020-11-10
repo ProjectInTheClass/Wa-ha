@@ -11,7 +11,6 @@ import AVKit
 import MobileCoreServices
 import Photos
 import MediaPlayer
-import CoreData
 
 class MainVC: UIViewController {
     
@@ -35,7 +34,6 @@ class MainVC: UIViewController {
     @IBOutlet weak var frameRateTextField: UITextField!
     @IBOutlet weak var cancleCreateNewProjectButton: UIButton!
     @IBOutlet weak var NewProjectButton: UIButton!
-    @IBOutlet var deleteModeButton: UIView!
     
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -55,7 +53,7 @@ class MainVC: UIViewController {
         setupActivityIndicator()
         print(NSHomeDirectory())
     }
-    
+
     private func setupCreateProjectView(){
         
         self.createProjectView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +65,16 @@ class MainVC: UIViewController {
         frameRatePickerView.dataSource = self
         frameRatePickerView.delegate = self
         imagePicker.delegate = self
-        frameRateTextField.inputView = frameRatePickerView
+        frameRateTextField.isUserInteractionEnabled = false
+    }
+    
+    @IBAction func choooseFrameRate(_ sender: Any){
+        frameRatePickerView.isHidden = false
+        frameRatePickerView.backgroundColor = UIColor.white
+        frameRatePickerView.center = CGPoint.init(x: self.view.bounds.midX, y: self.view.bounds.maxY - frameRatePickerView.frame.height/2)
+        frameRatePickerView.roundCorners(corners: .allCorners, radius: 20)
+        projectNameTextField.isEnabled = false
+        self.view.addSubview(frameRatePickerView)
     }
     
     private func setupActivityIndicator(){
@@ -93,16 +100,6 @@ class MainVC: UIViewController {
         
     }
     
-    @IBAction func deleteModeButtonTapped(_ sender: Any) {
-        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
-            let cell = collectionView.cellForItem(at: indexPath) as! ProjectCollectionCell
-            
-            cell.isEditing = !isEditing
-        }
-
-    }
-    
-   
 
     
     private func fetchProject(){
@@ -172,53 +169,91 @@ class MainVC: UIViewController {
         }
     }
     @IBAction func actionCreateProjectDone(_ sender: Any) {
-        if projectNameTextField.text == "" || frameRateTextField.text == "" {
-            self.alert(title: "응안돼")
+       
+        
+        var errorOccurred : Bool = false
+        let errorAlert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        errorAlert.popoverPresentationController?.sourceView = self.view
+        errorAlert.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        if videoURL == nil {
+            errorOccurred = true
+            errorAlert.title = "please select video"
         }
+        else if projectNameTextField.text == ""{
+            errorOccurred = true
+            errorAlert.title = "please write project name"
+        }
+        else if frameRateTextField.text == "" {
+            errorOccurred = true
+            errorAlert.title = "please select frame rate"
+        }
+        
+        // check project name whether overlapped
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        let docURL = URL(string: documentsDirectory)!
+        let dataPath = docURL.appendingPathComponent("\(projectNameTextField.text!)")
 
-        extractFirstFrame()
+        if projectNameTextField.text != "" && FileManager.default.fileExists(atPath: dataPath.absoluteString) {
+            errorOccurred = true
+            errorAlert.title = "project name: [\(projectNameTextField.text!)] is already existed"
+        }
         
-        let projectName = projectNameTextField.text
-        let frameRate = frameRateTextField.text
-        let thumbnail = captureImage
-
-        tempNewProject = TemporaryProject(projectName: projectName!, frameRate: Int(frameRate!)!, thumbNail: thumbnail!, videoURL: videoURL.path)
-        
-     
-        
-        let newProject = Project(context: self.context)
-        
-        let imageData: Data = tempNewProject!.thumbNail.pngData()! as Data
-        
-        // Create a New Project
-        newProject.projectName = tempNewProject?.projectName
-        newProject.frameRate = Int64(tempNewProject!.frameRate)
-        newProject.thumbnail = imageData
-        newProject.videoURL = videoURL.path
-        
-        // will be deprecated: until fetch from coredata is completed
-        convertedFPS = Int(frameRate!)!
-        selectedProjName = projectName!
-
-        // Save the data
-        do{
-            try self.context.save()
+        if(errorOccurred){
+            let cancel = UIAlertAction(title: "cancel", style: .destructive)
+            errorAlert.addAction(cancel)
+            present(errorAlert, animated: true, completion: nil)
+        }else{
+            do {
+                try FileManager.default.createDirectory(atPath: dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription);
+            }
+            extractFirstFrame()
             
-        } catch {
-            print("saving error")
+            let projectName = projectNameTextField.text
+            let frameRate = frameRateTextField.text
+            let thumbnail = captureImage
+
+            tempNewProject = TemporaryProject(projectName: projectName!, frameRate: Int(frameRate!)!, thumbNail: thumbnail!, videoURL: videoURL.path)
+            
+         
+            
+            let newProject = Project(context: self.context)
+            
+            let imageData: Data = tempNewProject!.thumbNail.pngData()! as Data
+            
+            // Create a New Project
+            newProject.projectName = tempNewProject?.projectName
+            newProject.frameRate = Int64(tempNewProject!.frameRate)
+            newProject.thumbnail = imageData
+            newProject.videoURL = videoURL.path
+            
+            // will be deprecated: until fetch from coredata is completed
+            convertedFPS = Int(frameRate!)!
+            selectedProjName = projectName!
+
+            // Save the data
+            do{
+                try self.context.save()
+                
+            } catch {
+                print("saving error")
+            }
+            
+            // Refetch
+            self.fetchProject()
+            
+            createProjectView.isHidden = true
+            tempNewProject = nil
+            projectNameTextField.text = ""
+            frameRateTextField.text = ""
+            captureImage = nil
+            projectImageView.image = nil
+            
+            video2ImageGenerator(video_url: videoURL, mediaType: mediaType as String)
         }
         
-        // Refetch
-        self.fetchProject()
-        
-        createProjectView.isHidden = true
-        tempNewProject = nil
-        projectNameTextField.text = ""
-        frameRateTextField.text = ""
-        captureImage = nil
-        projectImageView.image = nil
-        
-        video2ImageGenerator(video_url: videoURL, mediaType: mediaType as String)
     }
     @IBAction func actionCancelCreateProject(_ sender: Any) {
         createProjectView.isHidden = true
@@ -239,23 +274,6 @@ class MainVC: UIViewController {
         vc?.convertedFPS = convertedFPS
         vc?.videoSize = videoSize
         self.navigationController?.pushViewController(vc!, animated: true)
-    }
-    
-    //pick video from gallery
-    private func startMediaBrowser(
-        delegate: UIViewController & UINavigationControllerDelegate & UIImagePickerControllerDelegate,
-        sourceType: UIImagePickerController.SourceType
-    ) {
-        guard UIImagePickerController.isSourceTypeAvailable(sourceType)
-        else { return }
-        
-        
-        let mediaUI = UIImagePickerController()
-        mediaUI.sourceType = sourceType
-        mediaUI.mediaTypes = [kUTTypeMovie as String]
-        mediaUI.allowsEditing = true
-        mediaUI.delegate = delegate
-        delegate.present(mediaUI, animated: true, completion: nil)
     }
     
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
@@ -281,17 +299,6 @@ class MainVC: UIViewController {
             let fps = ceil((tracks.first?.nominalFrameRate)!)
             let totalFrameNum = Int(Double(fps) * duration)
             
-            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            let documentsDirectory = paths[0]
-            let docURL = URL(string: documentsDirectory)!
-            let dataPath = docURL.appendingPathComponent("\(self.selectedProjName)")
-            if !FileManager.default.fileExists(atPath: dataPath.absoluteString) {
-                do {
-                    try FileManager.default.createDirectory(atPath: dataPath.absoluteString, withIntermediateDirectories: true, attributes: nil)
-                } catch {
-                    print(error.localizedDescription);
-                }
-            }
             
             print("duration: \(duration)")
             print("total frame: \(totalFrameNum)")
@@ -359,7 +366,6 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
             cell.projectImageView.image = UIImage(data:project.thumbnail!)
             
             cell.projectImageView.layer.cornerRadius = 20
-            cell.fpsLabel.text = frameRateTextField.text
             
             
             return cell
@@ -403,7 +409,6 @@ extension MainVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return frameRatePickerViewData.count
     }
@@ -414,6 +419,9 @@ extension MainVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         frameRateTextField.text = frameRatePickerViewData[row]
         frameRateTextField.resignFirstResponder()
+        frameRatePickerView.isHidden = true
+        projectNameTextField.isEnabled = true
+
     }
 }
 
