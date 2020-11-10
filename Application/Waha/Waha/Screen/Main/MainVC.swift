@@ -152,7 +152,7 @@ class MainVC: UIViewController {
 
             imagePicker.sourceType = .photoLibrary
             imagePicker.mediaTypes = [kUTTypeMovie as String]
-            imagePicker.allowsEditing = false
+            imagePicker.allowsEditing = true
             
             present(imagePicker, animated: true, completion: nil)
         } else{
@@ -227,23 +227,6 @@ class MainVC: UIViewController {
         vc?.convertedFPS = convertedFPS
         vc?.videoSize = videoSize
         self.navigationController?.pushViewController(vc!, animated: true)
-    }
-    
-    //pick video from gallery
-    private func startMediaBrowser(
-        delegate: UIViewController & UINavigationControllerDelegate & UIImagePickerControllerDelegate,
-        sourceType: UIImagePickerController.SourceType
-    ) {
-        guard UIImagePickerController.isSourceTypeAvailable(sourceType)
-        else { return }
-        
-        
-        let mediaUI = UIImagePickerController()
-        mediaUI.sourceType = sourceType
-        mediaUI.mediaTypes = [kUTTypeMovie as String]
-        mediaUI.allowsEditing = true
-        mediaUI.delegate = delegate
-        delegate.present(mediaUI, animated: true, completion: nil)
     }
     
     private func video2ImageGenerator(video_url url : URL, mediaType type : String){
