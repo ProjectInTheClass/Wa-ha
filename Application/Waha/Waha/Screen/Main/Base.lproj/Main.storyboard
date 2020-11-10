@@ -94,7 +94,7 @@
                         <outlet property="createNewProjectLabel" destination="34r-c5-Qqm" id="Rp4-oR-1Uh"/>
                         <outlet property="createNewProjectView" destination="j6j-Z8-iod" id="Q2X-5c-xoB"/>
                         <outlet property="createProjectView" destination="vSD-13-fIi" id="2xC-vU-wp8"/>
-                        <outlet property="frameRateTextField" destination="ruD-YH-B0P" id="g70-c0-d3J"/>
+                        <outlet property="frameRateTextField" destination="ruD-YH-B0P" id="UXN-zR-2GP"/>
                         <outlet property="projectImageView" destination="jq5-md-P6u" id="AxG-sd-ugR"/>
                         <outlet property="projectNameTextField" destination="FBW-cH-m3J" id="91U-J0-lCi"/>
                     </connections>
@@ -154,6 +154,14 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmH-hP-FrT">
+                                    <rect key="frame" x="44" y="248" width="240" height="34"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="                                                          "/>
+                                    <connections>
+                                        <action selector="choooseFrameRate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KYR-qF-vgl"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGray5Color"/>
                             <constraints>

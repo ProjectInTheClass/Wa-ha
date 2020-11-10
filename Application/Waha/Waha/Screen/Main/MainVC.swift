@@ -53,7 +53,7 @@ class MainVC: UIViewController {
         setupActivityIndicator()
         print(NSHomeDirectory())
     }
-    
+
     private func setupCreateProjectView(){
         
         self.createProjectView.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +65,15 @@ class MainVC: UIViewController {
         frameRatePickerView.dataSource = self
         frameRatePickerView.delegate = self
         imagePicker.delegate = self
-        frameRateTextField.inputView = frameRatePickerView
+    }
+    
+    @IBAction func choooseFrameRate(_ sender: Any){
+        frameRatePickerView.isHidden = false
+        frameRatePickerView.backgroundColor = UIColor.white
+        frameRatePickerView.center = CGPoint.init(x: self.view.bounds.midX, y: self.view.bounds.maxY - frameRatePickerView.frame.height/2)
+        frameRatePickerView.roundCorners(corners: .allCorners, radius: 20)
+        projectNameTextField.isEnabled = false
+        self.view.addSubview(frameRatePickerView)
     }
     
     private func setupActivityIndicator(){
@@ -223,7 +231,6 @@ class MainVC: UIViewController {
             createProjectView.isHidden = true
             tempNewProject = nil
             projectNameTextField.text = ""
-            frameRateTextField.allowsEditingTextAttributes = false
             frameRateTextField.text = ""
             captureImage = nil
             projectImageView.image = nil
@@ -397,7 +404,6 @@ extension MainVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return frameRatePickerViewData.count
     }
@@ -408,6 +414,9 @@ extension MainVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         frameRateTextField.text = frameRatePickerViewData[row]
         frameRateTextField.resignFirstResponder()
+        frameRatePickerView.isHidden = true
+        projectNameTextField.isEnabled = true
+
     }
 }
 
