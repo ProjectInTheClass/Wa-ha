@@ -73,7 +73,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         print("tableView image count : \(imageArray.count)")
         setupGesture()
         setupPlaytmp()
-        
         initialCenter = self.containerView.center
     }
     private func setupProject(){

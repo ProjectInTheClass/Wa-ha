@@ -170,7 +170,23 @@ class MainVC: UIViewController {
             let projectToRemove = self.items?[sender.tag]
 
             // Remove the project
-        
+            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            let documentsDirectory = paths[0]
+            let docURL = URL(string: documentsDirectory)!
+            let dataPath = docURL.appendingPathComponent("\(projectToRemove!.projectName!)")
+            do {
+                let fileManager = FileManager.default
+                // Check if file exists
+                if fileManager.fileExists(atPath: dataPath.relativeString) {
+                    // Delete file
+                    try fileManager.removeItem(atPath: dataPath.relativeString)
+                } else {
+                    print("File \(dataPath.relativeString) does not exist")
+                }
+            } catch {
+                print("An error took place: \(error)")
+            }
+            
             self.context.delete(projectToRemove!)
 
             // Save the data
