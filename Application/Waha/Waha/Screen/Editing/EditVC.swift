@@ -357,16 +357,15 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         print(videourl!.absoluteString)
         var tmpurl = videourl
         tmpurl!.deleteLastPathComponent()
-        let fileURL = tmpurl!.absoluteString + "\(fileName).MOV"
-        outputURL = URL(string: fileURL)
-        
+        let fileURL = tmpurl!.path + "/\(fileName).MOV"
+        outputURL = NSURL.fileURL(withPath: fileURL)
+        print(outputURL!.absoluteString)
         var assetWriter : AVAssetWriter? = nil
         do{
             assetWriter = try AVAssetWriter(outputURL: outputURL!, fileType: AVFileType.mov)
         } catch let asseterror{
             print("Error: \(asseterror)")
         }
-        
         // set output video properties
         let videoSettings: [String : Any] = [
             AVVideoCodecKey: AVVideoCodecType.h264,
@@ -451,7 +450,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         }
         
         
-        // TODO
+        // TODO remove project core data after export
                 
     }
     
