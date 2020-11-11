@@ -183,10 +183,17 @@ class MainVC: UIViewController {
                 } else {
                     print("File \(dataPath.relativeString) does not exist")
                 }
+                
+                if fileManager.fileExists(atPath: projectToRemove!.videoURL!) {
+                    // Delete file
+                    try fileManager.removeItem(atPath: projectToRemove!.videoURL!)
+                }else{
+                    print("File \(projectToRemove!.videoURL!) does not exist")
+                }
             } catch {
                 print("An error took place: \(error)")
             }
-            
+                        
             self.context.delete(projectToRemove!)
 
             // Save the data
@@ -430,8 +437,43 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
     }
     //clicklistener
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("tap \(indexPath.row)")
         
+        let project = self.items![indexPath.row]
+        selectedProjName = project.projectName!
+        videoURL = URL(string: project.videoURL!)
+        convertedFPS = Int(project.frameRate)
+        imageArray = []
+        
+        // count image num
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        let docURL = URL(string: documentsDirectory)!
+        let dataPath = docURL.appendingPathComponent("\(selectedProjName)")
+        let fm = FileManager.default
+        let dirContents = try! fm.contentsOfDirectory(atPath: dataPath.absoluteString)
+        let count = dirContents.count
+        
+        var isSizeSet : Bool = false
+        for i in 0...count-1{
+            let imageFile = "\(selectedProjName)/original_\(i)"
+            let image = ImageFileManager.shared.getSavedImage(named: imageFile)
+            
+            if(!isSizeSet) {
+                self.videoSize = image!.size
+                isSizeSet = true
+            }
+            let thumbnailSize = CGSize(width: 160.0, height: 90.0)
+            let rect = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
+            UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
+            image!.draw(in: rect)
+            let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.imageArray.append(thumbnailImage!)
+        }
+        print("tap \(selectedProjName)")
+        
+        goProjectVC()
+        // TODO load PKdrawing
     }
     
     
