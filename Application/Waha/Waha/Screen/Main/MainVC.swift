@@ -35,6 +35,8 @@ class MainVC: UIViewController {
     @IBOutlet weak var frameRateTextField: UITextField!
     @IBOutlet weak var cancleCreateNewProjectButton: UIButton!
     @IBOutlet weak var NewProjectButton: UIButton!
+    @IBOutlet weak var frameRateButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -47,12 +49,34 @@ class MainVC: UIViewController {
     let activityIndicator = UIActivityIndicatorView(style:.large)
     var videoSize : CGSize?
     
+    
+    //Search Bar
+    var filtered:[String] = []
+    var searchActive : Bool = false
+    let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCreateProjectView()
         setupCollectionView()
         setupActivityIndicator()
         print(NSHomeDirectory())
+        
+        /*  검색바 만들기
+        self.searchController.searchResultsUpdater = self
+        self.searchController.delegate = self
+        self.searchController.searchBar.delegate = self
+        
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.dimsBackgroundDuringPresentation = true
+        self.searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search for tools and resources"
+        searchController.searchBar.sizeToFit()
+        
+        searchController.searchBar.becomeFirstResponder()
+        
+        self.navigationItem.titleView = searchController.searchBar
+ */
     }
 
     private func setupCreateProjectView(){
@@ -61,6 +85,23 @@ class MainVC: UIViewController {
         self.view.addSubview(createProjectView)
         self.createProjectView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         self.createProjectView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = createProjectView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.layer.cornerRadius = 20
+        blurEffectView.clipsToBounds = true
+        createProjectView.insertSubview(blurEffectView, at: 0)
+        frameRateButton.frame = frameRateTextField.bounds
+        
+        
+        createNewProjectView.layer.cornerRadius = 20
+        createNewProjectView.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 0.1)
+        projectImageView.layer.cornerRadius = 20
+        projectImageView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05)
+        NewProjectButton.layer.cornerRadius = 5
+        cancleCreateNewProjectButton.layer.cornerRadius = 5
     
         createProjectView.isHidden = true
         frameRatePickerView.dataSource = self
@@ -391,7 +432,11 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
     }
     //Number of collectionView Item
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items?.count ?? 0
+        if searchActive {
+            return filtered.count
+        }else{
+            return items?.count ?? 0
+        }
     }
     //Cell init
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -492,3 +537,50 @@ extension MainVC: UIImagePickerControllerDelegate, UINavigationControllerDelegat
     }
     
 }
+
+/*   검색바
+extension MainVC: UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating {
+        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            searchActive = false
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        func updateSearchResults(for searchController: UISearchController)
+        {
+            let searchString = searchController.searchBar.text
+            let projects: ProjectCollectionCell
+            let projectsName = [projects.lbName]
+            
+            filtered = items.filter({ (item) -> Bool in
+                let countryText: NSString = item as NSString
+                
+                return (countryText.range(of: searchString!, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+            })
+            
+            collectionView.reloadData()
+
+        }
+        
+        func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+            searchActive = true
+            collectionView.reloadData()
+        }
+        
+        
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            searchActive = false
+            collectionView.reloadData()
+        }
+        
+        func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+            if !searchActive {
+                searchActive = true
+                collectionView.reloadData()
+            }
+            
+            searchController.searchBar.resignFirstResponder()
+        }
+    
+    
+}
+*/

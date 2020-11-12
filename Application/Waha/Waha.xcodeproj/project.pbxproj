@@ -23,11 +23,11 @@
 		83A764F5251ECDDD00495FFC /* Video2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A764F4251ECDDD00495FFC /* Video2Image.swift */; };
 		83A764F9251F63A100495FFC /* ImageFrameListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A764F8251F63A100495FFC /* ImageFrameListTableViewCell.swift */; };
 		AB9857C8255AF38000E295C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB9857C7255AF38000E295C9 /* Assets.xcassets */; };
+		ABA4F312255D74BB001437AD /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA4F311255D74BB001437AD /* Project+CoreDataProperties.swift */; };
+		ABA4F315255D74DB001437AD /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA4F314255D74DB001437AD /* Project+CoreDataClass.swift */; };
 		ABE1E8BF255AD30900C09E34 /* TemporaryProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE1E8BC255AD30900C09E34 /* TemporaryProjectFile.swift */; };
 		ABE1E8C0255AD30900C09E34 /* WahaProjectModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ABE1E8BD255AD30900C09E34 /* WahaProjectModel.xcdatamodeld */; };
 		CEDE0C82254436C50085F513 /* PanRotatePinchUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE0C81254436C50085F513 /* PanRotatePinchUIView.swift */; };
-		EB20CF342559028D0071FDA6 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB20CF332559028D0071FDA6 /* Project+CoreDataProperties.swift */; };
-		EB20CF37255902940071FDA6 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB20CF36255902940071FDA6 /* Project+CoreDataClass.swift */; };
 		EB442D62253F14B300ECE67F /* ImageFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB442D61253F14B300ECE67F /* ImageFileManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,12 +51,12 @@
 		83A764F4251ECDDD00495FFC /* Video2Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video2Image.swift; sourceTree = "<group>"; };
 		83A764F8251F63A100495FFC /* ImageFrameListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFrameListTableViewCell.swift; sourceTree = "<group>"; };
 		AB9857C7255AF38000E295C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ABA4F311255D74BB001437AD /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Project+CoreDataProperties.swift"; path = "../../Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		ABA4F314255D74DB001437AD /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		ABE1E8BC255AD30900C09E34 /* TemporaryProjectFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryProjectFile.swift; sourceTree = "<group>"; };
 		ABE1E8BE255AD30900C09E34 /* WahaProjectModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WahaProjectModel.xcdatamodel; sourceTree = "<group>"; };
 		CEDE0C81254436C50085F513 /* PanRotatePinchUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanRotatePinchUIView.swift; sourceTree = "<group>"; };
 		CF815C02935860B380EBF0D4 /* Pods-Waha.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waha.release.xcconfig"; path = "Target Support Files/Pods-Waha/Pods-Waha.release.xcconfig"; sourceTree = "<group>"; };
-		EB20CF332559028D0071FDA6 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		EB20CF36255902940071FDA6 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		EB442D61253F14B300ECE67F /* ImageFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,8 +192,8 @@
 		CE8EF39D2557D30C009A5C35 /* ProjectModel */ = {
 			isa = PBXGroup;
 			children = (
-				EB20CF36255902940071FDA6 /* Project+CoreDataClass.swift */,
-				EB20CF332559028D0071FDA6 /* Project+CoreDataProperties.swift */,
+				ABA4F314255D74DB001437AD /* Project+CoreDataClass.swift */,
+				ABA4F311255D74BB001437AD /* Project+CoreDataProperties.swift */,
 				ABE1E8BC255AD30900C09E34 /* TemporaryProjectFile.swift */,
 				ABE1E8BD255AD30900C09E34 /* WahaProjectModel.xcdatamodeld */,
 			);
@@ -309,10 +309,10 @@
 				8346BB8F250B946700BD861D /* AppDelegate.swift in Sources */,
 				EB442D62253F14B300ECE67F /* ImageFileManager.swift in Sources */,
 				CEDE0C82254436C50085F513 /* PanRotatePinchUIView.swift in Sources */,
+				ABA4F315255D74DB001437AD /* Project+CoreDataClass.swift in Sources */,
 				8389548C251F72770057F85C /* FrameCollectionViewCell.swift in Sources */,
+				ABA4F312255D74BB001437AD /* Project+CoreDataProperties.swift in Sources */,
 				8346BB91250B946700BD861D /* SceneDelegate.swift in Sources */,
-				EB20CF37255902940071FDA6 /* Project+CoreDataClass.swift in Sources */,
-				EB20CF342559028D0071FDA6 /* Project+CoreDataProperties.swift in Sources */,
 				83A764F5251ECDDD00495FFC /* Video2Image.swift in Sources */,
 				8346BBE3250CD7C000BD861D /* EditVC.swift in Sources */,
 			);

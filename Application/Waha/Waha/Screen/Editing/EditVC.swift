@@ -13,6 +13,7 @@ import Photos
 import MediaPlayer
 import PencilKit
 import PhotosUI
+import CoreData
 
 
 protocol collectionViewDidScrollDelegate : EditVC{
@@ -21,6 +22,10 @@ protocol collectionViewDidScrollDelegate : EditVC{
 
 
 class EditVC: UIViewController,UIGestureRecognizerDelegate {
+    
+    //coreData
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var items: [Project]?
     
     let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
     var initialCenter = CGPoint()
@@ -76,6 +81,39 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
         initialCenter = self.containerView.center
     }
+    
+    func fetchProject(){
+        do {
+            self.items = try context.fetch(Project.fetchRequest())
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } catch {
+            
+        }
+    }
+    
+    func saveDrawingsToCoreData() {
+        let drawings = Project(context: self.context)
+        let drawingArray: [PKDrawing] = canvasArray
+        let videoArray: [UIImage] = imageArray
+        let thumbnailArray: [UIImage] = self.thumbnailArray
+        
+        drawings.drawingData = drawingArray
+        drawings.videoData = videoArray
+        drawings.thumbnailArray = thumbnailArray
+        
+        do{
+        try self.context.save()
+        } catch {
+            
+        }
+        
+        // Refetch
+        self.fetchProject()
+    }
+    
     private func setupProject(){
         for _ in 0..<imageArray.count {
             canvasArray.append(PKDrawing())
@@ -468,7 +506,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 self.view.isUserInteractionEnabled = true
                 self.removeTmpFiles()
                 
-                let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+                let ac = UIAlertController(title: "Saved!", message: "Your animation has been saved to your photos.", preferredStyle: .alert)
                 
                 let ok = UIAlertAction(title: "OK", style: .default){(ok) in
                     self.navigationController?.popViewController(animated: true)
@@ -637,6 +675,7 @@ extension EditVC : PKCanvasViewDelegate, PKToolPickerObserver {
     }
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         saveToCanvasArray(canvas: canvasView)
+        saveDrawingsToCoreData()
         //make thumbnail image at background
         DispatchQueue.global(qos: .background).async {
             //selectedIndex가 바뀔수 있어서 call된 시점의 selectedIndex를 넣어줌

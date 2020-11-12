@@ -1,13 +1,15 @@
 //
 //  Project+CoreDataProperties.swift
-//  
+//  Waha
 //
 //  Created by Teo Hwang on 2020/11/12.
+//  Copyright © 2020 TaeHyeong Kim. All rights reserved.
 //
 //
 
 import Foundation
 import CoreData
+import PencilKit
 
 
 extension Project {
@@ -22,5 +24,10 @@ extension Project {
     @NSManaged public var videoURL: String?
     @NSManaged public var drawingData: [PKDrawing]?
     @NSManaged public var videoData: [UIImage]?
+    @NSManaged public var thumbnailArray: [UIImage]?
+
+}
+
+extension Project : Identifiable {
 
 }
