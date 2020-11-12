@@ -61,7 +61,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
     var videoAlpha : CGFloat = 1.0
     var canvasAlpha : CGFloat = 1.0
-    
+        
     let activityIndicator = UIActivityIndicatorView(style:.large)
     
     override func viewDidLoad() {
@@ -352,6 +352,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
         self.present(alert, animated: true, completion: nil)
     }
+    
     private func convertImages2Video(fileName: String){
         print("start save video")
         print(videourl!.absoluteString)
@@ -451,7 +452,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
         
         // TODO remove project core data after export
-                
     }
     
     @objc func videoSaved(_ videoPath: NSString, didFinishSavingWithError error:NSError?, contextInfo: UnsafeRawPointer){
