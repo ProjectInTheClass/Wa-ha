@@ -255,49 +255,6 @@ class MainVC: UIViewController {
         present(deleteAlert, animated: true, completion: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory = paths[0]
-        let docURL = URL(string: documentsDirectory)!
-        
-        for i in 0...items!.count-1{
-            let projectName = items![i].projectName
-            
-            let dataPath = docURL.appendingPathComponent("\(projectName!)")
-            do {
-                let fileManager = FileManager.default
-                // Check if file exists
-                if !fileManager.fileExists(atPath: dataPath.relativeString) {
-                    // Delete file
-                    removeProjectAfterExport(projectName: projectName!)
-                }
-            } catch {
-                print("An error took place: \(error)")
-            }
-        }
-    }
-    
-    private func removeProjectAfterExport(projectName: String){
-        var projectToRemove : Project?
-        for i in 0...items!.count-1{
-            if(projectName == items![i].projectName){
-                projectToRemove = items![i]
-                break
-            }
-        }
-        self.context.delete(projectToRemove!)
-        
-        // Save the data
-        do{
-            try self.context.save()
-        } catch{
-            
-        }
-        
-        // Re-fetch the data
-        self.fetchProject()
-    }
-    
     @IBAction func actionCreateProject(_ sender: Any) {
         createProjectView.isHidden = false
     }

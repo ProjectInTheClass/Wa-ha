@@ -502,7 +502,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 activityIndicator.isHidden = true
                 activityIndicator.stopAnimating()
                 self.view.isUserInteractionEnabled = true
-                self.removeTmpFiles()
                 
                 let ac = UIAlertController(title: "Saved!", message: "Your animation has been saved to your photos.", preferredStyle: .alert)
                 
@@ -511,44 +510,8 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 }
                 ac.addAction(ok)
                 present(ac, animated: true)
-
             }
     }
-    
-    private func removeTmpFiles(){
-        // remove project folder & contents
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory = paths[0]
-        let docURL = URL(string: documentsDirectory)!
-        let dataPath = docURL.appendingPathComponent("\(self.projName)")
-        
-        do {
-            let fileManager = FileManager.default
-            // Check if file exists
-            if fileManager.fileExists(atPath: dataPath.relativeString) {
-                // Delete file
-                try fileManager.removeItem(atPath: dataPath.relativeString)
-            } else {
-                print("File \(dataPath.relativeString) does not exist")
-            }
-        } catch {
-            print("An error took place: \(error)")
-        }
-        
-        // remove tmp videos
-        do {
-            let fileManager = FileManager.default
-            // Check if file exists
-            try fileManager.removeItem(atPath: videourl!.path)
-            try fileManager.removeItem(atPath: outputURL!.path)
-  
-       
-
-        } catch {
-            print("An error took place: \(error)")
-        }
-    }
-    
     
     private func newPixelBufferFrom(cgImage:CGImage) -> CVPixelBuffer?{
         let options:[String: Any] = [kCVPixelBufferCGImageCompatibilityKey as String: true, kCVPixelBufferCGBitmapContextCompatibilityKey as String: true]
