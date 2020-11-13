@@ -321,8 +321,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 }
             }
             
-            
-            
         case 2:
             var index = 0
             Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
@@ -410,9 +408,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 self.activityIndicator.startAnimating()
                 self.activityIndicator.isHidden = false
                 self.view.isUserInteractionEnabled = false
-                
-    //            print((alert.textFields?[0].text)!)
-    //            print(fileName!)
+
                 DispatchQueue.background {
                     self.convertImages2Video(fileName: fileName!)
                 }
@@ -523,10 +519,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 }
             })
         }
-        
-        
-        // TODO remove project core data after export
-    }
+}
     
     @objc func videoSaved(_ videoPath: NSString, didFinishSavingWithError error:NSError?, contextInfo: UnsafeRawPointer){
         if let error = error {
