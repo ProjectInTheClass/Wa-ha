@@ -14,6 +14,7 @@ class ProjectCollectionCell: UICollectionViewCell {
     @IBOutlet weak var lbName: UILabel!
     @IBOutlet weak var fpsLabel: UILabel!
     @IBOutlet weak var deleteProjectButton: UIButton!
+    @IBOutlet weak var loadProjectButton: UIButton!
     
     
     override func awakeFromNib() {
@@ -33,5 +34,8 @@ class ProjectCollectionCell: UICollectionViewCell {
         delete = true
     }
     
+    @IBAction func loadProjectButtonTapped(_ sender: Any) {
+        
+    }
     
 }
