@@ -18,7 +18,6 @@ class MainVC: UIViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var items: [Project]?
-    var tempNewProject: TemporaryProject?
     var frameRatePickerView = UIPickerView()
     let frameRatePickerViewData = ["12", "15", "30"]
     let imagePicker: UIImagePickerController! = UIImagePickerController()
@@ -49,14 +48,13 @@ class MainVC: UIViewController {
     let activityIndicator = UIActivityIndicatorView(style:.large)
     var videoSize : CGSize?
     
-    
     //Search Bar
     var filtered:[String] = []
     var searchActive : Bool = false
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         setupCreateProjectView()
         setupCollectionView()
         setupActivityIndicator()
@@ -148,7 +146,17 @@ class MainVC: UIViewController {
         // 코어데이터에서 데이터 가져와서 콜렉션뷰에 보이기
         do {
             self.items = try context.fetch(Project.fetchRequest())
-            
+//            print("called")
+//            if(self.items!.count > 0){
+//                for i in 0...self.items!.count-1{
+//                    self.context.delete(self.items![0])
+//                }
+//            }
+//            do{
+//                try self.context.save()
+//            } catch {
+//
+//            }
             ///?? 뭔가 백그라운드에서 실행되고 그런 개념인것같은데..
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -311,34 +319,32 @@ class MainVC: UIViewController {
             } catch {
                 print(error.localizedDescription);
             }
-            extractFirstFrame()
             
             let projectName = projectNameTextField.text
             let frameRate = frameRateTextField.text
-            let thumbnail = captureImage
 
-            tempNewProject = TemporaryProject(projectName: projectName!, frameRate: Int(frameRate!)!, thumbNail: thumbnail!, videoURL: videoURL.path)
-            
-         
-            
             let newProject = Project(context: self.context)
+            selectedProjName = projectName!
             
-            let imageData: Data = tempNewProject!.thumbNail.pngData()! as Data
+            extractFirstFrame()
+            
+            let imageData: Data = captureImage.pngData()! as Data
             
             // Create a New Project
-            newProject.projectName = tempNewProject?.projectName
-            newProject.frameRate = Int64(tempNewProject!.frameRate)
-            newProject.thumbnail = imageData
-            newProject.videoURL = videoURL.path
-            
+
+
             // will be deprecated: until fetch from coredata is completed
             convertedFPS = Int(frameRate!)!
-            selectedProjName = projectName!
-
+            
+            newProject.setValue(projectName!,forKey: "projectName")
+            newProject.setValue(Int64(frameRate!)!,forKey: "frameRate")
+            newProject.setValue(imageData,forKey: "thumbnail")
+            newProject.setValue(videoURL.path,forKey: "videoURL")
+            
             // Save the data
             do{
+                self.items!.append(newProject)
                 try self.context.save()
-                
             } catch {
                 print("saving error")
             }
@@ -347,7 +353,6 @@ class MainVC: UIViewController {
             self.fetchProject()
             
             createProjectView.isHidden = true
-            tempNewProject = nil
             projectNameTextField.text = ""
             frameRateTextField.text = ""
             captureImage = nil
@@ -359,7 +364,6 @@ class MainVC: UIViewController {
     }
     @IBAction func actionCancelCreateProject(_ sender: Any) {
         createProjectView.isHidden = true
-        tempNewProject = nil
         projectNameTextField.text = ""
         frameRateTextField.text = ""
         captureImage = nil
@@ -443,7 +447,6 @@ class MainVC: UIViewController {
                 self.activityIndicator.isHidden = true
                 self.view.isUserInteractionEnabled = true
                 self.goProjectVC()
-
             }
         }
     }
@@ -468,7 +471,6 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
             let project = self.items![indexPath.row]
             cell.lbName.text = project.projectName
             //        cell.projectThumbnailImage.image = UIImage(named: "BasicThumbnail")
-            
             cell.projectImageView.image = UIImage(data:project.thumbnail!)
             
             cell.projectImageView.layer.cornerRadius = 20

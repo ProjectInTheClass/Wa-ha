@@ -23,9 +23,9 @@ protocol collectionViewDidScrollDelegate : EditVC{
 
 class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
-    //coreData
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var items: [Project]?
+    // coreData
+//    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//    var items: [Project]?
     
     let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
     var initialCenter = CGPoint()
@@ -81,37 +81,37 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         initialCenter = self.containerView.center
     }
     
-    func fetchProject(){
-        do {
-            self.items = try context.fetch(Project.fetchRequest())
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        } catch {
-            
-        }
-    }
+//    func fetchProject(){
+//        do {
+//            self.items = try context.fetch(Project.fetchRequest())
+//
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        } catch {
+//
+//        }
+//    }
     
-    func saveDrawingsToCoreData() {
-        let drawings = Project(context: self.context)
-        let drawingArray: [PKDrawing] = canvasArray
-        let videoArray: [UIImage] = imageArray
-        let thumbnailArray: [UIImage] = self.thumbnailArray
-        
-        drawings.drawingData = drawingArray
-        drawings.videoData = videoArray
-        drawings.thumbnailArray = thumbnailArray
-        
-        do{
-        try self.context.save()
-        } catch {
-            
-        }
-        
-        // Refetch
-        self.fetchProject()
-    }
+//    func saveDrawingsToCoreData() {
+//        let drawings = Project(context: self.context)
+//        let drawingArray: [PKDrawing] = canvasArray
+//        let videoArray: [UIImage] = imageArray
+//        let thumbnailArray: [UIImage] = self.thumbnailArray
+//
+//        drawings.drawingData = drawingArray
+//        drawings.videoData = videoArray
+//        drawings.thumbnailArray = thumbnailArray
+//
+//        do{
+//        try self.context.save()
+//        } catch {
+//
+//        }
+//
+//        // Refetch
+//        self.fetchProject()
+//    }
     
     private func setupProject(){
         for _ in 0..<imageArray.count {
@@ -636,7 +636,7 @@ extension EditVC : PKCanvasViewDelegate, PKToolPickerObserver {
     }
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         saveToCanvasArray(canvas: canvasView)
-        saveDrawingsToCoreData()
+//        saveDrawingsToCoreData()
         //make thumbnail image at background
         DispatchQueue.global(qos: .background).async {
             //selectedIndex가 바뀔수 있어서 call된 시점의 selectedIndex를 넣어줌
