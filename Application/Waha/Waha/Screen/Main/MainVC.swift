@@ -15,7 +15,6 @@ import CoreData
 
 class MainVC: UIViewController {
     
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var items: [Project]?
     var frameRatePickerView = UIPickerView()
@@ -25,7 +24,6 @@ class MainVC: UIViewController {
     var videoURL: URL!
     var mediaType : NSString!
     
-
     @IBOutlet weak var createNewProjectView: UIView!
     @IBOutlet weak var createNewProjectLabel: UILabel!
     @IBOutlet weak var addVideoButton: UIButton!
@@ -288,12 +286,32 @@ class MainVC: UIViewController {
             errorAlert.title = "please select frame rate"
         }
         
+        if projectNameTextField.text != "" {
+            let legalText : String? = "^[a-zA-Z0-9-_//s]{0,15}$"
+            do{
+                let regex = try NSRegularExpression(pattern: legalText!, options: .caseInsensitive)
+                for letter in projectNameTextField.text!{
+                    let numberOfMatches = regex.numberOfMatches(in: String(letter), options: NSRegularExpression.MatchingOptions.init(), range: NSMakeRange(0, String(letter).count))
+                    if(numberOfMatches == 0){
+                        errorOccurred = true
+                        errorAlert.title = "numbers, english letters, '-' and '_' are only allowed for project name"
+                    }
+                }
+            }catch{
+                print("error: \(error)")
+            }
+            if projectNameTextField.text!.count > 15{
+                errorOccurred = true
+                errorAlert.title = "maximum length of project name is 15"
+            }
+        }
+        
         // check project name whether overlapped
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
         let docURL = URL(string: documentsDirectory)!
         let dataPath = docURL.appendingPathComponent("\(projectNameTextField.text!)")
-
+                
         if projectNameTextField.text != "" && FileManager.default.fileExists(atPath: dataPath.absoluteString) {
             errorOccurred = true
             errorAlert.title = "project name: [\(projectNameTextField.text!)] is already existed"
@@ -359,6 +377,10 @@ class MainVC: UIViewController {
         captureImage = nil
         projectImageView.image = nil
     }
+    
+    
+     
+    
     
 
     private func goProjectVC(){
@@ -441,6 +463,17 @@ class MainVC: UIViewController {
             }
         }
     }
+}
+
+extension MainVC : UITextFieldDelegate{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            let utf8Char = string.cString(using: .utf8)
+            let isBackSpace = strcmp(utf8Char, "\\b")
+            if string.hasCharacters() || isBackSpace == -92{
+                return true
+            }
+            return false
+        }
 }
 
 extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
@@ -542,6 +575,21 @@ extension DispatchQueue {
             task()
         }
     }
+}
+
+extension String {
+    func hasCharacters() -> Bool{
+       do{
+           let regex = try NSRegularExpression(pattern: "^[a-zA-Z0-9\\s]$", options: .caseInsensitive)
+           if let _ = regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, self.count)){
+               return true
+           }
+       }catch{
+           print(error.localizedDescription)
+           return false
+       }
+       return false
+   }
 }
 
 extension MainVC: UIPickerViewDataSource, UIPickerViewDelegate {

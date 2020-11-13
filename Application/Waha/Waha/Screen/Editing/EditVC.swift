@@ -115,6 +115,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
 //
 //        }
 //
+    
 //        // Refetch
 //        self.fetchProject()
 //    }
@@ -366,27 +367,56 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         }
         
         var fileName : String?
+        var errorOccurred : Bool = false
         
+        let errorAlert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+
         let ok = UIAlertAction(title:"OK", style: .default){(ok) in
+            if ((alert.textFields?[0].text)! == ""){
+                errorOccurred = true
+                errorAlert.title = "please write video name"
+            }
+            
             if ((alert.textFields?[0].text)! != ""){
-                fileName = (alert.textFields?[0].text)!
+                let legalText : String? = "^[a-zA-Z0-9-_//s]{0,15}$"
+                do{
+                    let regex = try NSRegularExpression(pattern: legalText!, options: .caseInsensitive)
+                    for letter in (alert.textFields?[0].text)!{
+                        let numberOfMatches = regex.numberOfMatches(in: String(letter), options: NSRegularExpression.MatchingOptions.init(), range: NSMakeRange(0, String(letter).count))
+                        if(numberOfMatches == 0){
+                            errorOccurred = true
+                            errorAlert.title = "numbers, english letters, '-' and '_' are only allowed for video name"
+                        }
+                    }
+                }catch{
+                    print("error: \(error)")
+                }
+                if (alert.textFields?[0].text)!.count > 15{
+                    errorOccurred = true
+                    errorAlert.title = "maximum length of video name is 15"
+                }
+            }
+            
+            if(errorOccurred){
+                let errorcancel = UIAlertAction(title: "cancel", style: .destructive)
+                errorAlert.addAction(errorcancel)
+                self.present(errorAlert, animated: true, completion: nil)
             }else{
-                fileName = "Wa-ha_project"
-            }
-            self.activityIndicator.center = self.view.center
-            self.view.addSubview(self.activityIndicator)
-            
+                fileName = (alert.textFields?[0].text)!
+                self.activityIndicator.center = self.view.center
+                self.view.addSubview(self.activityIndicator)
                 
-            self.activityIndicator.startAnimating()
-            self.activityIndicator.isHidden = false
-            self.view.isUserInteractionEnabled = false
-            
-//            print((alert.textFields?[0].text)!)
-//            print(fileName!)
-            DispatchQueue.background {
-                self.convertImages2Video(fileName: fileName!)
+                    
+                self.activityIndicator.startAnimating()
+                self.activityIndicator.isHidden = false
+                self.view.isUserInteractionEnabled = false
+                
+    //            print((alert.textFields?[0].text)!)
+    //            print(fileName!)
+                DispatchQueue.background {
+                    self.convertImages2Video(fileName: fileName!)
+                }
             }
-            
         }
         
         let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
