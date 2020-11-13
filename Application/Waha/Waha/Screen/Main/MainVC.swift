@@ -54,7 +54,8 @@ class MainVC: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
+        fetchProject()
         setupCreateProjectView()
         setupCollectionView()
         setupActivityIndicator()
@@ -146,17 +147,6 @@ class MainVC: UIViewController {
         // 코어데이터에서 데이터 가져와서 콜렉션뷰에 보이기
         do {
             self.items = try context.fetch(Project.fetchRequest())
-//            print("called")
-//            if(self.items!.count > 0){
-//                for i in 0...self.items!.count-1{
-//                    self.context.delete(self.items![0])
-//                }
-//            }
-//            do{
-//                try self.context.save()
-//            } catch {
-//
-//            }
             ///?? 뭔가 백그라운드에서 실행되고 그런 개념인것같은데..
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -379,6 +369,7 @@ class MainVC: UIViewController {
         vc?.videourl = videoURL
         vc?.convertedFPS = convertedFPS
         vc?.videoSize = videoSize
+        vc?.context = context
         self.navigationController?.pushViewController(vc!, animated: true)
     }
     

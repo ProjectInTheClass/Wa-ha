@@ -24,8 +24,8 @@ protocol collectionViewDidScrollDelegate : EditVC{
 class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
     // coreData
-//    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//    var items: [Project]?
+    var context: NSManagedObjectContext?
+    var item: Project?
     
     let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
     var initialCenter = CGPoint()
@@ -72,6 +72,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        loadProject()
         lbTitle.text = projName
         setupProject()
         setupCanvasView()
@@ -81,17 +82,22 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         initialCenter = self.containerView.center
     }
     
-//    func fetchProject(){
-//        do {
-//            self.items = try context.fetch(Project.fetchRequest())
-//
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        } catch {
-//
-//        }
-//    }
+    private func loadProject(){
+        do {
+            let items : [Project] = try context!.fetch(Project.fetchRequest())
+
+            if(items.count > 0){
+                for i in 0...items.count-1{
+                    if(items[i].projectName! == self.projName){
+                        item = items[i]
+                        break
+                    }
+                }
+            }
+        } catch {
+
+        }
+    }
     
 //    func saveDrawingsToCoreData() {
 //        let drawings = Project(context: self.context)
