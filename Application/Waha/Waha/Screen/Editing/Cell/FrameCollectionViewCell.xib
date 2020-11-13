@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -47,14 +47,14 @@
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample_project_thumbnail" translatesAutoresizingMaskIntoConstraints="NO" id="Rln-sr-OOr">
-                                <rect key="frame" x="8" y="8" width="236" height="235"/>
+                                <rect key="frame" x="8" y="8" width="236" height="227"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="UyC-qv-R0G" firstAttribute="top" secondItem="rW9-5q-pqd" secondAttribute="top" id="0zL-h3-2Kw"/>
                             <constraint firstItem="HxV-YS-y3g" firstAttribute="top" secondItem="rW9-5q-pqd" secondAttribute="top" id="8BI-ym-amn"/>
-                            <constraint firstAttribute="bottom" secondItem="Rln-sr-OOr" secondAttribute="bottom" id="8OS-TC-MjT"/>
+                            <constraint firstAttribute="bottom" secondItem="Rln-sr-OOr" secondAttribute="bottom" constant="8" id="8OS-TC-MjT"/>
                             <constraint firstItem="Rln-sr-OOr" firstAttribute="leading" secondItem="rW9-5q-pqd" secondAttribute="leading" constant="8" id="C2m-Jl-lHC"/>
                             <constraint firstAttribute="bottom" secondItem="xsG-lO-hs8" secondAttribute="bottom" id="Pjm-aE-khA"/>
                             <constraint firstAttribute="trailing" secondItem="xsG-lO-hs8" secondAttribute="trailing" id="Qpx-1g-ghG"/>

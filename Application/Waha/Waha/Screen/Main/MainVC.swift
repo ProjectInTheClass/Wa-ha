@@ -214,7 +214,6 @@ class MainVC: UIViewController {
         present(deleteAlert, animated: true, completion: nil)
     }
     
-<<<<<<< Updated upstream
     override func viewDidAppear(_ animated: Bool) {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
@@ -256,10 +255,6 @@ class MainVC: UIViewController {
         
         // Re-fetch the data
         self.fetchProject()
-=======
-    @objc func loadProjectButtonTapped(_ sender: UIButton) {
-        
->>>>>>> Stashed changes
     }
     
     @IBAction func actionCreateProject(_ sender: Any) {
@@ -477,9 +472,7 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
             cell.projectImageView.layer.cornerRadius = 20
             
             cell.deleteProjectButton.tag = indexPath.row
-            cell.loadProjectButton.tag = indexPath.row
             cell.deleteProjectButton.addTarget(self, action: #selector(deleteProjectButtonTapped(_:)), for: .touchUpInside)
-            cell.loadProjectButton.addTarget(self, action: #selector(loadProjectButtonTapped(_:)), for: .touchUpInside)
             
             return cell
         }

@@ -62,27 +62,17 @@
                                     <action selector="deleteButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Enb-nz-5fb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNI-5v-4U4">
-                                <rect key="frame" x="0.0" y="0.0" width="328" height="328"/>
-                                <connections>
-                                    <action selector="loadProjectButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Hk2-tY-jCB"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="c0T-9V-OiD" secondAttribute="trailing" id="0u6-8t-Na6"/>
                             <constraint firstAttribute="trailing" secondItem="4lB-gv-ddl" secondAttribute="trailing" id="2Qz-OU-j3g"/>
                             <constraint firstItem="4lB-gv-ddl" firstAttribute="top" secondItem="c0T-9V-OiD" secondAttribute="bottom" id="3UL-ZK-iVu"/>
-                            <constraint firstAttribute="trailing" secondItem="cNI-5v-4U4" secondAttribute="trailing" id="41T-1r-MIT"/>
                             <constraint firstItem="c0T-9V-OiD" firstAttribute="leading" secondItem="Ghn-BX-WXG" secondAttribute="leading" id="6MA-A7-QQ7"/>
-                            <constraint firstItem="cNI-5v-4U4" firstAttribute="leading" secondItem="Ghn-BX-WXG" secondAttribute="leading" id="CcP-Fp-4ms"/>
                             <constraint firstItem="4lB-gv-ddl" firstAttribute="leading" secondItem="Ghn-BX-WXG" secondAttribute="leading" id="Yc7-fb-6e0"/>
                             <constraint firstAttribute="trailing" secondItem="T6K-Pw-YWB" secondAttribute="trailing" constant="8" id="dT7-Im-9ez"/>
-                            <constraint firstItem="cNI-5v-4U4" firstAttribute="top" secondItem="Ghn-BX-WXG" secondAttribute="top" id="dlr-aU-iv6"/>
                             <constraint firstItem="T6K-Pw-YWB" firstAttribute="top" secondItem="Ghn-BX-WXG" secondAttribute="top" constant="8" id="k7E-jH-cBJ"/>
                             <constraint firstItem="c0T-9V-OiD" firstAttribute="top" secondItem="Ghn-BX-WXG" secondAttribute="top" id="rpg-EH-bdE"/>
-                            <constraint firstItem="4lB-gv-ddl" firstAttribute="top" secondItem="cNI-5v-4U4" secondAttribute="bottom" id="vzm-U5-EhE"/>
                             <constraint firstAttribute="bottom" secondItem="4lB-gv-ddl" secondAttribute="bottom" id="z2j-td-4Cl"/>
                         </constraints>
                     </view>
@@ -101,7 +91,6 @@
                 <outlet property="deleteProjectButton" destination="T6K-Pw-YWB" id="All-jH-q3y"/>
                 <outlet property="fpsLabel" destination="8Yu-32-4Xa" id="KmH-eq-9Lz"/>
                 <outlet property="lbName" destination="G96-nb-3q9" id="Dmi-ox-AVC"/>
-                <outlet property="loadProjectButton" destination="cNI-5v-4U4" id="NDk-hp-D52"/>
                 <outlet property="projectImageView" destination="c0T-9V-OiD" id="pWK-az-LU0"/>
             </connections>
             <point key="canvasLocation" x="281.15942028985512" y="209.93303571428569"/>
