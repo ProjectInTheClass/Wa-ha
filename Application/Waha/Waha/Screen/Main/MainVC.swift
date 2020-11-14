@@ -386,7 +386,7 @@ class MainVC: UIViewController {
     private func goProjectVC(){
         let storyboard = UIStoryboard(name: "Edit", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "EditVC") as? EditVC
-        vc?.imageArray = imageArray
+        vc?.videoThumbnailArray = imageArray
         vc?.projName = selectedProjName
         vc?.videourl = videoURL
         vc?.convertedFPS = convertedFPS

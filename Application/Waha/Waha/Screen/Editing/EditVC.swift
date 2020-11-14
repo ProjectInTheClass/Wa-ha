@@ -39,7 +39,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
     @IBOutlet weak var btnPlay_0: UIButton!
     @IBOutlet weak var btnPlay_1: UIButton!
-    @IBOutlet weak var btnPlay_2: UIButton!
     
     //View
     @IBOutlet weak var tableView: UITableView!
@@ -47,11 +46,13 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var videoFrameView: UIImageView!
     @IBOutlet weak var toolBar: UIView!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet var playerView: UIView!
+    @IBOutlet weak var playerImageView: UIImageView!
     
-    var isNewVideo : Bool?
-    var imageArray : [UIImage] = []
+    var videoFrameArrayForTmpPlayingRemoveAfterPlay : [UIImage] = []
+    var videoThumbnailArray : [UIImage] = []
     var canvasArray: [PKDrawing] = []
-    var thumbnailArray : [UIImage] = []
+    var canvasThumbnailArray : [UIImage] = []
     var selectedIndex : Int = 0
     var projName : String = ""
     var isPencilUsing : Bool = false
@@ -69,6 +70,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
     let activityIndicator = UIActivityIndicatorView(style:.large)
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -76,10 +78,13 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         lbTitle.text = projName
         setupProject()
         setupCanvasView()
-        print("tableView image count : \(imageArray.count)")
+        print("tableView image count : \(videoThumbnailArray.count)")
         setupGesture()
         setupPlaytmp()
         initialCenter = self.containerView.center
+        setupPlayView()
+        self.activityIndicator.center = self.view.center
+        self.view.addSubview(self.activityIndicator)
     }
     
     private func loadProject(){
@@ -121,10 +126,11 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
 //    }
     
     private func setupProject(){
-        for _ in 0..<imageArray.count {
+        for _ in 0..<videoThumbnailArray.count {
             canvasArray.append(PKDrawing())
-            thumbnailArray.append(UIImage())
+            canvasThumbnailArray.append(UIImage())
         }
+        print("")
         let fileName = "\(self.projName)/original_\(0)"
         self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
         setupTableView()
@@ -159,6 +165,17 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         canvasView.isOpaque = false
         
     }
+    private func setupPlayView(){
+        playerView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(playerView)
+        playerView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        playerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        playerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        playerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        playerView.isHidden = true
+        playerView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+
+    }
     private func setupGesture(){
         //        https://stackoverflow.com/questions/45402639/pinch-pan-and-rotate-text-simultaneously-like-snapchat-swift-3
         //https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/leveraging_touch_input_for_drawing_apps
@@ -181,10 +198,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     }
     private func setupPlaytmp(){
         // initialize play tmp
-        btnPlay_0.backgroundColor = .clear
+        btnPlay_0.backgroundColor = .black
         btnPlay_1.backgroundColor = .clear
-        btnPlay_2.backgroundColor = .black
-        selectedPlayOption = 2
+        selectedPlayOption = 0
     }
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if isPencilUsing == false {
@@ -234,115 +250,114 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         restoreScreen()
     }
     
-    @IBAction func actionPlay(_ sender: Any) {
-        videoIsPlaying.toggle()
-        print("play video \(videoIsPlaying)")
-        if videoIsPlaying == true {
-            restoreScreen()
-            toolBar.isHidden = true
-            playTmpVideo(selectedPlayOption)
-        }else{
-            toolBar.isHidden = false
-        }
-    }
-    @IBAction func actionPlayoptionSingle(_ sender: Any) {
-        btnPlay_0.backgroundColor = .clear
-        btnPlay_1.backgroundColor = .clear
-        btnPlay_2.backgroundColor = .black
-        selectedPlayOption = 2
-        
+    
+    
+    // MARK: 비디오 재생 관련 메소드
+    @IBAction func actionCloseVideoPlayView(_ sender: Any) {
+        playerView.isHidden = true
+        videoIsPlaying = false
+        videoPlayHelper()
 
     }
+    @IBAction func actionPlay(_ sender: Any) {
+        videoIsPlaying.toggle()
+        videoPlayHelper()
+    }
+
     @IBAction func actionPlayoptionMultiple(_ sender: Any) {
         btnPlay_0.backgroundColor = .clear
         btnPlay_1.backgroundColor = .black
-        btnPlay_2.backgroundColor = .clear
         selectedPlayOption = 1
+        videoIsPlaying = false
+        videoPlayHelper()
     }
     @IBAction func actionPlayoptionLoop(_ sender: Any) {
         btnPlay_0.backgroundColor = .black
         btnPlay_1.backgroundColor = .clear
-        btnPlay_2.backgroundColor = .clear
         selectedPlayOption = 0
+        videoIsPlaying = false
+        videoPlayHelper()
     }
     
-    
-    
-    //playing current work
-    private func playTmpVideo(_ option : Int) {
-        let timeInterval = 0.01
-        //0 무한루프 <->
-        //1 한쪽 반복 ->|
-        //2 한번 ->
-        switch option {
-        case 0:
-            var direction = true
-            var index = 0
-            Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
-                DispatchQueue.main.async {
-                    let fileName = "\(self.projName)/original_\(index)"
-                    self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
-                    self.canvasView.drawing = self.canvasArray[index]
-                    if direction {
-                        index += 1
-                    }else{
-                        index -= 1
-                    }
-                }
-                if index == self.canvasArray.count-1 {
-                    direction = false
-                }else if index == 0 {
-                    direction = true
-                }
-                if !self.videoIsPlaying {
-                    timer.invalidate()
-                }
+    func videoPlayHelper(){
+        if videoIsPlaying {
+            //play video
+            playVideoWithOptions(selectedPlayOption)
+        }else{
+            //stop video
+            playerView.isHidden = true
+            playerImageView.stopAnimating()
+            playerImageView.animationImages = nil
+        }
+    }
+    func playVideoWithOptions(_ options: Int){
+        var source : [UIImage] = []
+        let thumbnailSize = CGSize(width: 720.0, height: 480.0)
+        let size = thumbnailSize
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+       
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        
+        DispatchQueue.background {
+            for index in 0..<self.videoThumbnailArray.count {
+                let fileName = "\(self.projName)/original_\(index)"
+                var image = ImageFileManager.shared.getSavedImage(named: fileName)
+                
+                UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
+                let tmpImg = image!
+                tmpImg.draw(in: rect)
+                image = nil
+                let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                
+                //add two image
+                
+                var bottomImage = thumbnailImage
+                let topImage = self.canvasThumbnailArray[index]
+                
+                UIGraphicsBeginImageContext(size)
+                bottomImage!.draw(in: rect)
+                topImage.draw(in: rect, blendMode: .normal, alpha: 1)
+                let newImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+                UIGraphicsEndImageContext()
+                source.append(newImage)
+                
             }
             
-            
-        case 1:
-            var index = 0
-            Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
-                DispatchQueue.main.async {
-                    let fileName = "\(self.projName)/original_\(index)"
-                    self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
-                    self.canvasView.drawing = self.canvasArray[index]
-                    index += 1
-                }
-                if index == self.canvasArray.count-1 {
-                    if self.videoIsPlaying == true {
-                        index = 0
-                    }else{
-                        timer.invalidate()
-                    }
-                }
-                if !self.videoIsPlaying {
-                    timer.invalidate()
+            if options == 0 {
+                let reversed = source.reversed()
+                for item in reversed {
+                    source.append(item)
                 }
             }
-            
-        case 2:
-            var index = 0
-            Timer.scheduledTimer(withTimeInterval: timeInterval , repeats: true) { timer in
-                DispatchQueue.main.async {
-                    let fileName = "\(self.projName)/original_\(index)"
-                    self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
-                    self.canvasView.drawing = self.canvasArray[index]
-                    index += 1
-                }
-                if index == self.canvasArray.count-1 {
-                    timer.invalidate()
-                }
-                if !self.videoIsPlaying {
-                    timer.invalidate()
+            DispatchQueue.main.async {
+                self.playerView.isHidden = false
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+                self.view.isUserInteractionEnabled = true
+                if options == 1 {
+                    self.playerImageView.animationRepeatCount = .max
+                    self.playerImageView.animationImages = source
+                    self.playerImageView.startAnimating()
+                }else{
+                    self.playerImageView.animationRepeatCount = .max
+                    self.playerImageView.animationImages = source
+                    self.playerImageView.startAnimating()
                 }
             }
-            
-        default:
-            break
         }
         
+        
+        
     }
+    
+    
+    
+    
+
     
     //hide home indicator for better performance
     override var prefersHomeIndicatorAutoHidden: Bool {
@@ -351,8 +366,8 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func restoreScreen(){
         containerView.transform = containerView.transform.inverted()
         containerView.center = initialCenter
-        //        containerView.transform = containerView.transform.scaledBy(x: -changedScale, y: -changedScale)
         containerView.transform = CGAffineTransform(rotationAngle: changedAngle * CGFloat(Double.pi)/180)
+//        containerView.transform = containerView.transform.scaledBy(x: -changedScale, y: -changedScale)
         
     }
 
@@ -401,10 +416,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 self.present(errorAlert, animated: true, completion: nil)
             }else{
                 fileName = (alert.textFields?[0].text)!
-                self.activityIndicator.center = self.view.center
-                self.view.addSubview(self.activityIndicator)
-                
-                    
                 self.activityIndicator.startAnimating()
                 self.activityIndicator.isHidden = false
                 self.view.isUserInteractionEnabled = false
@@ -588,7 +599,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             let drawing = canvas.drawing
             let visibleRect = canvas.bounds
             let image = drawing.image(from: visibleRect, scale: UIScreen.main.scale)
-            self.thumbnailArray[index] = image
+            self.canvasThumbnailArray[index] = image
             self.tableView.reloadData()
         }
     }
@@ -602,10 +613,10 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
         var mergedImage : [UIImage] = []
         
-        for index in 0..<imageArray.count {
+        for index in 0..<videoThumbnailArray.count {
             
-            let bottomImage = imageArray[index]
-            let topImage = imageArray[index]
+            let bottomImage = videoThumbnailArray[index]
+            let topImage = videoThumbnailArray[index]
                         
             UIGraphicsBeginImageContext(size)
             bottomImage.draw(in: areaSize)
@@ -631,7 +642,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
             // for drawing layer thumbnail
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
-                cell.imageArray = thumbnailArray
+                cell.imageArray = canvasThumbnailArray
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
@@ -645,7 +656,7 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
             
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
-                cell.imageArray = imageArray
+                cell.imageArray = videoThumbnailArray
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
