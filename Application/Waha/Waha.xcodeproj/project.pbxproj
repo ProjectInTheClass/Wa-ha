@@ -22,7 +22,6 @@
 		8389548D251F72770057F85C /* FrameCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8389548B251F72770057F85C /* FrameCollectionViewCell.xib */; };
 		83A764F5251ECDDD00495FFC /* Video2Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A764F4251ECDDD00495FFC /* Video2Image.swift */; };
 		83A764F9251F63A100495FFC /* ImageFrameListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A764F8251F63A100495FFC /* ImageFrameListTableViewCell.swift */; };
-		AB54FCD9255EC82000B67A5D /* Waha.app in Resources */ = {isa = PBXBuildFile; fileRef = 8346BB8B250B946700BD861D /* Waha.app */; };
 		AB9857C8255AF38000E295C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB9857C7255AF38000E295C9 /* Assets.xcassets */; };
 		ABA4F312255D74BB001437AD /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA4F311255D74BB001437AD /* Project+CoreDataProperties.swift */; };
 		ABA4F315255D74DB001437AD /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA4F314255D74DB001437AD /* Project+CoreDataClass.swift */; };
@@ -35,7 +34,7 @@
 /* Begin PBXFileReference section */
 		32B6369E4FAC54E730EBD568 /* Pods-Waha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waha.debug.xcconfig"; path = "Target Support Files/Pods-Waha/Pods-Waha.debug.xcconfig"; sourceTree = "<group>"; };
 		46924F31C2348C43630D20B3 /* Pods_Waha.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Waha.framework; path = "../../../../../../../../../Users/teo/Library/Developer/Xcode/DerivedData/Waha-fuxubnmfyxeghkdicosievhiwnmt/Build/Products/Debug-iphoneos/Pods_Waha.framework"; sourceTree = SDKROOT; };
-		8346BB8B250B946700BD861D /* Waha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Waha.app; path = "../../../../../../../../Documents/GitHub/Wa-ha/Products/Waha.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8346BB8B250B946700BD861D /* Waha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Waha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8346BB8E250B946700BD861D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8346BB90250B946700BD861D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8346BB92250B946700BD861D /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -263,7 +262,6 @@
 				AB9857C8255AF38000E295C9 /* Assets.xcassets in Resources */,
 				8346BB9B250B946A00BD861D /* LaunchScreen.storyboard in Resources */,
 				8346BBD3250CCD0400BD861D /* ProjectCollectionCell.xib in Resources */,
-				AB54FCD9255EC82000B67A5D /* Waha.app in Resources */,
 				8389548D251F72770057F85C /* FrameCollectionViewCell.xib in Resources */,
 				8346BBE1250CD7B100BD861D /* Edit.storyboard in Resources */,
 				8346BB96250B946700BD861D /* Main.storyboard in Resources */,

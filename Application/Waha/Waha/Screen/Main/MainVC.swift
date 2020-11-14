@@ -105,7 +105,6 @@ class MainVC: UIViewController {
         frameRatePickerView.delegate = self
         imagePicker.delegate = self
         frameRateTextField.isUserInteractionEnabled = false
-        
     }
     
     @IBAction func choooseFrameRate(_ sender: Any){
@@ -254,14 +253,6 @@ class MainVC: UIViewController {
     
     @IBAction func actionCreateProject(_ sender: Any) {
         createProjectView.isHidden = false
-        
-        //delete Button Toggle
-        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
-            let cell = collectionView.cellForItem(at: indexPath) as! ProjectCollectionCell
-            
-            cell.isEditing = false
-        }
-        
     }
     @IBAction func loadVideoButtonTapped(_ sender: UIButton) {
         if (UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
