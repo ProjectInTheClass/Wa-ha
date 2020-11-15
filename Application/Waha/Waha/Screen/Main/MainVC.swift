@@ -41,11 +41,12 @@ class MainVC: UIViewController {
     
     var projectArray : [String] = ["프로젝트 추가","예시1","예시2"]
     var imageArray : [UIImage] = []
+    var canvasThumbnailArray : [UIImage] = []
     var selectedProjName : String = "project"
     var convertedFPS : Int = 15
     let activityIndicator = UIActivityIndicatorView(style:.large)
     var videoSize : CGSize?
-    
+
     //Search Bar
     var filtered:[String] = []
     var searchActive : Bool = false
@@ -253,10 +254,14 @@ class MainVC: UIViewController {
     
     @IBAction func actionCreateProject(_ sender: Any) {
         createProjectView.isHidden = false
+        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
+        let cell = collectionView.cellForItem(at: indexPath) as! ProjectCollectionCell
+            
+            cell.isEditing = false
+        }
     }
     @IBAction func loadVideoButtonTapped(_ sender: UIButton) {
         if (UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
-
             imagePicker.sourceType = .photoLibrary
             imagePicker.mediaTypes = [kUTTypeMovie as String]
             imagePicker.allowsEditing = true
@@ -387,6 +392,7 @@ class MainVC: UIViewController {
         let storyboard = UIStoryboard(name: "Edit", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "EditVC") as? EditVC
         vc?.videoThumbnailArray = imageArray
+        vc?.canvasThumbnailArray = canvasThumbnailArray
         vc?.projName = selectedProjName
         vc?.videourl = videoURL
         vc?.convertedFPS = convertedFPS
@@ -451,6 +457,7 @@ class MainVC: UIViewController {
                 let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
                 self.imageArray.append(thumbnailImage!)
+                self.canvasThumbnailArray.append(UIImage())
                 index = index + 1
             }
             print("image frame count : \(self.imageArray.count)")
@@ -524,6 +531,20 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
         let dirContents = try! fm.contentsOfDirectory(atPath: dataPath.absoluteString)
         let count = dirContents.count
         
+        var item : Project?
+        do {
+            if(self.items!.count > 0){
+                for i in 0...items!.count-1{
+                    if(items![i].projectName! == selectedProjName){
+                        item = items![i]
+                        break
+                    }
+                }
+            }
+        } catch {
+
+        }
+        
         var isSizeSet : Bool = false
         for i in 0...count-1{
             let imageFile = "\(selectedProjName)/original_\(i)"
@@ -534,13 +555,19 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
                 isSizeSet = true
             }
             let thumbnailSize = CGSize(width: 160.0, height: 90.0)
-            let rect = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
+            let rect_1 = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
             UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
-            image!.draw(in: rect)
+            image!.draw(in: rect_1)
             let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             self.imageArray.append(thumbnailImage!)
+            
+            let rect_2 = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
+            let canvasImage = item!.drawingData![i].image(from: rect_2, scale: 1.0)
+            print(item!.drawingData![i])
+            self.canvasThumbnailArray.append(canvasImage)
         }
+        
         print("tap \(selectedProjName)")
         
         goProjectVC()

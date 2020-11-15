@@ -74,9 +74,10 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        loadProject()
         lbTitle.text = projName
         setupProject()
+        loadProject()
+        setupTableView()
         setupCanvasView()
         print("tableView image count : \(videoThumbnailArray.count)")
         setupGesture()
@@ -102,38 +103,30 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         } catch {
 
         }
+        
+        if(item!.drawingData != nil){
+            canvasArray = item!.drawingData!
+        }
     }
     
-//    func saveDrawingsToCoreData() {
-//        let drawings = Project(context: self.context)
-//        let drawingArray: [PKDrawing] = canvasArray
-//        let videoArray: [UIImage] = imageArray
-//        let thumbnailArray: [UIImage] = self.thumbnailArray
-//
-//        drawings.drawingData = drawingArray
-//        drawings.videoData = videoArray
-//        drawings.thumbnailArray = thumbnailArray
-//
-//        do{
-//        try self.context.save()
-//        } catch {
-//
-//        }
-//
-    
-//        // Refetch
-//        self.fetchProject()
-//    }
+    func saveDrawingsToCoreData() {
+        let drawingArray: [PKDrawing] = canvasArray
+
+        item!.drawingData = drawingArray
+        do{
+        try self.context!.save()
+        } catch {
+
+        }
+    }
     
     private func setupProject(){
         for _ in 0..<videoThumbnailArray.count {
             canvasArray.append(PKDrawing())
-            canvasThumbnailArray.append(UIImage())
         }
         print("")
         let fileName = "\(self.projName)/original_\(0)"
         self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
-        setupTableView()
     }
     private func setupTableView(){
         tableView.delegate = self
@@ -153,7 +146,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
         canvasView.isScrollEnabled = false
-        canvasView.allowsFingerDrawing = false
+        canvasView.allowsFingerDrawing = true
         if let window = parent?.view.window,
            let toolPicker = PKToolPicker.shared(for: window) {
             toolPicker.setVisible(true, forFirstResponder: canvasView)
@@ -676,7 +669,7 @@ extension EditVC : PKCanvasViewDelegate, PKToolPickerObserver {
     }
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         saveToCanvasArray(canvas: canvasView)
-//        saveDrawingsToCoreData()
+        saveDrawingsToCoreData()
         //make thumbnail image at background
         DispatchQueue.global(qos: .background).async {
             //selectedIndex가 바뀔수 있어서 call된 시점의 selectedIndex를 넣어줌
