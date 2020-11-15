@@ -45,9 +45,11 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var videoFrameView: UIImageView!
     @IBOutlet weak var toolBar: UIView!
+    @IBOutlet weak var toolBarBackView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var playerView: UIView!
     @IBOutlet weak var playerImageView: UIImageView!
+    @IBOutlet weak var topBar: UIView!
     
     var videoFrameArrayForTmpPlayingRemoveAfterPlay : [UIImage] = []
     var videoThumbnailArray : [UIImage] = []
@@ -134,10 +136,30 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         
         let cornerRadidus : CGFloat = 20
         let opacity : Float = 1.0
-        toolBar.layer.cornerRadius = cornerRadidus
+        toolBar.layer.cornerRadius = 30
         tableView.layer.cornerRadius = cornerRadidus
-        toolBar.layer.opacity = opacity
+        toolBar.layer.opacity = 1.0
         tableView.layer.opacity = opacity
+        
+        //toolBar, topBar에 그림자
+        toolBar.clipsToBounds = false
+        toolBar.layer.shadowColor = UIColor.black.cgColor
+        toolBar.layer.shadowOpacity = 0.3
+        toolBar.layer.shadowOffset = CGSize.zero
+        toolBar.layer.shadowRadius = 30
+        toolBar.layer.shadowPath = UIBezierPath(roundedRect: toolBar.bounds, cornerRadius: 10).cgPath
+        
+        let toolBarShadow = UIImageView(frame: toolBar.bounds)
+        toolBarShadow.clipsToBounds = true
+        toolBarShadow.layer.cornerRadius = 30
+        
+        toolBar.addSubview(toolBarShadow)
+        
+        topBar.layer.shadowColor = UIColor.black.cgColor
+        topBar.layer.shadowOpacity = 0.1
+        topBar.layer.shadowOffset = CGSize(width: 0, height: 0.5)
+        topBar.layer.shadowRadius = 0
+        
         
     }
     private func setupCanvasView(){
@@ -191,9 +213,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     }
     private func setupPlaytmp(){
         // initialize play tmp
-        btnPlay_0.backgroundColor = .black
-        btnPlay_1.backgroundColor = .clear
-        selectedPlayOption = 0
+        btnPlay_0.setImage(UIImage(named: "replay_click"), for: .normal)
+        btnPlay_1.setImage(UIImage(named: "pingpong"), for: .normal)
+        selectedPlayOption = 1
     }
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if isPencilUsing == false {
@@ -258,16 +280,16 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     }
 
     @IBAction func actionPlayoptionMultiple(_ sender: Any) {
-        btnPlay_0.backgroundColor = .clear
-        btnPlay_1.backgroundColor = .black
-        selectedPlayOption = 1
+        btnPlay_0.setImage(UIImage(named: "replay"), for: .normal)
+        btnPlay_1.setImage(UIImage(named: "pingpong_click"), for: .normal)
+        selectedPlayOption = 0
         videoIsPlaying = false
         videoPlayHelper()
     }
     @IBAction func actionPlayoptionLoop(_ sender: Any) {
-        btnPlay_0.backgroundColor = .black
-        btnPlay_1.backgroundColor = .clear
-        selectedPlayOption = 0
+        btnPlay_0.setImage(UIImage(named: "replay_click"), for: .normal)
+        btnPlay_1.setImage(UIImage(named: "pingpong"), for: .normal)
+        selectedPlayOption = 1
         videoIsPlaying = false
         videoPlayHelper()
     }
@@ -625,7 +647,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
 }
 extension EditVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 50
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
@@ -714,6 +736,24 @@ extension EditVC : sliderDelegate {
         default:
             break
         }
+    }
+}
+
+extension UIView {
+    
+    func addShadow(shadowColor: UIColor, offSet: CGSize, opacity: Float, shadowRadius: CGFloat, cornerRadius: CGFloat, corners: UIRectCorner, fillColor: UIColor = .white) {
+        
+        let shadowLayer = CAShapeLayer()
+        let size = CGSize(width: cornerRadius, height: cornerRadius)
+        let cgPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: size).cgPath //1
+        shadowLayer.path = cgPath //2
+        shadowLayer.fillColor = fillColor.cgColor //3
+        shadowLayer.shadowColor = shadowColor.cgColor //4
+        shadowLayer.shadowPath = cgPath
+        shadowLayer.shadowOffset = offSet //5
+        shadowLayer.shadowOpacity = opacity
+        shadowLayer.shadowRadius = shadowRadius
+        self.layer.addSublayer(shadowLayer)
     }
 }
 

@@ -31,6 +31,8 @@ class ImageFrameListTableViewCell: UITableViewCell {
         // Initialization code
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 1
+        layout.minimumLineSpacing = 0
 //        layout.sectionInset = UIEdgeInsets(top: 0, left: collectionview.frame.width/2-100, bottom: 0, right: collectionview.frame.width/2)
         collectionview.collectionViewLayout = layout
         
@@ -39,9 +41,11 @@ class ImageFrameListTableViewCell: UITableViewCell {
         collectionview.register(projectCellNib, forCellWithReuseIdentifier: "FrameCollectionViewCell")
         collectionview.delegate = self
         collectionview.dataSource = self
+        collectionview.backgroundColor = .clear
         //Scroll Sync
         (collectionview as UIScrollView).delegate = self
         //select center item
+        
     }
     
     
@@ -57,29 +61,31 @@ class ImageFrameListTableViewCell: UITableViewCell {
     
 }
 extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: collectionView.frame.height)
+        return CGSize(width: 70, height: 50)
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FrameCollectionViewCell", for: indexPath) as! FrameCollectionViewCell
         cell.imgview.image = imageArray[indexPath.row]
-        cell.imgview.backgroundColor = .lightGray
-        cell.imgview.layer.cornerRadius = 10
+        cell.imgview.backgroundColor = .white
+        cell.imgview.layer.cornerRadius = 5.7
         
         if index == 0 {
-            cell.roundCorners(corners: [.topLeft, .topRight], radius: 10)
+            cell.roundCorners(corners: [.topLeft, .topRight], radius: 6)
         }else{
-            cell.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10)
+            cell.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 6)
         }
         
         if indexPath.row == selectedIndex {
-            cell.border_top.backgroundColor = .green
-            cell.border_left.backgroundColor = .green
-            cell.border_right.backgroundColor = .green
-            cell.border_bottom.backgroundColor = .green
+            cell.border_top.backgroundColor = #colorLiteral(red: 0.3529411765, green: 1, blue: 0.4117647059, alpha: 1)
+            cell.border_left.backgroundColor = #colorLiteral(red: 0.3529411765, green: 1, blue: 0.4117647059, alpha: 1)
+            cell.border_right.backgroundColor = #colorLiteral(red: 0.3529411765, green: 1, blue: 0.4117647059, alpha: 1)
+            cell.border_bottom.backgroundColor = #colorLiteral(red: 0.3529411765, green: 1, blue: 0.4117647059, alpha: 1)
             
         }else{
             cell.border_bottom.backgroundColor = .clear
@@ -90,6 +96,7 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
         }
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate.selectedIndex(index: indexPath.row)
     }

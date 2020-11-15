@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nJu-4A-lGB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nJu-4A-lGB">
     <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -111,6 +111,7 @@
                         <outlet property="addVideoButton" destination="Jfq-gu-Gx2" id="c6O-CK-aMn"/>
                         <outlet property="cancleCreateNewProjectButton" destination="nAO-tL-LhC" id="TlJ-kw-Nit"/>
                         <outlet property="collectionView" destination="uTu-uN-4ah" id="e7t-hL-2Nr"/>
+                        <outlet property="createNewProjectButton" destination="sNY-Ys-JWL" id="QNG-IN-jPq"/>
                         <outlet property="createNewProjectLabel" destination="34r-c5-Qqm" id="Rp4-oR-1Uh"/>
                         <outlet property="createNewProjectView" destination="j6j-Z8-iod" id="Q2X-5c-xoB"/>
                         <outlet property="createProjectView" destination="vSD-13-fIi" id="2xC-vU-wp8"/>
@@ -122,7 +123,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" ambiguous="YES" id="vSD-13-fIi">
+                <view contentMode="scaleToFill" id="vSD-13-fIi">
                     <rect key="frame" x="0.0" y="0.0" width="329" height="554"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>

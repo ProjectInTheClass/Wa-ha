@@ -19,13 +19,15 @@ class ProjectCollectionCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        deleteProjectButton.bringSubviewToFront(self)
     }
     
-    var isEditing: Bool = false {
-        didSet {
-            deleteProjectButton.isHidden = !deleteProjectButton.isHidden
-        }
-    }
+//    var isEditing: Bool = false {
+//        didSet {
+//            deleteProjectButton.isHidden = !deleteProjectButton.isHidden
+//        }
+//    }
     
     var delete = false
     

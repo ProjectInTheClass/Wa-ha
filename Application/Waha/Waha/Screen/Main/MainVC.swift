@@ -35,6 +35,7 @@ class MainVC: UIViewController {
     @IBOutlet weak var NewProjectButton: UIButton!
     @IBOutlet weak var frameRateButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var createNewProjectButton: UIButton!
     
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -52,6 +53,34 @@ class MainVC: UIViewController {
     var filtered:[String] = []
     var searchActive : Bool = false
     let searchController = UISearchController(searchResultsController: nil)
+    
+    //삭제모드
+    enum Mode {
+        case normal
+        case delete
+    }
+    
+    var deleteMode: Mode = .normal {
+        didSet {
+            switch deleteMode {
+            case .normal:
+                collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
+                    let cell = collectionView.cellForItem(at: indexPath) as! ProjectCollectionCell
+                    cell.deleteProjectButton.isHidden = true
+                }
+                createNewProjectButton.isEnabled = true
+                collectionView.reloadData()
+                
+            case .delete:
+                collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
+                    let cell = collectionView.cellForItem(at: indexPath) as! ProjectCollectionCell
+                    cell.deleteProjectButton.isHidden = false
+                }
+                createNewProjectButton.isEnabled = false
+                collectionView.reloadData()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -193,10 +222,17 @@ class MainVC: UIViewController {
     }
     
     @IBAction func deleteModeButtonTapped(_ sender: Any) {
-        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
-            let cell = collectionView.cellForItem(at: indexPath) as! ProjectCollectionCell
-            
-            cell.isEditing = !isEditing
+        deleteMode = deleteMode == .normal ? .delete : .normal
+
+        //삭제버튼 토글 애니메이션 및 프로젝트 생성버튼 활성화 토글
+        if deleteMode == .normal{
+                UIView.transition(with: sender as! UIView, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                    (sender as AnyObject).setImage(UIImage(named: "delete_green"), for: [])
+                            }, completion: nil)
+        } else if deleteMode == .delete {
+                UIView.transition(with: sender as! UIView, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                    (sender as AnyObject).setImage(UIImage(named: "delete_red"), for: [])
+                            }, completion: nil)
         }
 
     }
@@ -255,11 +291,6 @@ class MainVC: UIViewController {
     
     @IBAction func actionCreateProject(_ sender: Any) {
         createProjectView.isHidden = false
-        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
-        let cell = collectionView.cellForItem(at: indexPath) as! ProjectCollectionCell
-            
-            cell.isEditing = false
-        }
     }
     @IBAction func loadVideoButtonTapped(_ sender: UIButton) {
         if (UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
@@ -503,6 +534,7 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
             let project = self.items![indexPath.row]
             cell.lbName.text = project.projectName
             //        cell.projectThumbnailImage.image = UIImage(named: "BasicThumbnail")
+            cell.fpsLabel.text = String(project.frameRate)+"fps"
             cell.projectImageView.image = UIImage(data:project.thumbnail!)
             
             cell.projectImageView.layer.cornerRadius = 20
@@ -510,89 +542,100 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
             cell.deleteProjectButton.tag = indexPath.row
             cell.deleteProjectButton.addTarget(self, action: #selector(deleteProjectButtonTapped(_:)), for: .touchUpInside)
             
+            switch deleteMode {
+            case .normal:
+                cell.deleteProjectButton.isHidden = true
+            case .delete:
+                cell.deleteProjectButton.isHidden = false
+            }
+            
             return cell
+            
+            
         }
         return UICollectionViewCell()
     }
     //clicklistener
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let project = self.items![indexPath.row]
-        selectedProjName = project.projectName!
-        videoURL = URL(string: project.videoURL!)
-        convertedFPS = Int(project.frameRate)
-        imageArray = []
-        canvasThumbnailArray = []
-        // count image num
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory = paths[0]
-        let docURL = URL(string: documentsDirectory)!
-        let dataPath = docURL.appendingPathComponent("\(selectedProjName)")
-        let fm = FileManager.default
-        let dirContents = try! fm.contentsOfDirectory(atPath: dataPath.absoluteString)
-        let count = dirContents.count
+       
+        if deleteMode == .normal{
+            let project = self.items![indexPath.row]
+            selectedProjName = project.projectName!
+            videoURL = URL(string: project.videoURL!)
+            convertedFPS = Int(project.frameRate)
+            imageArray = []
+            canvasThumbnailArray = []
+            // count image num
+            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            let documentsDirectory = paths[0]
+            let docURL = URL(string: documentsDirectory)!
+            let dataPath = docURL.appendingPathComponent("\(selectedProjName)")
+            let fm = FileManager.default
+            let dirContents = try! fm.contentsOfDirectory(atPath: dataPath.absoluteString)
+            let count = dirContents.count
 
-        print("tap \(selectedProjName)")
+            print("tap \(selectedProjName)")
 
-        var item : Project?
-        do {
-            if(self.items!.count > 0){
-                for i in 0...items!.count-1{
-                    if(items![i].projectName! == selectedProjName){
-                        item = items![i]
-                        break
+            var item : Project?
+            do {
+                if(self.items!.count > 0){
+                    for i in 0...items!.count-1{
+                        if(items![i].projectName! == selectedProjName){
+                            item = items![i]
+                            break
+                        }
                     }
                 }
-            }
-        } catch {
+            } catch {
 
-        }
-        
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-        self.view.isUserInteractionEnabled = false
-        
-        DispatchQueue.background {
-            var isSizeSet : Bool = false
-            for i in 0...count-1{
-                let imageFile = "\(self.selectedProjName)/original_\(i)"
-                let image = ImageFileManager.shared.getSavedImage(named: imageFile)
-                
-                if(!isSizeSet) {
-                    self.videoSize = image!.size
-                    isSizeSet = true
-                }
-                let thumbnailSize = CGSize(width: 95.0, height: 60.0)
-                let rect_1 = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
-                UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
-                image!.draw(in: rect_1)
-                let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                self.imageArray.append(thumbnailImage!)
-                            
-                let rect_2 = CGRect(x: 0, y: 0, width: 1180.0, height: 745.0)
-                let drawing : PKDrawing = item!.drawingData![i]
-                if(drawing.bounds.size.width == 0.0 && drawing.bounds.size.height == 0.0){
-                    let canvasImage : UIImage = drawing.image(from: rect_2, scale: 2.0)
+            }
+            
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+            self.view.isUserInteractionEnabled = false
+            
+            DispatchQueue.background {
+                var isSizeSet : Bool = false
+                for i in 0...count-1{
+                    let imageFile = "\(self.selectedProjName)/original_\(i)"
+                    let image = ImageFileManager.shared.getSavedImage(named: imageFile)
                     
+                    if(!isSizeSet) {
+                        self.videoSize = image!.size
+                        isSizeSet = true
+                    }
+                    let thumbnailSize = CGSize(width: 95.0, height: 60.0)
+                    let rect_1 = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
                     UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
-                    canvasImage.draw(in: rect_1)
-                    let canvasThumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
+                    image!.draw(in: rect_1)
+                    let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
                     UIGraphicsEndImageContext()
+                    self.imageArray.append(thumbnailImage!)
+                                
+                    let rect_2 = CGRect(x: 0, y: 0, width: 1180.0, height: 745.0)
+                    let drawing : PKDrawing = item!.drawingData![i]
+                    if(drawing.bounds.size.width == 0.0 && drawing.bounds.size.height == 0.0){
+                        let canvasImage : UIImage = drawing.image(from: rect_2, scale: 2.0)
+                        
+                        UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
+                        canvasImage.draw(in: rect_1)
+                        let canvasThumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
+                        UIGraphicsEndImageContext()
 
-                    self.canvasThumbnailArray.append(canvasThumbnailImage!)
-                }else{
-                    self.canvasThumbnailArray.append(UIImage())
+                        self.canvasThumbnailArray.append(canvasThumbnailImage!)
+                    }else{
+                        self.canvasThumbnailArray.append(UIImage())
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    self.view.isUserInteractionEnabled = true
+                    self.goProjectVC()
                 }
             }
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
-                self.view.isUserInteractionEnabled = true
-                self.goProjectVC()
-            }
+            // TODO load PKdrawing
         }
-        // TODO load PKdrawing
     }
     
     

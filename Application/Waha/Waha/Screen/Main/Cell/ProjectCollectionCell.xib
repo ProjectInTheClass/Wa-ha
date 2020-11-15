@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,8 +21,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ghn-BX-WXG">
                         <rect key="frame" x="0.0" y="0.0" width="328" height="385"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample_project_thumbnail" translatesAutoresizingMaskIntoConstraints="NO" id="c0T-9V-OiD">
-                                <rect key="frame" x="0.0" y="0.0" width="328" height="328"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="sample_project_thumbnail" translatesAutoresizingMaskIntoConstraints="NO" id="c0T-9V-OiD">
+                                <rect key="frame" x="8" y="8" width="312" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="c0T-9V-OiD" secondAttribute="height" multiplier="1:1" id="Bnd-lM-YhE"/>
                                 </constraints>
@@ -30,14 +30,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4lB-gv-ddl">
                                 <rect key="frame" x="0.0" y="328" width="328" height="57"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로젝트 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G96-nb-3q9">
-                                        <rect key="frame" x="8" y="8" width="93" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="프로젝트 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G96-nb-3q9">
+                                        <rect key="frame" x="0.0" y="8" width="298" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Yu-32-4Xa">
-                                        <rect key="frame" x="298" y="8" width="22" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="fps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Yu-32-4Xa">
+                                        <rect key="frame" x="306" y="8" width="22" height="18"/>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -45,14 +45,15 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
-                                    <constraint firstItem="G96-nb-3q9" firstAttribute="leading" secondItem="4lB-gv-ddl" secondAttribute="leading" constant="8" id="gwn-1r-Yf0"/>
-                                    <constraint firstAttribute="trailing" secondItem="8Yu-32-4Xa" secondAttribute="trailing" constant="8" id="rK4-Rm-kXX"/>
+                                    <constraint firstItem="8Yu-32-4Xa" firstAttribute="leading" secondItem="G96-nb-3q9" secondAttribute="trailing" constant="8" id="Y8G-ag-Gqy"/>
+                                    <constraint firstItem="G96-nb-3q9" firstAttribute="leading" secondItem="4lB-gv-ddl" secondAttribute="leading" constant="3" id="gwn-1r-Yf0"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Yu-32-4Xa" secondAttribute="trailing" id="rK4-Rm-kXX"/>
                                     <constraint firstItem="8Yu-32-4Xa" firstAttribute="top" secondItem="4lB-gv-ddl" secondAttribute="top" constant="8" id="rM5-JC-Ztl"/>
                                     <constraint firstItem="G96-nb-3q9" firstAttribute="top" secondItem="4lB-gv-ddl" secondAttribute="top" constant="8" id="zGc-HX-D47"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6K-Pw-YWB">
-                                <rect key="frame" x="295" y="8" width="25" height="25"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6K-Pw-YWB">
+                                <rect key="frame" x="303" y="0.0" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="Tll-lE-sdN"/>
                                     <constraint firstAttribute="height" constant="25" id="h5t-q4-BhD"/>
@@ -63,7 +64,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="c0T-9V-OiD" secondAttribute="trailing" id="0u6-8t-Na6"/>
                             <constraint firstAttribute="trailing" secondItem="4lB-gv-ddl" secondAttribute="trailing" id="2Qz-OU-j3g"/>
@@ -93,7 +94,7 @@
                 <outlet property="lbName" destination="G96-nb-3q9" id="Dmi-ox-AVC"/>
                 <outlet property="projectImageView" destination="c0T-9V-OiD" id="pWK-az-LU0"/>
             </connections>
-            <point key="canvasLocation" x="281.15942028985512" y="209.93303571428569"/>
+            <point key="canvasLocation" x="237.68115942028987" y="209.93303571428569"/>
         </collectionViewCell>
     </objects>
     <resources>
