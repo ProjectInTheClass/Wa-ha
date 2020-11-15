@@ -139,7 +139,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWe-zL-3kW">
-                                        <rect key="frame" x="1025" y="15.5" width="24" height="24"/>
+                                        <rect key="frame" x="1062" y="15.5" width="24" height="24"/>
                                         <state key="normal" image="74">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -148,21 +148,12 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaT-Cu-b6Z">
-                                        <rect key="frame" x="1059" y="15.5" width="24" height="24"/>
+                                        <rect key="frame" x="1096" y="15.5" width="24" height="24"/>
                                         <state key="normal" image="75">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="actionPlayoptionMultiple:" destination="Pmg-62-vOM" eventType="touchUpInside" id="5Vd-yx-5Fc"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwg-Yx-v7R">
-                                        <rect key="frame" x="1093" y="15.5" width="24" height="24"/>
-                                        <state key="normal" image="78">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="actionPlayoptionSingle:" destination="Pmg-62-vOM" eventType="touchUpInside" id="zqW-bz-rYa"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C7x-zh-rXX">
@@ -185,7 +176,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjl-G4-74o">
-                                        <rect key="frame" x="937" y="12.5" width="78" height="30"/>
+                                        <rect key="frame" x="974" y="12.5" width="78" height="30"/>
                                         <state key="normal" title="화면원래대로">
                                             <color key="titleColor" systemColor="systemYellowColor"/>
                                         </state>
@@ -208,22 +199,20 @@
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="ZWe-zL-3kW" firstAttribute="leading" secondItem="xjl-G4-74o" secondAttribute="trailing" constant="10" id="45Y-Jq-9qV"/>
-                                    <constraint firstItem="lwg-Yx-v7R" firstAttribute="leading" secondItem="UaT-Cu-b6Z" secondAttribute="trailing" constant="10" id="A2D-vm-ymv"/>
                                     <constraint firstAttribute="bottom" secondItem="xHI-CA-Blb" secondAttribute="bottom" constant="8" id="AhO-s6-Qos"/>
                                     <constraint firstItem="wLY-C2-4aO" firstAttribute="centerX" secondItem="wJW-H7-N33" secondAttribute="centerX" id="BLR-h4-C3J"/>
                                     <constraint firstItem="UaT-Cu-b6Z" firstAttribute="centerY" secondItem="wJW-H7-N33" secondAttribute="centerY" id="FIK-i8-3X1"/>
                                     <constraint firstAttribute="bottom" secondItem="Zw9-o1-D8L" secondAttribute="bottom" constant="8" id="R0c-fc-Juo"/>
                                     <constraint firstItem="xHI-CA-Blb" firstAttribute="leading" secondItem="wJW-H7-N33" secondAttribute="leading" constant="10" id="TLm-dw-iJr"/>
                                     <constraint firstAttribute="height" constant="55" id="YVX-qk-8K8"/>
-                                    <constraint firstItem="lwg-Yx-v7R" firstAttribute="centerY" secondItem="wJW-H7-N33" secondAttribute="centerY" id="b83-wa-IG6"/>
                                     <constraint firstAttribute="bottom" secondItem="C7x-zh-rXX" secondAttribute="bottom" constant="8" id="dKR-ph-Qby"/>
+                                    <constraint firstItem="Zw9-o1-D8L" firstAttribute="leading" secondItem="UaT-Cu-b6Z" secondAttribute="trailing" constant="10" id="dhr-H9-NPz"/>
                                     <constraint firstItem="UaT-Cu-b6Z" firstAttribute="leading" secondItem="ZWe-zL-3kW" secondAttribute="trailing" constant="10" id="kym-0X-8WO"/>
                                     <constraint firstItem="xjl-G4-74o" firstAttribute="centerY" secondItem="wJW-H7-N33" secondAttribute="centerY" id="pRC-ME-J1x"/>
                                     <constraint firstAttribute="bottom" secondItem="wLY-C2-4aO" secondAttribute="bottom" constant="8" id="q1W-Pa-CdG"/>
                                     <constraint firstItem="ZWe-zL-3kW" firstAttribute="centerY" secondItem="wJW-H7-N33" secondAttribute="centerY" id="rd2-8H-9Ru"/>
                                     <constraint firstItem="C7x-zh-rXX" firstAttribute="leading" secondItem="xHI-CA-Blb" secondAttribute="trailing" constant="8" id="uJE-f0-Com"/>
                                     <constraint firstAttribute="trailing" secondItem="Zw9-o1-D8L" secondAttribute="trailing" constant="10" id="yGk-j6-m1A"/>
-                                    <constraint firstItem="Zw9-o1-D8L" firstAttribute="leading" secondItem="lwg-Yx-v7R" secondAttribute="trailing" constant="13" id="yda-tq-cz3"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -248,16 +237,46 @@
                     <connections>
                         <outlet property="btnPlay_0" destination="ZWe-zL-3kW" id="a5y-C4-rre"/>
                         <outlet property="btnPlay_1" destination="UaT-Cu-b6Z" id="m3h-1n-xdh"/>
-                        <outlet property="btnPlay_2" destination="lwg-Yx-v7R" id="2l8-EL-ARV"/>
                         <outlet property="canvasView" destination="jQu-5j-t1P" id="ZgE-sg-wTY"/>
                         <outlet property="containerView" destination="iFB-k8-Yqd" id="G7Z-Hk-BJu"/>
                         <outlet property="lbTitle" destination="wLY-C2-4aO" id="0cn-NM-RKW"/>
+                        <outlet property="playerImageView" destination="6Vg-bF-pdn" id="UGD-T7-ywl"/>
+                        <outlet property="playerView" destination="YIH-S7-7vl" id="iqE-LD-iZ6"/>
                         <outlet property="tableView" destination="Js6-8M-Sxk" id="lxW-3s-BWy"/>
                         <outlet property="toolBar" destination="fQQ-Jy-ypr" id="jSV-79-v2b"/>
                         <outlet property="videoFrameView" destination="ZO4-cz-eLq" id="Njj-mx-G6a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AMt-ws-KkW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="YIH-S7-7vl">
+                    <rect key="frame" x="0.0" y="0.0" width="1180" height="725"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vzb-BC-j7d">
+                            <rect key="frame" x="0.0" y="0.0" width="1180" height="725"/>
+                            <connections>
+                                <action selector="actionCloseVideoPlayView:" destination="Pmg-62-vOM" eventType="touchUpInside" id="U8A-pP-gOa"/>
+                            </connections>
+                        </button>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Vg-bF-pdn">
+                            <rect key="frame" x="230" y="22.5" width="720" height="680"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="720" id="V8u-8l-005"/>
+                                <constraint firstAttribute="height" constant="680" id="gtO-Qw-dfI"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="vj7-GI-ypl"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="vzb-BC-j7d" firstAttribute="top" secondItem="vj7-GI-ypl" secondAttribute="top" id="NLN-ij-K3U"/>
+                        <constraint firstItem="vj7-GI-ypl" firstAttribute="bottom" secondItem="vzb-BC-j7d" secondAttribute="bottom" id="SjB-u0-bvI"/>
+                        <constraint firstItem="6Vg-bF-pdn" firstAttribute="centerX" secondItem="YIH-S7-7vl" secondAttribute="centerX" id="UJn-SV-lc7"/>
+                        <constraint firstItem="6Vg-bF-pdn" firstAttribute="centerY" secondItem="YIH-S7-7vl" secondAttribute="centerY" id="VEq-03-LBi"/>
+                        <constraint firstItem="vzb-BC-j7d" firstAttribute="leading" secondItem="vj7-GI-ypl" secondAttribute="leading" id="l0E-M0-alx"/>
+                        <constraint firstItem="vj7-GI-ypl" firstAttribute="trailing" secondItem="vzb-BC-j7d" secondAttribute="trailing" id="nVo-oS-Rhw"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="208.47457627118646" y="151.46341463414635"/>
         </scene>
@@ -265,7 +284,6 @@
     <resources>
         <image name="74" width="24" height="24"/>
         <image name="75" width="24" height="24"/>
-        <image name="78" width="24" height="24"/>
         <image name="back" width="46" height="46.5"/>
         <image name="export" width="46" height="46.5"/>
         <image name="play" width="46" height="46.5"/>
