@@ -8,6 +8,7 @@
 
 import UIKit
 import AVKit
+import PencilKit
 import MobileCoreServices
 import Photos
 import MediaPlayer
@@ -521,7 +522,7 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
         videoURL = URL(string: project.videoURL!)
         convertedFPS = Int(project.frameRate)
         imageArray = []
-        
+        canvasThumbnailArray = []
         // count image num
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
@@ -530,7 +531,9 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
         let fm = FileManager.default
         let dirContents = try! fm.contentsOfDirectory(atPath: dataPath.absoluteString)
         let count = dirContents.count
-        
+
+        print("tap \(selectedProjName)")
+
         var item : Project?
         do {
             if(self.items!.count > 0){
@@ -545,32 +548,50 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
 
         }
         
-        var isSizeSet : Bool = false
-        for i in 0...count-1{
-            let imageFile = "\(selectedProjName)/original_\(i)"
-            let image = ImageFileManager.shared.getSavedImage(named: imageFile)
-            
-            if(!isSizeSet) {
-                self.videoSize = image!.size
-                isSizeSet = true
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        
+        DispatchQueue.background {
+            var isSizeSet : Bool = false
+            for i in 0...count-1{
+                let imageFile = "\(self.selectedProjName)/original_\(i)"
+                let image = ImageFileManager.shared.getSavedImage(named: imageFile)
+                
+                if(!isSizeSet) {
+                    self.videoSize = image!.size
+                    isSizeSet = true
+                }
+                let thumbnailSize = CGSize(width: 95.0, height: 60.0)
+                let rect_1 = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
+                UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
+                image!.draw(in: rect_1)
+                let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                self.imageArray.append(thumbnailImage!)
+                            
+                let rect_2 = CGRect(x: 0, y: 0, width: 1180.0, height: 745.0)
+                let drawing : PKDrawing = item!.drawingData![i]
+                if(drawing.bounds.size.width == 0.0 && drawing.bounds.size.height == 0.0){
+                    let canvasImage : UIImage = drawing.image(from: rect_2, scale: 2.0)
+                    
+                    UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
+                    canvasImage.draw(in: rect_1)
+                    let canvasThumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
+                    UIGraphicsEndImageContext()
+
+                    self.canvasThumbnailArray.append(canvasThumbnailImage!)
+                }else{
+                    self.canvasThumbnailArray.append(UIImage())
+                }
             }
-            let thumbnailSize = CGSize(width: 160.0, height: 90.0)
-            let rect_1 = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
-            UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
-            image!.draw(in: rect_1)
-            let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            self.imageArray.append(thumbnailImage!)
-            
-            let rect_2 = CGRect(x: 0, y: 0, width: thumbnailSize.width, height: thumbnailSize.height)
-            let canvasImage = item!.drawingData![i].image(from: rect_2, scale: 1.0)
-            print(item!.drawingData![i])
-            self.canvasThumbnailArray.append(canvasImage)
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+                self.view.isUserInteractionEnabled = true
+                self.goProjectVC()
+            }
         }
-        
-        print("tap \(selectedProjName)")
-        
-        goProjectVC()
         // TODO load PKdrawing
     }
     
