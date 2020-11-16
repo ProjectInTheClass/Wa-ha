@@ -461,6 +461,7 @@
 			baseConfigurationReference = 32B6369E4FAC54E730EBD568 /* Pods-Waha.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				INFOPLIST_FILE = Waha/Info.plist;
@@ -470,6 +471,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dreamin.waha;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -480,6 +482,7 @@
 			baseConfigurationReference = CF815C02935860B380EBF0D4 /* Pods-Waha.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				INFOPLIST_FILE = Waha/Info.plist;
@@ -489,6 +492,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dreamin.waha;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

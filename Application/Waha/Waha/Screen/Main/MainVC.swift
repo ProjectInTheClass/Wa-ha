@@ -594,7 +594,7 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
             activityIndicator.startAnimating()
             self.view.isUserInteractionEnabled = false
             
-            DispatchQueue.background {
+            DispatchQueue.global(qos: .userInitiated).async {
                 var isSizeSet : Bool = false
                 for i in 0...count-1{
                     let imageFile = "\(self.selectedProjName)/original_\(i)"
