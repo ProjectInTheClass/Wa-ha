@@ -168,7 +168,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         canvasView.delegate = self
         canvasView.drawing = canvasArray[0]
         canvasView.isScrollEnabled = false
-        canvasView.allowsFingerDrawing = true
+        canvasView.allowsFingerDrawing = false
         if let window = parent?.view.window,
            let toolPicker = PKToolPicker.shared(for: window) {
             toolPicker.setVisible(true, forFirstResponder: canvasView)
