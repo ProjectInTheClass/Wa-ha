@@ -105,7 +105,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         } catch {
 
         }
-        
+
         if(item!.drawingData != nil){
             canvasArray = item!.drawingData!
         }
@@ -113,7 +113,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
     func saveDrawingsToCoreData() {
         let drawingArray: [PKDrawing] = canvasArray
-
+        
         item!.drawingData = drawingArray
         do{
         try self.context!.save()
@@ -255,6 +255,9 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     
     
     @IBAction func actionBack(_ sender: Any) {
+        if(undoManager != nil){
+            undoManager!.removeAllActions()
+        }
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func actionExport(_ sender: Any) {
@@ -715,6 +718,9 @@ extension EditVC : collectionViewDidScrollDelegate {
 extension EditVC : frameSelectDelegate {
     func selectedIndex(index: Int) {
         print("selectedIndexDelegate \(index)")
+        if(self.undoManager != nil){
+            self.undoManager!.removeAllActions()
+        }
         DispatchQueue.main.async {
             let fileName = "\(self.projName)/original_\(index)"
             self.videoFrameView.image = ImageFileManager.shared.getSavedImage(named: fileName)
