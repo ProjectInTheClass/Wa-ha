@@ -614,7 +614,8 @@ extension MainVC : UICollectionViewDelegate, UICollectionViewDataSource{
                                 
                     let rect_2 = CGRect(x: 0, y: 0, width: 1180.0, height: 745.0)
                     let drawing : PKDrawing = item!.drawingData![i]
-                    if(drawing.bounds.size.width == 0.0 && drawing.bounds.size.height == 0.0){
+
+                    if(drawing.bounds.width != 0.0 || drawing.bounds.width != 0.0){
                         let canvasImage : UIImage = drawing.image(from: rect_2, scale: 2.0)
                         
                         UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 1.0)
