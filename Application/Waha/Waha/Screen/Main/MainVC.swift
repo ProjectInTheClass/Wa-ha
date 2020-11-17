@@ -160,6 +160,8 @@ class MainVC: UIViewController {
         frameRatePickerView.center = CGPoint.init(x: self.view.bounds.midX, y: self.view.bounds.maxY - frameRatePickerView.frame.height/2)
         frameRatePickerView.roundCorners(corners: .allCorners, radius: 20)
         projectNameTextField.isEnabled = false
+        createProjectView.isUserInteractionEnabled = false
+        collectionView.isUserInteractionEnabled = false
         self.view.addSubview(frameRatePickerView)
     }
     
@@ -352,6 +354,14 @@ class MainVC: UIViewController {
         else if frameRateTextField.text == "" {
             errorOccurred = true
             errorAlert.title = "please select frame rate"
+        }
+        if videoURL != nil {
+            let asset : AVAsset = AVAsset(url: videoURL)
+            let duration: Float64 = CMTimeGetSeconds(asset.duration)
+            if(duration > 30){
+                errorOccurred = true
+                errorAlert.title = "video length can't be exceeded 30 seconds"
+            }
         }
         
         if projectNameTextField.text != "" {
@@ -733,7 +743,8 @@ extension MainVC: UIPickerViewDataSource, UIPickerViewDelegate {
         frameRateTextField.resignFirstResponder()
         frameRatePickerView.isHidden = true
         projectNameTextField.isEnabled = true
-
+        createProjectView.isUserInteractionEnabled = true
+        collectionView.isUserInteractionEnabled = true
     }
 }
 
