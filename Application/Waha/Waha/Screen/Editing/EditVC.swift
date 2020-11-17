@@ -61,7 +61,10 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     var videourl : URL?
     var outputURL : URL?
     var convertedFPS : Int?
-
+    
+    var cellInitialize1 : Bool = false
+    var cellInitialize2 : Bool = false
+    
     var selectedPlayOption : Int = 0
     var videoIsPlaying = false
   
@@ -133,7 +136,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func setupTableView(){
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         let cornerRadidus : CGFloat = 20
         let opacity : Float = 1.0
         toolBar.layer.cornerRadius = 30
@@ -158,8 +161,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         topBar.layer.shadowColor = UIColor.black.cgColor
         topBar.layer.shadowOpacity = 0.1
         topBar.layer.shadowOffset = CGSize(width: 0, height: 0.5)
-        topBar.layer.shadowRadius = 0
-        
+        topBar.layer.shadowRadius = 0        
         
     }
     private func setupCanvasView(){
@@ -660,7 +662,12 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
             // for drawing layer thumbnail
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
-                cell.imageArray = canvasThumbnailArray
+                if(!cellInitialize1){
+                    cell.imageArray = canvasThumbnailArray
+                    cellInitialize1 = true
+                }else{
+                    cell.imageArray[selectedIndex] = canvasThumbnailArray[selectedIndex]
+                }
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
@@ -671,10 +678,12 @@ extension EditVC : UITableViewDelegate, UITableViewDataSource {
             }
         }else{
             //for video frame thumbnail
-            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "ImageFrameListTableViewCell", for: indexPath) as? ImageFrameListTableViewCell {
                 cell.selectionStyle = .none
-                cell.imageArray = videoThumbnailArray
+                if(!cellInitialize2){
+                    cell.imageArray = videoThumbnailArray
+                    cellInitialize2 = true
+                }
                 cell.collectionview.reloadData()
                 cell.delegate = self
                 cell.scrollDelegate = self
@@ -711,6 +720,7 @@ extension EditVC : collectionViewDidScrollDelegate {
         //        print(position)
         for cell in tableView.visibleCells as! [ImageFrameListTableViewCell] {
             (cell.collectionview as UIScrollView).contentOffset.x = position
+//            CGFloat(round(min(max(floor(Double(position)/70.0), 0),Double(canvasThumbnailArray.count-1))) * 70.0)
         }
     }
     //select center
@@ -720,6 +730,9 @@ extension EditVC : frameSelectDelegate {
         print("selectedIndexDelegate \(index)")
         if(self.undoManager != nil){
             self.undoManager!.removeAllActions()
+        }
+        for cell in self.tableView.visibleCells as! [ImageFrameListTableViewCell] {
+            (cell.collectionview as UIScrollView).contentOffset.x = CGFloat(Double(index) * 70.0)
         }
         DispatchQueue.main.async {
             let fileName = "\(self.projName)/original_\(index)"
@@ -762,6 +775,8 @@ extension UIView {
         self.layer.addSublayer(shadowLayer)
     }
 }
+
+
 
 
 //drawing reference
