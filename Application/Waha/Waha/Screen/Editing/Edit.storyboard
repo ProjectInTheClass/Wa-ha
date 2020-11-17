@@ -18,6 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BGGrid_low" translatesAutoresizingMaskIntoConstraints="NO" id="XAn-zH-u4I">
+                                <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iFB-k8-Yqd" userLabel="container">
                                 <rect key="frame" x="0.0" y="75" width="1180" height="745"/>
                                 <subviews>
@@ -234,13 +237,17 @@
                         <viewLayoutGuide key="safeArea" id="9SR-lS-I5h"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XAn-zH-u4I" secondAttribute="trailing" id="3Pe-Cz-uwm"/>
                             <constraint firstItem="iFB-k8-Yqd" firstAttribute="leading" secondItem="9SR-lS-I5h" secondAttribute="leading" id="8mi-gb-6U3"/>
                             <constraint firstAttribute="bottom" secondItem="iFB-k8-Yqd" secondAttribute="bottom" id="DVx-Zk-JPu"/>
+                            <constraint firstItem="XAn-zH-u4I" firstAttribute="leading" secondItem="r5s-Ep-6JZ" secondAttribute="leading" id="Eec-rf-5sR"/>
+                            <constraint firstAttribute="bottom" secondItem="XAn-zH-u4I" secondAttribute="bottom" id="L0D-ph-eac"/>
                             <constraint firstItem="9SR-lS-I5h" firstAttribute="trailing" secondItem="fQQ-Jy-ypr" secondAttribute="trailing" constant="100" id="VXn-z9-OdN"/>
                             <constraint firstItem="9SR-lS-I5h" firstAttribute="trailing" secondItem="wJW-H7-N33" secondAttribute="trailing" id="WsJ-AY-yqN"/>
                             <constraint firstItem="wJW-H7-N33" firstAttribute="top" secondItem="IeG-gq-Cj7" secondAttribute="bottom" id="Zb1-ha-XXV"/>
                             <constraint firstItem="wJW-H7-N33" firstAttribute="leading" secondItem="9SR-lS-I5h" secondAttribute="leading" id="ckd-wc-Bgr"/>
                             <constraint firstItem="IeG-gq-Cj7" firstAttribute="top" secondItem="r5s-Ep-6JZ" secondAttribute="top" id="dVA-tJ-008"/>
+                            <constraint firstItem="XAn-zH-u4I" firstAttribute="top" secondItem="r5s-Ep-6JZ" secondAttribute="top" id="e3J-WJ-jJg"/>
                             <constraint firstItem="iFB-k8-Yqd" firstAttribute="top" secondItem="wJW-H7-N33" secondAttribute="bottom" id="fjx-KA-4xc"/>
                             <constraint firstItem="9SR-lS-I5h" firstAttribute="bottom" secondItem="fQQ-Jy-ypr" secondAttribute="bottom" constant="20" id="hAL-8K-DcJ"/>
                             <constraint firstItem="IeG-gq-Cj7" firstAttribute="leading" secondItem="9SR-lS-I5h" secondAttribute="leading" id="jyz-Tk-lez"/>
@@ -299,6 +306,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BGGrid_low" width="2732" height="2048"/>
         <image name="back" width="46" height="46.5"/>
         <image name="export2" width="46" height="46.5"/>
         <image name="pingpong" width="27.5" height="27.5"/>

@@ -36,6 +36,8 @@ class MainVC: UIViewController {
     @IBOutlet weak var frameRateButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var createNewProjectButton: UIButton!
+    @IBOutlet weak var modalGreyView: UIView!
+    @IBOutlet weak var topBar: UIView!
     
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -106,6 +108,7 @@ class MainVC: UIViewController {
         self.navigationItem.titleView = searchController.searchBar
  */
     }
+    
 
     private func setupCreateProjectView(){
         
@@ -120,16 +123,29 @@ class MainVC: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blurEffectView.layer.cornerRadius = 20
         blurEffectView.clipsToBounds = true
-        createProjectView.insertSubview(blurEffectView, at: 0)
+        createNewProjectView.addSubview(blurEffectView)
+        createNewProjectView.sendSubviewToBack(blurEffectView)
         frameRateButton.frame = frameRateTextField.bounds
         
         
         createNewProjectView.layer.cornerRadius = 20
-        createNewProjectView.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 0.1)
+        createNewProjectView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5)
         projectImageView.layer.cornerRadius = 20
         projectImageView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05)
-        NewProjectButton.layer.cornerRadius = 5
-        cancleCreateNewProjectButton.layer.cornerRadius = 5
+//        NewProjectButton.layer.cornerRadius = 5
+        NewProjectButton.layer.shadowColor = UIColor.black.cgColor
+        NewProjectButton.layer.shadowOpacity = 0.1
+        NewProjectButton.layer.shadowOffset = CGSize(width: 0, height: -0.5)
+        NewProjectButton.layer.shadowRadius = 0
+//        NewProjectButton.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 0.1)
+        NewProjectButton.clipsToBounds = false
+//        cancleCreateNewProjectButton.layer.cornerRadius = 5
+        cancleCreateNewProjectButton.layer.shadowColor = UIColor.black.cgColor
+        cancleCreateNewProjectButton.layer.shadowOpacity = 0.1
+        cancleCreateNewProjectButton.layer.shadowOffset = CGSize(width: 0, height: -0.5)
+        cancleCreateNewProjectButton.layer.shadowRadius = 0
+//        cancleCreateNewProjectButton.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 0.1)
+        cancleCreateNewProjectButton.clipsToBounds = false
     
         createProjectView.isHidden = true
         frameRatePickerView.dataSource = self
@@ -289,8 +305,23 @@ class MainVC: UIViewController {
         present(deleteAlert, animated: true, completion: nil)
     }
     
+//    //빈공간 터치시 dismiss
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+//        createNewProjectView.isHidden = true
+//        modalGreyView.isHidden = true
+//        projectNameTextField.text = ""
+//        frameRateTextField.text = ""
+//        captureImage = nil
+//        projectImageView.image = nil
+//        self.view.endEditing(true)
+//    }
+    
     @IBAction func actionCreateProject(_ sender: Any) {
         createProjectView.isHidden = false
+        modalGreyView.isHidden = false
+        self.view.addSubview(modalGreyView)
+        self.view.bringSubviewToFront(createProjectView)
+        
     }
     @IBAction func loadVideoButtonTapped(_ sender: UIButton) {
         if (UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
@@ -398,6 +429,7 @@ class MainVC: UIViewController {
             self.fetchProject()
             
             createProjectView.isHidden = true
+            modalGreyView.isHidden = true
             projectNameTextField.text = ""
             frameRateTextField.text = ""
             captureImage = nil
@@ -409,6 +441,7 @@ class MainVC: UIViewController {
     }
     @IBAction func actionCancelCreateProject(_ sender: Any) {
         createProjectView.isHidden = true
+        modalGreyView.isHidden = true
         projectNameTextField.text = ""
         frameRateTextField.text = ""
         captureImage = nil
