@@ -734,6 +734,16 @@ extension EditVC : collectionViewDidScrollDelegate {
 //            CGFloat(round(min(max(floor(Double(position)/70.0), 0),Double(canvasThumbnailArray.count-1))) * 70.0)
         }
     }
+    func didDeceleratingEnded(to position: CGFloat) {
+        for cell in tableView.visibleCells as! [ImageFrameListTableViewCell] {
+            (cell.collectionview as UIScrollView).contentOffset.x = CGFloat(round(min(max(floor(Double(position)/70.0), 0),Double(canvasThumbnailArray.count-1))) * 70.0)
+        }
+    }
+    func didFrameSelected(index: Int) {
+        for cell in self.tableView.visibleCells as! [ImageFrameListTableViewCell] {
+            (cell.collectionview as UIScrollView).contentOffset.x = CGFloat(Double(index) * 70.0)
+        }
+    }
     //select center
 }
 extension EditVC : frameSelectDelegate {
@@ -741,9 +751,6 @@ extension EditVC : frameSelectDelegate {
         print("selectedIndexDelegate \(index)")
         if(self.undoManager != nil){
             self.undoManager!.removeAllActions()
-        }
-        for cell in self.tableView.visibleCells as! [ImageFrameListTableViewCell] {
-            (cell.collectionview as UIScrollView).contentOffset.x = CGFloat(Double(index) * 70.0)
         }
         DispatchQueue.main.async {
             let fileName = "\(self.projName)/original_\(index)"

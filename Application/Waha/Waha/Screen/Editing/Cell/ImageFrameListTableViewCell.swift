@@ -98,6 +98,7 @@ extension ImageFrameListTableViewCell : UICollectionViewDelegateFlowLayout, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        scrollDelegate?.didFrameSelected(index: indexPath.row)
         delegate.selectedIndex(index: indexPath.row)
     }
 }
@@ -114,6 +115,9 @@ extension ImageFrameListTableViewCell : UIScrollViewDelegate {
         if index >= 0 && index < imageArray.count {
             delegate.selectedIndex(index: index)
         }
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollDelegate?.didDeceleratingEnded(to: scrollView.contentOffset.x)
     }
 }
 
