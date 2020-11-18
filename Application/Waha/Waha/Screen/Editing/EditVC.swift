@@ -247,17 +247,20 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             view.transform = view.transform.rotated(by: recognizer.rotation)
             recognizer.rotation = 0
             let transform = view.transform.inverted()
-            var currAngle = atan(Double(transform.c/transform.a))/Double.pi*180.0
+            let currAngle = atan(Double(transform.c/transform.a))/Double.pi*180.0
             print(currAngle)
-            for i in -1...1{
-                if abs(currAngle - Double(i) * 90.0) < 2{
-                    recognizer.rotation = CGFloat((Double(i) * 90.0 - currAngle) / 180.0 * Double.pi)
-                    view.transform = view.transform.rotated(by: recognizer.rotation)
-                    recognizer.rotation = 0
-                    break
+            if(recognizer.state == UIRotationGestureRecognizer.State.ended){
+                for i in -1...1{
+                    if abs(currAngle - Double(i) * 90.0) < 10{
+                        recognizer.rotation = CGFloat((Double(i) * 90.0 - currAngle) / 180.0 * Double.pi)
+                        view.transform = view.transform.rotated(by: recognizer.rotation)
+                        recognizer.rotation = 0
+                        break
+                    }
                 }
             }
         }
+        
     }
     
     //MARK:- UIGestureRecognizerDelegate Methods
