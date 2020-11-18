@@ -73,7 +73,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     var videoAlpha : CGFloat = 1.0
     var canvasAlpha : CGFloat = 1.0
         
-    let activityIndicator = UIActivityIndicatorView(style:.large)
+    let activityIndicator = UIActivityIndicatorView(style:.whiteLarge)
     
     
     override func viewDidLoad() {
@@ -91,7 +91,12 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         setupPlayView()
         self.activityIndicator.center = self.view.center
         self.view.addSubview(self.activityIndicator)
+        activityIndicator.frame = CGRect(x: self.view.frame.width/2-40, y: self.view.frame.height/2-40, width: 80.0, height: 80.0)
+        activityIndicator.backgroundColor = .darkGray
+        activityIndicator.layer.cornerRadius = 8
+        
     }
+    
     
     private func loadProject(){
         do {

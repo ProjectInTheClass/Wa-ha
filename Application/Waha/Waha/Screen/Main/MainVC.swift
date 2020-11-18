@@ -48,7 +48,7 @@ class MainVC: UIViewController {
     var canvasThumbnailArray : [UIImage] = []
     var selectedProjName : String = "project"
     var convertedFPS : Int = 15
-    let activityIndicator = UIActivityIndicatorView(style:.large)
+    let activityIndicator = UIActivityIndicatorView(style:.whiteLarge)
     var videoSize : CGSize?
 
     //Search Bar
@@ -92,22 +92,40 @@ class MainVC: UIViewController {
         setupActivityIndicator()
         print(NSHomeDirectory())
         
-        /*  검색바 만들기
-        self.searchController.searchResultsUpdater = self
-        self.searchController.delegate = self
-        self.searchController.searchBar.delegate = self
         
-        self.searchController.hidesNavigationBarDuringPresentation = false
-        self.searchController.dimsBackgroundDuringPresentation = true
-        self.searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search for tools and resources"
-        searchController.searchBar.sizeToFit()
+        activityIndicator.frame = CGRect(x: self.view.frame.width/2-40, y: self.view.frame.height/2-40, width: 80.0, height: 80.0)
+        activityIndicator.backgroundColor = .darkGray
+        activityIndicator.layer.cornerRadius = 8
         
-        searchController.searchBar.becomeFirstResponder()
+        //for keyboard
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
         
-        self.navigationItem.titleView = searchController.searchBar
- */
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        
     }
+    
+    
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        projectNameTextField.resignFirstResponder()
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height/3
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
     
 
     private func setupCreateProjectView(){
@@ -195,6 +213,7 @@ class MainVC: UIViewController {
         do {
             self.items = try context.fetch(Project.fetchRequest())
             ///?? 뭔가 백그라운드에서 실행되고 그런 개념인것같은데..
+            self.items?.reverse()
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
