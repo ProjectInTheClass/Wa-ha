@@ -98,8 +98,8 @@ class MainVC: UIViewController {
         activityIndicator.layer.cornerRadius = 8
         
         //for keyboard
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
-        self.view.addGestureRecognizer(tapGesture)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+//        self.view.addGestureRecognizer(tapGesture)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -108,9 +108,9 @@ class MainVC: UIViewController {
     }
     
     
-    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
-        projectNameTextField.resignFirstResponder()
-    }
+//    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+//        projectNameTextField.resignFirstResponder()
+//    }
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -213,7 +213,7 @@ class MainVC: UIViewController {
         do {
             self.items = try context.fetch(Project.fetchRequest())
             ///?? 뭔가 백그라운드에서 실행되고 그런 개념인것같은데..
-            self.items?.reverse()
+//            self.items?.reverse()
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
