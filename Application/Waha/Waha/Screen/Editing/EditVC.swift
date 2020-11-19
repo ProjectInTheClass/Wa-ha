@@ -541,7 +541,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                         posX = (canvasSize.width - self.videoSize!.width * canvasSize.height / self.videoSize!.height)
                         posY = 0
                         cgwidth = self.videoSize!.width * canvasSize.height / self.videoSize!.height
-                        cgheight = canvasSize.width
+                        cgheight = canvasSize.height
                     }
 
                     let cropRect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
