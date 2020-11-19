@@ -527,43 +527,40 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     let canvasSize = CGRect(x: 0, y: 0, width: self.canvasView.frame.width, height: self.canvasView.frame.height)
                     let image = self.canvasArray[i].image(from: canvasSize, scale: 1.0)
                     
-//                    var posX: CGFloat = 0.0
-//                    var posY: CGFloat = 0.0
-//                    var cgwidth: CGFloat = 0.0
-//                    var cgheight: CGFloat = 0.0
-//
-//                    if areaSize.width > areaSize.height {
-//                        if(areaSize.width > canvasSize.width){
-//                        posX = 0
-//                        posY = (canvasSize.height - self.videoSize!.height * canvasSize.width/self.videoSize!.width)/2
-//                        cgwidth = canvasSize.width
-//                        cgheight = self.videoSize!.height * canvasSize.width / self.videoSize!.width
-//                    } else {
-//                        posX = (canvasSize.width - self.videoSize!.width * canvasSize.height / self.videoSize!.height)
-//                        posY = 0
-//                        cgwidth = self.videoSize!.width * canvasSize.height / self.videoSize!.height
-//                        cgheight = canvasSize.height
-//                    }
-//
-//                    let cropRect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
-//                    let cgImage: CGImage = image.cgImage!
-//                    cgImage.cropping(to: cropRect)
-//
-//                    let croppedImage = UIImage(cgImage: cgImage)
-//                    print(image.size)
-//                    print(cropRect)
-//                    print(self.videoSize!, croppedImage.size)
+                    var posX: CGFloat = 0.0
+                    var posY: CGFloat = 0.0
+                    var cgwidth: CGFloat = 0.0
+                    var cgheight: CGFloat = 0.0
+                    
+                    if areaSize.width > areaSize.height {
+                        posX = 0
+                        posY = (canvasSize.height - self.videoSize!.height * canvasSize.width/self.videoSize!.width)/2
+                        cgwidth = canvasSize.width
+                        cgheight = self.videoSize!.height * canvasSize.width / self.videoSize!.width
+                    } else {
+                        posX = (canvasSize.width - self.videoSize!.width * canvasSize.height / self.videoSize!.height)
+                        posY = 0
+                        cgwidth = self.videoSize!.width * canvasSize.height / self.videoSize!.height
+                        cgheight = canvasSize.height
+                    }
+
+                    let cropRect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
+                    
+                    let cgImage: CGImage = image.cgImage!
+                    cgImage.cropping(to: cropRect)
+                    let croppedImage = UIImage(cgImage: cgImage)
                     let newImage : UIImage
                     
                     UIGraphicsBeginImageContext(self.videoSize!)
                     let originalImage = ImageFileManager.shared.getSavedImage(named: "\(self.projName)/original_\(i)")
                     backgroundImage!.draw(in: areaSize, blendMode: .normal, alpha: 1)
                     originalImage!.draw(in: areaSize, blendMode: .normal, alpha: self.videoAlpha)
-                    image.draw(in: areaSize, blendMode: .normal, alpha: self.canvasAlpha)
+                    croppedImage.draw(in: areaSize, blendMode: .normal, alpha: self.canvasAlpha)
                     
                     newImage = UIGraphicsGetImageFromCurrentImageContext()!
                     UIGraphicsEndImageContext()
                     
+                
                     let pixelBuffer = self.newPixelBufferFrom(cgImage: newImage.cgImage!)
                     
                     let time : CMTime
@@ -604,26 +601,13 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 let ac = UIAlertController(title: "Saved!", message: "Your animation has been saved to your photos.", preferredStyle: .alert)
                 
                 let ok = UIAlertAction(title: "OK", style: .default){(ok) in
-                    do {
-                        let fileManager = FileManager.default
-                        if fileManager.fileExists(atPath: String(videoPath)) {
-                            // Delete file
-                            try fileManager.removeItem(atPath: String(videoPath))
-                        }else{
-                            print("File \(videoPath) does not exist")
-                        }
-                    } catch {
-                        print("An error took place: \(error)")
-                    }
-                    
                     self.navigationController?.popViewController(animated: true)
-                    
                 }
                 ac.addAction(ok)
                 present(ac, animated: true)
             }
     }
-        
+    
     private func newPixelBufferFrom(cgImage:CGImage) -> CVPixelBuffer?{
         let options:[String: Any] = [kCVPixelBufferCGImageCompatibilityKey as String: true, kCVPixelBufferCGBitmapContextCompatibilityKey as String: true]
         var pxbuffer:CVPixelBuffer?
