@@ -641,8 +641,8 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func combineLayersAndConvertVideo(){
         //add two image
         // TODO: - 나중에 image + image가 아니라 drawing + image로 해야함
-        let size = CGSize(width: videoFrameView.frame.size.width, height: videoFrameView.frame.size.height)
-        let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+//        let size = CGSize(width: videoFrameView.frame.size.width, height: videoFrameView.frame.size.height)
+        let areaSize = CGRect(x: 0, y: 0, width: self.videoSize!.width, height: self.videoSize!.height)
         
         var mergedImage : [UIImage] = []
         
@@ -651,7 +651,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             let bottomImage = videoThumbnailArray[index]
             let topImage = videoThumbnailArray[index]
                         
-            UIGraphicsBeginImageContext(size)
+            UIGraphicsBeginImageContext(videoSize!)
             bottomImage.draw(in: areaSize)
             topImage.draw(in: areaSize, blendMode: .normal, alpha: 1)
             let newImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
