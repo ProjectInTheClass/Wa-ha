@@ -388,15 +388,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 }
             }
         }
-        
-        
-        
     }
-    
-    
-    
-    
-
     
     //hide home indicator for better performance
     override var prefersHomeIndicatorAutoHidden: Bool {
@@ -476,9 +468,14 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func convertImages2Video(fileName: String){
         print("start save video")
         print(videourl!.absoluteString)
-        var tmpurl = videourl
-        tmpurl!.deleteLastPathComponent()
-        let fileURL = tmpurl!.path + "/\(fileName).MOV"
+//        var tmpurl = videourl
+//        tmpurl!.deleteLastPathComponent()
+//        let fileURL = tmpurl!.path + "/\(fileName).MOV"
+        
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        let docURL = URL(string: documentsDirectory)!
+        let fileURL = docURL.path + "/\(fileName).MOV"
         outputURL = NSURL.fileURL(withPath: fileURL)
         print(outputURL!.absoluteString)
         var assetWriter : AVAssetWriter? = nil
