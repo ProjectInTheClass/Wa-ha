@@ -468,9 +468,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func convertImages2Video(fileName: String){
         print("start save video")
         print(videourl!.absoluteString)
-//        var tmpurl = videourl
-//        tmpurl!.deleteLastPathComponent()
-//        let fileURL = tmpurl!.path + "/\(fileName).MOV"
         
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
@@ -527,8 +524,8 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             for i in 0...self.canvasArray.count - 1{
                 if(assetWriterInput!.isReadyForMoreMediaData){
                     let areaSize = CGRect(x: 0, y: 0, width: self.videoSize!.width, height: self.videoSize!.height)
-
-                    let image = self.canvasArray[i].image(from: areaSize, scale: 1.0)
+                    let canvasSize = CGRect(x: 0, y: 0, width: self.canvasView.frame.width, height: self.canvasView.frame.height)
+                    let image = self.canvasArray[i].image(from: canvasSize, scale: 1.0)
                     
                     let newImage : UIImage
                     
