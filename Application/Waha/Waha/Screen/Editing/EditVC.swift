@@ -545,7 +545,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     }
 
                     let cropRect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
-                    
                     let cgImage: CGImage = image.cgImage!
                     cgImage.cropping(to: cropRect)
                     let croppedImage = UIImage(cgImage: cgImage)
@@ -601,13 +600,26 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                 let ac = UIAlertController(title: "Saved!", message: "Your animation has been saved to your photos.", preferredStyle: .alert)
                 
                 let ok = UIAlertAction(title: "OK", style: .default){(ok) in
+                    do {
+                        let fileManager = FileManager.default
+                        if fileManager.fileExists(atPath: String(videoPath)) {
+                            // Delete file
+                            try fileManager.removeItem(atPath: String(videoPath))
+                        }else{
+                            print("File \(videoPath) does not exist")
+                        }
+                    } catch {
+                        print("An error took place: \(error)")
+                    }
+                    
                     self.navigationController?.popViewController(animated: true)
+                    
                 }
                 ac.addAction(ok)
                 present(ac, animated: true)
             }
     }
-    
+        
     private func newPixelBufferFrom(cgImage:CGImage) -> CVPixelBuffer?{
         let options:[String: Any] = [kCVPixelBufferCGImageCompatibilityKey as String: true, kCVPixelBufferCGBitmapContextCompatibilityKey as String: true]
         var pxbuffer:CVPixelBuffer?
