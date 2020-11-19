@@ -377,9 +377,9 @@ class MainVC: UIViewController {
         if videoURL != nil {
             let asset : AVAsset = AVAsset(url: videoURL)
             let duration: Float64 = CMTimeGetSeconds(asset.duration)
-            if(duration > 30){
+            if(duration > 10){
                 errorOccurred = true
-                errorAlert.title = "video length can't be exceeded 30 seconds"
+                errorAlert.title = "video length can't be exceeded 10 seconds"
             }
         }
         

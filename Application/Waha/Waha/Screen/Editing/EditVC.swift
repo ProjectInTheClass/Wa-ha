@@ -527,13 +527,35 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     let canvasSize = CGRect(x: 0, y: 0, width: self.canvasView.frame.width, height: self.canvasView.frame.height)
                     let image = self.canvasArray[i].image(from: canvasSize, scale: 1.0)
                     
+                    var posX: CGFloat = 0.0
+                    var posY: CGFloat = 0.0
+                    var cgwidth: CGFloat = 0.0
+                    var cgheight: CGFloat = 0.0
+                    
+                    if areaSize.width > areaSize.height {
+                        posX = 0
+                        posY = (canvasSize.height - self.videoSize!.height * canvasSize.width/self.videoSize!.width)/2
+                        cgwidth = canvasSize.width
+                        cgheight = self.videoSize!.height * canvasSize.width / self.videoSize!.width
+                    } else {
+                        posX = (canvasSize.width - self.videoSize!.width * canvasSize.height / self.videoSize!.height)
+                        posY = 0
+                        cgwidth = self.videoSize!.width * canvasSize.height / self.videoSize!.height
+                        cgheight = canvasSize.width
+                    }
+
+                    let cropRect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
+                    
+                    let cgImage: CGImage = image.cgImage!
+                    cgImage.cropping(to: cropRect)
+                    let croppedImage = UIImage(cgImage: cgImage)
                     let newImage : UIImage
                     
                     UIGraphicsBeginImageContext(self.videoSize!)
                     let originalImage = ImageFileManager.shared.getSavedImage(named: "\(self.projName)/original_\(i)")
                     backgroundImage!.draw(in: areaSize, blendMode: .normal, alpha: 1)
                     originalImage!.draw(in: areaSize, blendMode: .normal, alpha: self.videoAlpha)
-                    image.draw(in: areaSize, blendMode: .normal, alpha: self.canvasAlpha)
+                    croppedImage.draw(in: areaSize, blendMode: .normal, alpha: self.canvasAlpha)
                     
                     newImage = UIGraphicsGetImageFromCurrentImageContext()!
                     UIGraphicsEndImageContext()
@@ -641,8 +663,8 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
     private func combineLayersAndConvertVideo(){
         //add two image
         // TODO: - 나중에 image + image가 아니라 drawing + image로 해야함
-//        let size = CGSize(width: videoFrameView.frame.size.width, height: videoFrameView.frame.size.height)
-        let areaSize = CGRect(x: 0, y: 0, width: self.videoSize!.width, height: self.videoSize!.height)
+        let size = CGSize(width: videoFrameView.frame.size.width, height: videoFrameView.frame.size.height)
+        let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         
         var mergedImage : [UIImage] = []
         
@@ -651,7 +673,7 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
             let bottomImage = videoThumbnailArray[index]
             let topImage = videoThumbnailArray[index]
                         
-            UIGraphicsBeginImageContext(videoSize!)
+            UIGraphicsBeginImageContext(size)
             bottomImage.draw(in: areaSize)
             topImage.draw(in: areaSize, blendMode: .normal, alpha: 1)
             let newImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
