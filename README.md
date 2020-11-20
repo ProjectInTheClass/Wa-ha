@@ -20,4 +20,4 @@
 
 ![image](https://user-images.githubusercontent.com/37135317/92294179-8546d000-ef64-11ea-971e-7e50136eb91a.png)
 
-<img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" width="40" height="40" />
+<img src="https://github.com/ProjectInTheClass/Wa-ha/blob/master/docs/images/examplegif.gif?raw=true"/>
