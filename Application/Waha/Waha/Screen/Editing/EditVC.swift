@@ -207,9 +207,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
         containerView.isUserInteractionEnabled = true
         containerView.isMultipleTouchEnabled = true
         
-        
-        
-        
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchRecognized(pinch:)))
         pinchGesture.delegate = self
         containerView.addGestureRecognizer(pinchGesture)
@@ -527,28 +524,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     let canvasSize = CGRect(x: 0, y: 0, width: self.canvasView.frame.width, height: self.canvasView.frame.height)
                     let image = self.canvasArray[i].image(from: canvasSize, scale: 1.0)
                     
-//                    var posX: CGFloat = 0.0
-//                    var posY: CGFloat = 0.0
-//                    var cgwidth: CGFloat = 0.0
-//                    var cgheight: CGFloat = 0.0
-//
-//                    if areaSize.width > areaSize.height {
-//                        posX = 0
-//                        posY = (canvasSize.height - self.videoSize!.height * canvasSize.width/self.videoSize!.width)/2
-//                        cgwidth = canvasSize.width
-//                        cgheight = self.videoSize!.height * canvasSize.width / self.videoSize!.width
-//                    } else {
-//                        posX = (canvasSize.width - self.videoSize!.width * canvasSize.height / self.videoSize!.height)
-//                        posY = 0
-//                        cgwidth = self.videoSize!.width * canvasSize.height / self.videoSize!.height
-//                        cgheight = canvasSize.height
-//                    }
-//
-//                    let cropRect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
-//
-//                    let cgImage: CGImage = image.cgImage!
-//                    cgImage.cropping(to: cropRect)
-//                    let croppedImage = UIImage(cgImage: cgImage)
                     let newImage : UIImage
                     
                     UIGraphicsBeginImageContext(self.videoSize!)
@@ -560,7 +535,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     newImage = UIGraphicsGetImageFromCurrentImageContext()!
                     UIGraphicsEndImageContext()
                     
-                
                     let pixelBuffer = self.newPixelBufferFrom(cgImage: newImage.cgImage!)
                     
                     let time : CMTime
@@ -569,8 +543,6 @@ class EditVC: UIViewController,UIGestureRecognizerDelegate {
                     }else{
                         time = CMTimeMake(value: Int64(i), timescale: Int32(self.convertedFPS!))
                     }
-                    
-                    
                     writerAdaptor?.append(pixelBuffer!, withPresentationTime: time)
                 }
                 
